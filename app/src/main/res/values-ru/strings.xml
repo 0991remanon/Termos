@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE resources [
+    <!ENTITY TERMUX_PACKAGE_NAME "com.termos">
+    <!ENTITY TERMUX_APP_NAME "Термос">
+    <!ENTITY TERMUX_API_APP_NAME "Termux:API">
+    <!ENTITY TERMUX_BOOT_APP_NAME "Termux:Boot">
+    <!ENTITY TERMUX_FLOAT_APP_NAME "Termux:Float">
+    <!ENTITY TERMUX_STYLING_APP_NAME "Termux:Styling">
+    <!ENTITY TERMUX_TASKER_APP_NAME "Termux:Tasker">
+    <!ENTITY TERMUX_WIDGET_APP_NAME "Termux:Widget">
+    ]>
+
+<resources>
+
+    <string name="application_name">&TERMUX_APP_NAME;</string>
+
+    <!-- Termux RUN_COMMAND permission -->
+    <string name="permission_run_command_label">Run commands in &TERMUX_APP_NAME; environment</string>
+    <string name="permission_run_command_description">execute arbitrary commands within &TERMUX_APP_NAME;
+        environment and access files</string>
+
+    <!-- Terminal Sidebar and Shortcuts -->
+    <string name="action_new_session">Новый сеанс</string>
+    <string name="title_max_terminals_reached">Достигнут предел количества сеансов</string>
+    <string name="msg_max_terminals_reached">Закройте один из существующих перед началом нового.</string>
+
+    <string name="title_rename_session">Задать название сеанса</string>
+    <string name="action_rename_session_confirm">Задать</string>
+    <string name="title_create_named_session">Новый именной сеанс</string>
+    <string name="action_create_named_session_confirm">Создать</string>
+
+    <string name="action_toggle_soft_keyboard">Клавиатура</string>
+    <string name="sessions_list">Сеансы:</string>
+
+    <string name="msg_enabling_terminal_toolbar">Enabling Terminal Toolbar</string>
+    <string name="msg_disabling_terminal_toolbar">Disabling Terminal Toolbar</string>
+
+    <!-- Terminal Popup -->
+    <string name="action_select_url">Выбрать URL</string>
+    <string name="title_select_url_dialog">Нажмите URL, чтобы скопировать, или нажмите и удерживайте, чтобы открыть</string>
+    <string name="title_select_url_none_found">Не найдено ни одного URL.</string>
+    <string name="msg_select_url_copied_to_clipboard">URL скопирован</string>
+
+    <string name="action_share_transcript">Отправить текст с экрана</string>
+    <string name="title_share_transcript">Текст с экрана</string>
+    <string name="title_share_transcript_with">Отправить текст через:</string>
+
+    <string name="action_share_selected_text">Отправить выбранный текст</string>
+    <string name="title_share_selected_text">Выбранный текст</string>
+    <string name="title_share_selected_text_with">Отправить выбранный текст через:</string>
+
+    <string name="action_autofill_password">Автозаполнение пароля</string>
+
+    <string name="action_reset_terminal">Перезапустить</string>
+    <string name="msg_terminal_reset">Терминал перезапущен</string>
+
+    <string name="action_kill_process">Убить процесс (%d)</string>
+    <string name="title_confirm_kill_process">Завершить сессию?</string>
+
+    <string name="action_toggle_keep_screen_on">Удерживать экран включенным</string>
+    <string name="action_open_settings">Настройки</string>
+
+    <!-- Termux Notifications -->
+    <string name="notification_action_exit">Выход</string>
+    <string name="notification_action_wake_lock">Запросить wakelock</string>
+    <string name="notification_action_wake_unlock">Отозвать wakelock</string>
+
+    <!-- TermuxService -->
+    <string name="error_display_over_other_apps_permission_not_granted_to_start_terminal">&TERMUX_APP_NAME; requires
+        \"Display over other apps\" permission to start terminal sessions from background on Android >= 10.
+        Grants it from Settings -> Apps -> &TERMUX_APP_NAME; -> Advanced</string>
+    <string name="error_termux_service_invalid_execution_command_runner">Invalid execution command runner to TermuxService: `%1$s`</string>
+    <string name="error_termux_service_unsupported_execution_command_runner">Unsupported execution command runner to TermuxService: `%1$s`</string>
+    <string name="error_termux_service_unsupported_execution_command_shell_create_mode">Unsupported execution command shell create mode to TermuxService: `%1$s`</string>
+    <string name="error_termux_service_execution_command_shell_name_unset">Shell name not set but `%1$s` shell create mode passed</string>
+
+    <!-- Termux RunCommandService -->
+    <string name="error_run_command_service_invalid_intent_action">Invalid intent action to RunCommandService: `%1$s`</string>
+    <string name="error_run_command_service_invalid_execution_command_runner">Invalid execution command runner to RunCommandService: `%1$s`</string>
+    <string name="error_run_command_service_mandatory_extra_missing">Mandatory extra missing to RunCommandService: \"%1$s\"</string>
+    <string name="error_run_command_service_api_help">Visit %1$s for more info on RUN_COMMAND Intent usage.</string>
+
+    <!-- Termux File Receiver -->
+    <string name="title_file_received">Save file in ~/downloads/</string>
+    <string name="action_file_received_edit">Edit</string>
+    <string name="action_file_received_open_directory">Open directory</string>
+
+    <!-- Miscellaneous -->
+    <string name="error_termux_service_start_failed_general">Failed to start TermuxService. Check logcat for exception message.</string>
+    <string name="error_termux_service_start_failed_bg">Failed to start TermuxService while app is in background due to android bg restrictions.</string>
+
+    <!-- Termux Settings -->
+    <string name="title_activity_termux_settings">Настройки</string>
+
+        <!-- Terminal IO Preferences -->
+        <string name="termux_terminal_io_preferences_title">Настройки ввода/вывода</string>
+        <string name="termux_terminal_io_preferences_summary">Настройки взаимодействия с терминалом</string>
+
+            <!-- Keyboard Category -->
+            <string name="termux_keyboard_header">Клавиатура</string>
+
+                <!-- Soft Keyboard -->
+                <string name="termux_soft_keyboard_enabled_title">Программная клавиатура</string>
+                <string name="termux_soft_keyboard_enabled_off">Программная клавиатура будет отключена.</string>
+                <string name="termux_soft_keyboard_enabled_on">Программная клавиатура будет включена. (Стандартно)</string>
+
+                <!-- Soft Keyboard Only If No Hardware-->
+                <string name="termux_soft_keyboard_enabled_only_if_no_hardware_title">Программная/аналоговая клавиатура</string>
+                <string name="termux_soft_keyboard_enabled_only_if_no_hardware_off">Программная клавиатура будет активна даже если аналоговая клавиатура подключена. (Стандартно)</string>
+                <string name="termux_soft_keyboard_enabled_only_if_no_hardware_on">Программная клавиатура будет активна только если аналоговая клавиатура не подключена.</string>
+
+            <!-- Other Category -->
+            <string name="termux_other_header">Остальное</string>
+
+                <!-- Vibration-->
+                <string name="termux_vibration_title">Вибрация</string>
+                <string name="termux_vibration_off">Отключена.</string>
+                <string name="termux_vibration_on">Включена. (Стандартно)</string>
+
+        <!-- Terminal View Preferences -->
+        <string name="termux_terminal_view_preferences_title">Внешний вид терминала</string>
+        <string name="termux_terminal_view_preferences_summary">Настройки внешнего вида терминала</string>
+
+            <!-- View Category -->
+            <string name="termux_terminal_view_view_header">Внешний вид</string>
+
+                <!-- Terminal View Margin Adjustment -->
+                <string name="termux_terminal_view_terminal_margin_adjustment_title">Подгонка границ терминала</string>
+                <string name="termux_terminal_view_terminal_margin_adjustment_off">Подгонка границ терминала будет отключена.</string>
+                <string name="termux_terminal_view_terminal_margin_adjustment_on">Подгонка границ терминала включена.
+                    Должно быть включено, чтобы попытаться исправить проблему, когда программная клавиатура закрывает часть дополнительных клавиш или терминала.
+                    Если это вызывает мерцание экрана на вашем устройстве - отключите. (Стандартно)</string>
+
+</resources>

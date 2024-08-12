@@ -1,0 +1,33 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="keyboard"
+        app:title="@string/termux_keyboard_header">
+
+        <SwitchPreferenceCompat
+            app:key="soft_keyboard_enabled"
+            app:summaryOff="@string/termux_soft_keyboard_enabled_off"
+            app:summaryOn="@string/termux_soft_keyboard_enabled_on"
+            app:title="@string/termux_soft_keyboard_enabled_title" />
+
+        <SwitchPreferenceCompat
+            app:key="soft_keyboard_enabled_only_if_no_hardware"
+            app:summaryOff="@string/termux_soft_keyboard_enabled_only_if_no_hardware_off"
+            app:summaryOn="@string/termux_soft_keyboard_enabled_only_if_no_hardware_on"
+            app:title="@string/termux_soft_keyboard_enabled_only_if_no_hardware_title" />
+
+    </PreferenceCategory>
+	
+    <PreferenceCategory
+        app:key="other"
+        app:title="@string/termux_other_header">
+
+		<SwitchPreferenceCompat
+            app:key="vibration_enabled"
+            app:summaryOff="@string/termux_vibration_off"
+            app:summaryOn="@string/termux_vibration_on"
+            app:title="@string/termux_vibration_title" />
+
+    </PreferenceCategory>
+	
+</PreferenceScreen>
