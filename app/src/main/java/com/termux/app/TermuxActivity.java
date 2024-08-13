@@ -698,8 +698,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
                     if (error != null) {
                         return;
                     }
-
-                    FileUtils.clearDirectory("TMPDIR", new File(TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH).getAbsolutePath());
+                    FileUtils.createDirectoryFile(TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH);
 
                     // Get primary storage root "/storage/emulated/0" symlink
                     File sharedDir = Environment.getExternalStorageDirectory();
