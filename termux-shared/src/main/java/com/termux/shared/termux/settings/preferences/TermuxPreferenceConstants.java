@@ -137,6 +137,18 @@ public final class TermuxPreferenceConstants {
         public static final String DEFAULT_VALUE_KEY_CUSTOM_SHELL_STRING = "";
 
         /**
+         * Defines the key that specifies the path to the user's shell.
+         */
+        public static final String ROOT_AS_DEFAULT = "root_as_default";
+        public static final boolean DEFAULT_VALUE_KEY_ROOT_AS_DEFAULT = false;
+
+        /**
+         * Defines the key that specifies the path to the user's shell.
+         */
+        public static final String CUSTOM_ROOT_STRING = "custom_root_string";
+        public static final String DEFAULT_VALUE_KEY_CUSTOM_ROOT_STRING = "";
+
+        /**
          * Defines the key for whether to always keep screen on.
          */
         public static final String KEY_KEEP_SCREEN_ON = "screen_always_on";

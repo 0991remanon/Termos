@@ -131,6 +131,22 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
         SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CUSTOM_SHELL_STRING, value, false);
     }
 
+    public void setRootAsDefault(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.ROOT_AS_DEFAULT, value, false);
+    }
+
+    public boolean getRootAsDefault() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.ROOT_AS_DEFAULT, TERMUX_APP.DEFAULT_VALUE_KEY_ROOT_AS_DEFAULT);
+    }
+
+    public String getCustomRootString() {
+        return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.CUSTOM_ROOT_STRING, TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_ROOT_STRING, false);
+    }
+
+    public void setCustomRootString(String value) {
+        SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CUSTOM_ROOT_STRING, value, false);
+    }
+
     public boolean shouldKeepScreenOn() {
         return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.KEY_KEEP_SCREEN_ON, TERMUX_APP.DEFAULT_VALUE_KEEP_SCREEN_ON);
     }

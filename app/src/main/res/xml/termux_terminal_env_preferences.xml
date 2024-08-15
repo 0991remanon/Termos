@@ -19,6 +19,11 @@
             app:useSimpleSummaryProvider="true"
             app:dependency="use_custom_shell" />
 
+        <SwitchPreferenceCompat
+            app:key="root_as_default"
+            app:summaryOff="@string/termux_root_as_default_off"
+            app:summaryOn="@string/termux_root_as_default_on"
+            app:title="@string/termux_root_as_default_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

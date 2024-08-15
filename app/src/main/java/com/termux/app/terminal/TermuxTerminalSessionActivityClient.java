@@ -362,8 +362,76 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
         }
     }
 
-/** This calling, when new session creating...*/
+    public void addNewDefaultSession(String sessionName) {
+        TermuxService service = mActivity.getTermuxService();
+        if (service == null) return;
+
+        if (service.getTermuxSessionsSize() >= MAX_SESSIONS) {
+            new AlertDialog.Builder(mActivity).setTitle(R.string.title_max_terminals_reached).setMessage(R.string.msg_max_terminals_reached)
+                    .setPositiveButton(android.R.string.ok, null).show();
+        } else {
+            TerminalSession currentSession = mActivity.getCurrentSession();
+
+            String workingDirectory;
+            if (currentSession == null) {
+                workingDirectory = mActivity.getProperties().getDefaultWorkingDirectory();
+            } else {
+                workingDirectory = TermuxConstants.TERMUX_HOME_DIR_PATH;
+                // workingDirectory = currentSession.getCwd();
+            }
+
+            String executable = mActivity.getPreferences().getCustomShellString();
+            try {
+                if (executable.trim().isEmpty() || !new File(executable).canExecute()) {
+                    mActivity.getPreferences().setCustomShellString("");
+                    executable = null;
+                }
+            }catch (Exception e){
+                mActivity.getPreferences().setCustomShellString("");
+                executable = null;
+            }
+            if (!mActivity.getPreferences().isCustomShellEnabled()) executable = "/system/bin/sh";
+
+            if (executable == null) {
+                for (String binDir : UnixShellEnvironment.LOGIN_SHELL_BIN_PATHS) {
+                    if (executable != null) break;
+                    for (String shellBinary : UnixShellEnvironment.LOGIN_SHELL_BINARIES) {
+                        File shellFile = new File(binDir, shellBinary);
+                        if (shellFile.canExecute()) {
+                            executable = shellFile.getAbsolutePath();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (executable == null) executable = "/system/bin/sh";
+
+            String[] arguments = null;
+            if (executable.endsWith("/bash")){
+                String bashrc = TermuxConstants.TERMUX_PREFIX_DIR_PATH + "/.bashrc";
+                if (Utils.createBashrc(new String[]{bashrc, TermuxConstants.TERMUX_HOME_DIR_PATH, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH})) arguments = new String[]{"--rcfile", bashrc};
+            }
+            TermuxSession newTermuxSession = service.createTermuxSession(executable, arguments, null, workingDirectory, sessionName);
+            if (newTermuxSession == null) return;
+
+            TerminalSession newTerminalSession = newTermuxSession.getTerminalSession();
+            setCurrentSession(newTerminalSession);
+
+            mActivity.getDrawer().closeDrawers();
+        }
+    }
+    /** This calling, when new session creating...*/
     public void addNewSession(String sessionName) {
+        if (mActivity.getPreferences().getRootAsDefault()) {
+            addNewRootSession(sessionName);
+        } else {
+            addNewDefaultSession(sessionName);
+        }
+    }
+
+/** This calling, when new root session creating...*/
+    public void addNewRootSession(String sessionName) {
         TermuxService service = mActivity.getTermuxService();
         if (service == null) return;
 
@@ -408,12 +476,12 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
 
             if (executable == null) executable = "/system/bin/sh";
 
-            String[] arguments = null;
+            String[] arguments = new String[]{"-c", executable};
             if (executable.endsWith("/bash")){
                 String bashrc = TermuxConstants.TERMUX_PREFIX_DIR_PATH + "/.bashrc";
-                if (Utils.createBashrc(new String[]{bashrc, TermuxConstants.TERMUX_HOME_DIR_PATH, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH})) arguments = new String[]{"--rcfile", bashrc};
+                if (Utils.createBashrc(new String[]{bashrc, TermuxConstants.TERMUX_HOME_DIR_PATH, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH})) arguments = new String[]{"-c", executable + " --rcfile " + bashrc};
             }
-            TermuxSession newTermuxSession = service.createTermuxSession(executable, arguments, null, workingDirectory, sessionName);
+            TermuxSession newTermuxSession = service.createTermuxSession("su", arguments, null, workingDirectory, sessionName);
             if (newTermuxSession == null) return;
 
             TerminalSession newTerminalSession = newTermuxSession.getTerminalSession();

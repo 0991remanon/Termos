@@ -61,6 +61,9 @@ class TerminalEnvPreferencesDataStore extends PreferenceDataStore {
             case "use_custom_shell":
                 mPreferences.setCustomShellEnabled(value);
                 break;
+            case "root_as_default":
+                mPreferences.setRootAsDefault(value);
+                break;
             default:
                 break;
         }
@@ -73,6 +76,8 @@ class TerminalEnvPreferencesDataStore extends PreferenceDataStore {
         switch (key) {
             case "use_custom_shell":
                 return mPreferences.isCustomShellEnabled();
+            case "root_as_default":
+                return mPreferences.getRootAsDefault();
             default:
                 return false;
         }

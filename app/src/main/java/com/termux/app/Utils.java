@@ -58,7 +58,10 @@ public class Utils {
                 "\nexport TERM=xterm" +
                 "\nexport TMPDIR=\"" +
                 args[2] +
-                "\"\nexport USER=$(id -un)" +
+                "\"\nexport HISTFILE=\"$HOME\"/.bash_history" +
+                "\nexport HISTCONTROL=ignoreboth:erasedups" +
+                "\nexport HISTSIZE=1000" +
+                "\nexport USER=$(id -un)" +
                 "\nif [[ $- != *i* ]] ; then\n  return\nfi" +
                 "\nshopt -s checkwinsize" +
                 "\nshopt -s histappend" +

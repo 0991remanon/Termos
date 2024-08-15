@@ -27,9 +27,11 @@
 
     <string name="title_rename_session">Задать название сеанса</string>
     <string name="action_rename_session_confirm">Задать</string>
+    <string name="title_create_named_root_session">Новый именной root сеанс</string>
     <string name="title_create_named_session">Новый именной сеанс</string>
     <string name="action_create_named_session_confirm">Создать</string>
 
+    <string name="new_root_session">Новый root сеанс</string>
     <string name="action_toggle_soft_keyboard">Клавиатура</string>
     <string name="sessions_list">Сеансы:</string>
 
@@ -151,4 +153,10 @@
 				<string name="termux_custom_shell_path_title">Путь к оболочке</string>
 				<string name="termux_custom_shell_path_dialog_message">Если оставить поле пустым, будет выполнен автоматический поиск</string>
 				<string name="termux_custom_shell_path_dialog_title">Введите путь к исполняемому файлу</string>
+
+                <!-- Root as default -->
+                <string name="termux_root_as_default_title">Root по умолчанию</string>
+                <string name="termux_root_as_default_off">Сеансы начинаются со стандартными правами. (Стандартно)</string>
+                <string name="termux_root_as_default_on">Сеансы начинаются с правами root. (Очень опасно)</string>
+
 </resources>

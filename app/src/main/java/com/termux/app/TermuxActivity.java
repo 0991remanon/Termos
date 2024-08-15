@@ -241,6 +241,8 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         setNewSessionButtonView();
 
+        setNewRootSessionButtonView();
+
         setToggleKeyboardView();
 
         registerForContextMenu(mTerminalView);
@@ -321,7 +323,11 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
     @Override
     public void onDestroy() {
-        if (System.currentTimeMillis() - aLong <= 2000) getPreferences().setCustomShellString("");
+        if (System.currentTimeMillis() - aLong <= 2000) {
+            getPreferences().setCustomShellString("");
+            getPreferences().setCustomRootString("");
+            getPreferences().setRootAsDefault(false);
+        }
         super.onDestroy();
 
 
@@ -508,12 +514,24 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
     private void setNewSessionButtonView() {
         View newSessionButton = findViewById(R.id.new_session_button);
-        newSessionButton.setOnClickListener(v -> mTermuxTerminalSessionActivityClient.addNewSession(null));
+        newSessionButton.setOnClickListener(v -> mTermuxTerminalSessionActivityClient.addNewDefaultSession(null));
         newSessionButton.setOnLongClickListener(v -> {
             TextInputDialogUtils.textInput(TermuxActivity.this, R.string.title_create_named_session, null,
-                R.string.action_create_named_session_confirm, text -> mTermuxTerminalSessionActivityClient.addNewSession(text),
+                R.string.action_create_named_session_confirm, text -> mTermuxTerminalSessionActivityClient.addNewDefaultSession(text),
                 -1, null,
                 -1, null, null);
+            return true;
+        });
+    }
+
+    private void setNewRootSessionButtonView() {
+        View newSessionButton = findViewById(R.id.new_root_session_button);
+        newSessionButton.setOnClickListener(v -> mTermuxTerminalSessionActivityClient.addNewRootSession(null));
+        newSessionButton.setOnLongClickListener(v -> {
+            TextInputDialogUtils.textInput(TermuxActivity.this, R.string.title_create_named_root_session, null,
+                    R.string.action_create_named_session_confirm, text -> mTermuxTerminalSessionActivityClient.addNewRootSession(text),
+                    -1, null,
+                    -1, null, null);
             return true;
         });
     }

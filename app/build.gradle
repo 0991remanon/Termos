@@ -42,8 +42,8 @@ android {
         applicationId 'com.termos'
         minSdkVersion project.properties.minSdkVersion.toInteger()
         targetSdkVersion project.properties.targetSdkVersion.toInteger()
-        versionCode 14
-        versionName "1.4"
+        versionCode 15
+        versionName "1.5"
 
         buildConfigField "String", "TERMUX_PACKAGE_VARIANT", "\"" + project.ext.packageVariant + "\"" // Used by TermuxApplication class
 
