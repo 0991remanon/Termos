@@ -17,8 +17,6 @@ public class ReflectionUtils {
 
     private static boolean HIDDEN_API_REFLECTION_RESTRICTIONS_BYPASSED = Build.VERSION.SDK_INT < Build.VERSION_CODES.P;
 
-    private static final String LOG_TAG = "ReflectionUtils";
-
     /**
      * Bypass android hidden API reflection restrictions.
      * https://github.com/LSPosed/AndroidHiddenApiBypass
@@ -26,27 +24,14 @@ public class ReflectionUtils {
      */
     public static void bypassHiddenAPIReflectionRestrictions() {
         if (!HIDDEN_API_REFLECTION_RESTRICTIONS_BYPASSED && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//Loger #############
 
             try {
                 HiddenApiBypass.addHiddenApiExemptions("");
-            } catch (Throwable t) {
-//Loger #############
-
-            }
+            } catch (Throwable t) {}
 
             HIDDEN_API_REFLECTION_RESTRICTIONS_BYPASSED = true;
         }
     }
-
-    /** Check if android hidden API reflection restrictions are bypassed. */
-    public static boolean areHiddenAPIReflectionRestrictionsBypassed() {
-        return HIDDEN_API_REFLECTION_RESTRICTIONS_BYPASSED;
-    }
-
-
-
-
 
     /**
      * Get a {@link Field} for the specified class.
@@ -62,13 +47,9 @@ public class ReflectionUtils {
             field.setAccessible(true);
             return field;
         } catch (Exception e) {
-//Loger #############
-
             return null;
         }
     }
-
-
 
     /** Class that represents result of invoking a field. */
     public static class FieldInvokeResult {
@@ -101,15 +82,9 @@ public class ReflectionUtils {
             if (field == null) return new FieldInvokeResult(false, null);
             return new FieldInvokeResult(true, field.get(object));
         } catch (Exception e) {
-//Loger #############
-
             return new FieldInvokeResult(false, null);
         }
     }
-
-
-
-
 
     /**
      * Wrapper for {@link #getDeclaredMethod(Class, String, Class[])} without parameters.
@@ -134,43 +109,9 @@ public class ReflectionUtils {
             method.setAccessible(true);
             return method;
         } catch (Exception e) {
-//Loger #############
-
             return null;
         }
     }
-
-
-
-    /**
-     * Wrapper for {@link #invokeVoidMethod(Method, Object, Object...)} without arguments.
-     */
-    public static boolean invokeVoidMethod(@NonNull Method method, Object obj) {
-        return invokeVoidMethod(method, obj, new Object[0]);
-    }
-
-    /**
-     * Invoke a {@link Method} on the specified object with the specified arguments that returns
-     * {@code void}.
-     *
-     * @param method The {@link Method} to invoke.
-     * @param obj The {@link Object} the method should be invoked from.
-     * @param args The arguments to pass to the method.
-     * @return Returns {@code true} if invoking the method was successful, otherwise {@code false}.
-     */
-    public static boolean invokeVoidMethod(@NonNull Method method, Object obj, Object... args) {
-        try {
-            method.setAccessible(true);
-            method.invoke(obj, args);
-            return true;
-        } catch (Exception e) {
-//Loger #############
-
-            return false;
-        }
-    }
-
-
 
     /** Class that represents result of invoking a method that has a non-void return type. */
     public static class MethodInvokeResult {
@@ -208,83 +149,7 @@ public class ReflectionUtils {
             method.setAccessible(true);
             return new MethodInvokeResult(true, method.invoke(obj, args));
         } catch (Exception e) {
-//Loger #############
-
             return new MethodInvokeResult(false, null);
-        }
-    }
-
-
-
-    /**
-     * Wrapper for {@link #getConstructor(String, Class[])} without parameters.
-     */
-    @Nullable
-    public static Constructor<?> getConstructor(@NonNull String className) {
-        return getConstructor(className, new Class<?>[0]);
-    }
-
-    /**
-     * Wrapper for {@link #getConstructor(Class, Class[])} to get a {@link Constructor} for the
-     * {@code className}.
-     */
-    @Nullable
-    public static Constructor<?> getConstructor(@NonNull String className, Class<?>... parameterTypes) {
-        try {
-            return getConstructor(Class.forName(className), parameterTypes);
-        } catch (Exception e) {
-//Loger #############
-
-            return null;
-        }
-    }
-
-    /**
-     * Get a {@link Constructor} for the specified class with the specified parameters.
-     *
-     * @param clazz The {@link Class} for which to return the constructor.
-     * @param parameterTypes The parameter types of the constructor.
-     * @return Returns the {@link Constructor} if getting the it was successful, otherwise {@code null}.
-     */
-    @Nullable
-    public static Constructor<?> getConstructor(@NonNull Class<?> clazz, Class<?>... parameterTypes) {
-        try {
-            Constructor<?> constructor = clazz.getConstructor(parameterTypes);
-            constructor.setAccessible(true);
-            return constructor;
-        } catch (Exception e) {
-//Loger #############
-
-            return null;
-        }
-    }
-
-
-
-    /**
-     * Wrapper for {@link #invokeConstructor(Constructor, Object...)} without arguments.
-     */
-    @Nullable
-    public static Object invokeConstructor(@NonNull Constructor<?> constructor) {
-        return invokeConstructor(constructor, new Object[0]);
-    }
-
-    /**
-     * Invoke a {@link Constructor} with the specified arguments.
-     *
-     * @param constructor The {@link Constructor} to invoke.
-     * @param args The arguments to pass to the constructor.
-     * @return Returns the new instance if invoking the constructor was successful, otherwise {@code null}.
-     */
-    @Nullable
-    public static Object invokeConstructor(@NonNull Constructor<?> constructor, Object... args) {
-        try {
-            constructor.setAccessible(true);
-            return constructor.newInstance(args);
-        } catch (Exception e) {
-//Loger #############
-
-            return null;
         }
     }
 

@@ -56,6 +56,7 @@ import com.termux.shared.termux.extrakeys.ExtraKeysView;
 import com.termux.shared.termux.interact.TextInputDialogUtils;
 import com.termux.shared.termux.settings.preferences.TermuxAppSharedPreferences;
 import com.termux.shared.termux.settings.properties.TermuxAppSharedProperties;
+import com.termux.shared.view.KeyboardUtils;
 import com.termux.shared.view.ViewUtils;
 import com.termux.terminal.TerminalSession;
 import com.termux.terminal.TerminalSessionClient;
@@ -75,6 +76,11 @@ import java.io.File;
  * about memory leaks.
  */
 public final class TermuxActivity extends AppCompatActivity implements ServiceConnection {
+
+    /**
+     * Use this thing for detect app crash.
+     */
+    private long aLong = 0;
 
     /**
      * The connection to the {@link TermuxService}. Requested in {@link #onCreate(Bundle)} with a call to
@@ -187,7 +193,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
+        aLong = System.currentTimeMillis();
         mIsOnResumeAfterOnCreate = true;
 
         if (savedInstanceState != null)
@@ -295,7 +301,8 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     @Override
     protected void onStop() {
         super.onStop();
-
+        KeyboardUtils.disableSoftKeyboard(this, getTerminalView());
+        KeyboardUtils.clearDisableSoftKeyboardFlags(this);
         if (mIsInvalidState) return;
 
         mIsVisible = false;
@@ -314,6 +321,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
     @Override
     public void onDestroy() {
+        if (System.currentTimeMillis() - aLong <= 2000) getPreferences().setCustomShellString("");
         super.onDestroy();
 
 

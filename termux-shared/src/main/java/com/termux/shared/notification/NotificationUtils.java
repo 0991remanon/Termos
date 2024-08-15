@@ -31,8 +31,6 @@ public class NotificationUtils {
     /** Show notification with sound, vibration and lights */
     public static final int NOTIFICATION_MODE_ALL = 8;
 
-    private static final String LOG_TAG = "NotificationUtils";
-
     /**
      * Get the {@link NotificationManager}.
      *

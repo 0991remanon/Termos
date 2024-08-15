@@ -110,6 +110,7 @@ public final class TermuxPreferenceConstants {
         public static final String KEY_SOFT_KEYBOARD_ENABLED = "soft_keyboard_enabled";
         public static final boolean DEFAULT_VALUE_KEY_SOFT_KEYBOARD_ENABLED = true;
 
+
         /**
          * Defines the key for whether the soft keyboard will be enabled only if no hardware keyboard
          * attached, for cases where users want to use a hardware keyboard instead.
@@ -122,6 +123,18 @@ public final class TermuxPreferenceConstants {
          */
         public static final String VIBRATION_ENABLED = "vibration_enabled";
         public static final boolean DEFAULT_VALUE_KEY_VIBRATION_ENABLED = true;
+
+        /**
+         * Defines the key for whether the custom shell will be enabled.
+         */
+        public static final String CUSTOM_SHELL_ENABLED = "use_custom_shell";
+        public static final boolean DEFAULT_VALUE_KEY_CUSTOM_SHELL_ENABLED = false;
+
+        /**
+         * Defines the key that specifies the path to the user's shell.
+         */
+        public static final String CUSTOM_SHELL_STRING = "custom_shell_string";
+        public static final String DEFAULT_VALUE_KEY_CUSTOM_SHELL_STRING = "";
 
         /**
          * Defines the key for whether to always keep screen on.

@@ -7,10 +7,6 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
-
-import com.termux.shared.termux.settings.preferences.TermuxPreferenceConstants;
-
 
 public class BellHandler {
     private static BellHandler instance = null;

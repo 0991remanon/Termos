@@ -80,8 +80,6 @@ public class SharedProperties {
             .put("false", true)
             .build();
 
-    private static final String LOG_TAG = "SharedProperties";
-
     /**
      * Constructor for the SharedProperties class.
      *
@@ -213,10 +211,6 @@ public class SharedProperties {
                 return null;
         }
     }
-
-
-
-
 
     /**
      * A static function to get the {@link Properties} object for the propertiesFile. A lock is not

@@ -90,6 +90,8 @@
     <string name="error_termux_service_start_failed_general">Failed to start TermuxService. Check logcat for exception message.</string>
     <string name="error_termux_service_start_failed_bg">Failed to start TermuxService while app is in background due to android bg restrictions.</string>
 
+	<string name="error_wrong_custom_shell_path">Неправильный путь к пользовательской оболочке!</string>
+
     <!-- Termux Settings -->
     <string name="title_activity_termux_settings">Настройки</string>
 
@@ -132,4 +134,21 @@
                     Должно быть включено, чтобы попытаться исправить проблему, когда программная клавиатура закрывает часть дополнительных клавиш или терминала.
                     Если это вызывает мерцание экрана на вашем устройстве - отключите. (Стандартно)</string>
 
+
+        <!-- Terminal Environment Preferences -->
+        <string name="termux_terminal_env_preferences_title">Настройки среды</string>
+        <string name="termux_terminal_env_preferences_summary">Настройки исполняемой среды терминала</string>
+
+            <!-- Environment Category -->
+            <string name="termux_terminal_env_shell_header">Оболочка</string>
+
+                <!-- Terminal Environment Adjustment -->
+                <string name="termux_terminal_env_custom_shell_title">Индивидуальная оболочка</string>
+                <string name="termux_terminal_env_custom_shell_off">Использовать \"/system/bin/sh\". (Стандартно)</string>
+                <string name="termux_terminal_env_custom_shell_on">Найти и использовать \"login\", \"bash\", \"zsh\" или \"fish\", если они установлены.</string>
+
+				<!-- Custom shell path dialog -->
+				<string name="termux_custom_shell_path_title">Путь к оболочке</string>
+				<string name="termux_custom_shell_path_dialog_message">Если оставить поле пустым, будет выполнен автоматический поиск</string>
+				<string name="termux_custom_shell_path_dialog_title">Введите путь к исполняемому файлу</string>
 </resources>

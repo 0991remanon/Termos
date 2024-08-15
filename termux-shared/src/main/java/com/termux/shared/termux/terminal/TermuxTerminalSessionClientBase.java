@@ -47,7 +47,6 @@ public class TermuxTerminalSessionClientBase implements TerminalSessionClient {
     public void setTerminalShellPid(@NonNull TerminalSession session, int pid) {
     }
 
-
     @Override
     public Integer getTerminalCursorStyle() {
         return null;

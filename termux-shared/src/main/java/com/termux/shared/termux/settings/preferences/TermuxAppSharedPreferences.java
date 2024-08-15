@@ -111,11 +111,25 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
         return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.KEY_SOFT_KEYBOARD_ENABLED_ONLY_IF_NO_HARDWARE, TERMUX_APP.DEFAULT_VALUE_KEY_SOFT_KEYBOARD_ENABLED_ONLY_IF_NO_HARDWARE);
     }
 
+    public boolean isCustomShellEnabled() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.CUSTOM_SHELL_ENABLED, TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_SHELL_ENABLED);
+    }
+
     public void setSoftKeyboardEnabledOnlyIfNoHardware(boolean value) {
         SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.KEY_SOFT_KEYBOARD_ENABLED_ONLY_IF_NO_HARDWARE, value, false);
     }
 
+    public void setCustomShellEnabled(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.CUSTOM_SHELL_ENABLED, value, false);
+    }
 
+    public String getCustomShellString() {
+        return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.CUSTOM_SHELL_STRING, TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_SHELL_STRING, false);
+    }
+
+    public void setCustomShellString(String value) {
+        SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CUSTOM_SHELL_STRING, value, false);
+    }
 
     public boolean shouldKeepScreenOn() {
         return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.KEY_KEEP_SCREEN_ON, TERMUX_APP.DEFAULT_VALUE_KEEP_SCREEN_ON);

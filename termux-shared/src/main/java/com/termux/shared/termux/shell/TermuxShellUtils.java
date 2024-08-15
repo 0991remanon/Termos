@@ -20,8 +20,6 @@ import java.util.List;
 
 public class TermuxShellUtils {
 
-    private static final String LOG_TAG = "TermuxShellUtils";
-
     /**
      * Setup shell command arguments for the execute. The file interpreter may be prefixed to
      * command arguments if needed.
@@ -101,23 +99,14 @@ public class TermuxShellUtils {
             days = 0;
 
         if (days < 0) {
-//Loger #############
 
         } else if (days == 0) {
-            error = FileUtils.clearDirectory("$TMPDIR",
+            FileUtils.clearDirectory("$TMPDIR",
                 FileUtils.getCanonicalPath(TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH, null));
-            if (error != null) {
-//Loger #############
-
-            }
         } else {
-            error = FileUtils.deleteFilesOlderThanXDays("$TMPDIR",
+            FileUtils.deleteFilesOlderThanXDays("$TMPDIR",
                 FileUtils.getCanonicalPath(TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH, null),
                 TrueFileFilter.INSTANCE, days, true, FileTypes.FILE_TYPE_ANY_FLAGS);
-            if (error != null) {
-//Loger #############
-
-            }
         }
     }
 

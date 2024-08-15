@@ -4,20 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.inputmethodservice.InputMethodService;
-import android.os.Build;
 import android.view.View;
-import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.core.view.WindowInsetsCompat;
 
 
 public class KeyboardUtils {
-
-    private static final String LOG_TAG = "KeyboardUtils";
 
     public static void setSoftKeyboardVisibility(@NonNull final Runnable showSoftKeyboardRunnable, final Activity activity, final View view, final boolean visible) {
         if (visible) {
@@ -113,29 +107,6 @@ public class KeyboardUtils {
     }
 
     /**
-     * Check if soft keyboard is visible.
-     * Does not work on android 7 but does on android 11 avd.
-     *
-     * @param activity The Activity of the root view for which the visibility should be checked.
-     * @return Returns {@code true} if soft keyboard is visible, otherwise {@code false}.
-     */
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public static boolean isSoftKeyboardVisible(final Activity activity) {
-        if (activity != null && activity.getWindow() != null) {
-            WindowInsets insets = activity.getWindow().getDecorView().getRootWindowInsets();
-            if (insets != null) {
-                WindowInsetsCompat insetsCompat = WindowInsetsCompat.toWindowInsetsCompat(insets);
-                //Loger #############
-                return insetsCompat.isVisible(WindowInsetsCompat.Type.ime());
-            }
-        }
-
-//Loger #############
-
-        return false;
-    }
-
-    /**
      * Check if hardware keyboard is connected.
      * Based on default implementation of {@link InputMethodService#onEvaluateInputViewShown()}.
      *
@@ -184,10 +155,7 @@ public class KeyboardUtils {
              */
             // If soft keyboard is disabled by user only if hardware keyboard is connected
             if(isSoftKeyboardEnabledOnlyIfNoHardware) {
-                boolean isHardKeyboardConnected = KeyboardUtils.isHardKeyboardConnected(context);
-//Loger #############
-
-                return isHardKeyboardConnected;
+                return KeyboardUtils.isHardKeyboardConnected(context);
             } else {
                 return false;
             }

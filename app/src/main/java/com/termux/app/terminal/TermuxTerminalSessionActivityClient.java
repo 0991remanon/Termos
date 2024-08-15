@@ -169,9 +169,9 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
         } else {
             // Once we have a separate launcher icon for the failsafe session, it
             // should be safe to auto-close session on exit code '0' or '130'.
-            if (finishedSession.getExitStatus() == 0 || finishedSession.getExitStatus() == 130 || isPluginExecutionCommandWithPendingResult) {
+           // if (finishedSession.getExitStatus() == 0 || finishedSession.getExitStatus() == 130 || isPluginExecutionCommandWithPendingResult) {
                 removeFinishedSession(finishedSession);
-            }
+           // }
         }
     }
 
@@ -379,7 +379,18 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
                // workingDirectory = currentSession.getCwd();
             }
 
-            TermuxSession newTermuxSession = service.createTermuxSession(null, null, null, workingDirectory, sessionName);
+            String executable = mActivity.getPreferences().getCustomShellString();
+            try {
+                if (executable.trim().isEmpty() || !new File(executable).canExecute()) {
+                    mActivity.getPreferences().setCustomShellString("");
+                    executable = null;
+                }
+            }catch (Exception e){
+                mActivity.getPreferences().setCustomShellString("");
+                executable = null;
+            }
+            if (!mActivity.getPreferences().isCustomShellEnabled()) executable = "/system/bin/sh";
+            TermuxSession newTermuxSession = service.createTermuxSession(executable, null, null, workingDirectory, sessionName);
             if (newTermuxSession == null) return;
 
             TerminalSession newTerminalSession = newTermuxSession.getTerminalSession();

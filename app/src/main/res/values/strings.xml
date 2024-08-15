@@ -90,6 +90,8 @@
     <string name="error_termux_service_start_failed_general">Failed to start TermuxService. Check logcat for exception message.</string>
     <string name="error_termux_service_start_failed_bg">Failed to start TermuxService while app is in background due to android bg restrictions.</string>
 
+	<string name="error_wrong_custom_shell_path">Wrong custom shell path!</string>
+
     <!-- Termux Settings -->
     <string name="title_activity_termux_settings">&TERMUX_APP_NAME; Settings</string>
 
@@ -134,5 +136,22 @@
                 <string name="termux_terminal_view_terminal_margin_adjustment_on">Terminal margin adjustment will be enabled.
                     It should be enabled to try to fix the issue where soft keyboard covers part of extra keys/terminal view.
                     If it causes screen flickering on your devices, then disable it. (Default)</string>
+
+        <!-- Terminal Environment Preferences -->
+        <string name="termux_terminal_env_preferences_title">Environment Settings</string>
+        <string name="termux_terminal_env_preferences_summary">Terminal Runtime Environment Settings</string>
+
+            <!-- Environment Category -->
+            <string name="termux_terminal_env_shell_header">Shell</string>
+
+                <!-- Terminal Environment Adjustment -->
+                <string name="termux_terminal_env_custom_shell_title">Custom Shell</string>
+                <string name="termux_terminal_env_custom_shell_off">Use \"/system/bin/sh\". (Default)</string>
+                <string name="termux_terminal_env_custom_shell_on">Find and use \"login\", \"bash\", \"zsh\" or \"fish\" if installed.</string>
+
+				<!-- Custom shell path dialog -->
+				<string name="termux_custom_shell_path_title">Custom Shell Path</string>
+				<string name="termux_custom_shell_path_dialog_message">If you leave the field empty, an automatic search will be performed</string>
+				<string name="termux_custom_shell_path_dialog_title">Enter path to executable</string>
 
 </resources>

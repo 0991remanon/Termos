@@ -2,11 +2,9 @@ package com.termux.shared.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.Build;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,35 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class ViewUtils {
-
-    /** Log root view events. */
-    public static boolean VIEW_UTILS_LOGGING_ENABLED = false;
-
-
-    /**
-     * Sets whether view utils logging is enabled or not.
-     *
-     * @param value The boolean value that defines the state.
-     */
-    public static void setIsViewUtilsLoggingEnabled(boolean value) {
-        VIEW_UTILS_LOGGING_ENABLED = value;
-    }
-
-    /**
-     * Check if a {@link View} is fully visible and not hidden or partially covered by another view.
-     *
-     * https://stackoverflow.com/a/51078418/14686958
-     *
-     * @param view The {@link View} to check.
-     * @param statusBarHeight The status bar height received by {@link View.OnApplyWindowInsetsListener}.
-     * @return Returns {@code true} if view is fully visible.
-     */
-    public static boolean isViewFullyVisible(View view, int statusBarHeight) {
-        Rect[] windowAndViewRects = getWindowAndViewRects(view, statusBarHeight);
-        if (windowAndViewRects == null)
-            return false;
-        return windowAndViewRects[0].contains(windowAndViewRects[1]);
-    }
 
     /**
      * Get the {@link Rect} of a {@link View} and the  {@link Rect} of the window inside which it
@@ -65,8 +34,6 @@ public class ViewUtils {
         if (view == null || !view.isShown())
             return null;
 
-        boolean view_utils_logging_enabled = VIEW_UTILS_LOGGING_ENABLED;
-
         // windowRect - will hold available area where content remain visible to users
         // Takes into account screen decorations (e.g. statusbar)
         Rect windowRect = new Rect();
@@ -79,11 +46,11 @@ public class ViewUtils {
         if (context instanceof AppCompatActivity) {
             ActionBar actionBar = ((AppCompatActivity) context).getSupportActionBar();
             if (actionBar != null) actionBarHeight = actionBar.getHeight();
-            isInMultiWindowMode = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) && ((AppCompatActivity) context).isInMultiWindowMode();
+            isInMultiWindowMode = ((AppCompatActivity) context).isInMultiWindowMode();
         } else if (context instanceof Activity) {
             android.app.ActionBar actionBar = ((Activity) context).getActionBar();
             if (actionBar != null) actionBarHeight = actionBar.getHeight();
-            isInMultiWindowMode = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) && ((Activity) context).isInMultiWindowMode();
+            isInMultiWindowMode = ((Activity) context).isInMultiWindowMode();
         }
 
         int displayOrientation = getDisplayOrientation(context);
@@ -175,41 +142,10 @@ public class ViewUtils {
         return new Point(windowMetrics.getBounds().width(), windowMetrics.getBounds().height());
     }
 
-    /** Convert {@link Rect} to {@link String}. */
-    public static String toRectString(Rect rect) {
-        if (rect == null) return "null";
-        return "(" + rect.left + "," + rect.top + "), (" + rect.right + "," + rect.bottom + ")";
-    }
-
-    /** Convert {@link Point} to {@link String}. */
-    public static String toPointString(Point point) {
-        if (point == null) return "null";
-        return "(" + point.x + "," + point.y + ")";
-    }
-
-    /** Get the {@link Activity} associated with the {@link Context} if available. */
-    @Nullable
-    public static Activity getActivity(Context context) {
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity)context;
-            }
-            context = ((ContextWrapper)context).getBaseContext();
-        }
-        return null;
-    }
-
-
     /** Convert value in device independent pixels (dp) to pixels (px) units. */
     public static float dpToPx(Context context, float dp) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
-
-    /** Convert value in pixels (px) to device independent pixels (dp) units. */
-    public static float pxToDp(Context context, float px) {
-        return px / context.getResources().getDisplayMetrics().density;
-    }
-
 
     public static void setLayoutMarginsInDp(@NonNull View view, int left, int top, int right, int bottom) {
         Context context = view.getContext();

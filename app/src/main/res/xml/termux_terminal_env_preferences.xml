@@ -1,0 +1,24 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="env"
+        app:title="@string/termux_terminal_env_shell_header">
+
+        <SwitchPreferenceCompat
+            app:key="use_custom_shell"
+            app:summaryOff="@string/termux_terminal_env_custom_shell_off"
+            app:summaryOn="@string/termux_terminal_env_custom_shell_on"
+            app:title="@string/termux_terminal_env_custom_shell_title"
+            app:disableDependentsState="false" />
+
+        <EditTextPreference
+            app:key="custom_shell_string"
+            app:title="@string/termux_custom_shell_path_title"
+            app:dialogTitle="@string/termux_custom_shell_path_dialog_title"
+            app:dialogMessage="@string/termux_custom_shell_path_dialog_message"
+            app:useSimpleSummaryProvider="true"
+            app:dependency="use_custom_shell" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

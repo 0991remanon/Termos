@@ -13,8 +13,6 @@ import com.termux.shared.markdown.MarkdownUtils;
 @Keep
 public class PeerCred {
 
-    public static final String LOG_TAG = "PeerCred";
-
     /** Process Id. */
     public int pid;
     /** Process Name. */

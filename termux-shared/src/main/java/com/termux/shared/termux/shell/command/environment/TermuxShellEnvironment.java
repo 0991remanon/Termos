@@ -82,12 +82,6 @@ public class TermuxShellEnvironment extends AndroidShellEnvironment {
 
     @NonNull
     @Override
-    public String getDefaultBinPath() {
-        return TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH;
-    }
-
-    @NonNull
-    @Override
     public String[] setupShellCommandArguments(@NonNull String executable, String[] arguments) {
         return TermuxShellUtils.setupShellCommandArguments(executable, arguments);
     }

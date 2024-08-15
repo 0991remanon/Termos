@@ -21,14 +21,6 @@ public interface IShellEnvironment {
     String getDefaultWorkingDirectoryPath();
 
     /**
-     * Get the default "/bin" path, like $PREFIX/bin.
-     *
-     * @return Should return the "/bin" path.
-     */
-    @NonNull
-    String getDefaultBinPath();
-
-    /**
      * Setup shell command arguments for the file to execute, like interpreter, etc.
      *
      * @param fileToExecute The file to execute.

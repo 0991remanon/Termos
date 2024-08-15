@@ -350,7 +350,7 @@ public final class TerminalSession extends TerminalOutput {
             if (msg.what == MSG_PROCESS_EXITED) {
                 int exitCode = (Integer) msg.obj;
                 cleanupResources(exitCode);
-
+/*
                 String exitDescription = "\r\n[Process completed";
                 if (exitCode > 0) {
                     // Non-zero process exit.
@@ -363,6 +363,8 @@ public final class TerminalSession extends TerminalOutput {
 
                 byte[] bytesToWrite = exitDescription.getBytes(StandardCharsets.UTF_8);
                 mEmulator.append(bytesToWrite, bytesToWrite.length);
+
+ */
                 notifyScreenUpdate();
 
                 mClient.onSessionFinished(TerminalSession.this);

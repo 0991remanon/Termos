@@ -10,19 +10,10 @@ import android.net.Uri;
  */
 public class UriScheme {
 
-    /** Android app resource. */
-    public static final String SCHEME_ANDROID_RESOURCE = "android.resource";
-
     /** Android content provider. https://www.iana.org/assignments/uri-schemes/prov/content. */
     public static final String SCHEME_CONTENT = "content";
 
     /** Filesystem or android app asset. https://www.rfc-editor.org/rfc/rfc8089.html. */
     public static final String SCHEME_FILE = "file";
-
-    /* Hypertext Transfer Protocol. */
-    public static final String SCHEME_HTTP = "http";
-
-    /* Hypertext Transfer Protocol Secure. */
-    public static final String SCHEME_HTTPS = "https";
 
 }

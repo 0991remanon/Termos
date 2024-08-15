@@ -6,7 +6,6 @@ import android.system.OsConstants;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.common.base.Joiner;
 import com.termux.shared.R;
 import com.termux.shared.shell.command.ExecutionCommand;
 import com.termux.shared.shell.command.environment.ShellEnvironmentUtils;
@@ -84,21 +83,19 @@ public class TermuxSession {
         if (executionCommand.workingDirectory.isEmpty())
             executionCommand.workingDirectory = "/";
 
-        String defaultBinPath = shellEnvironmentClient.getDefaultBinPath();
-        if (defaultBinPath.isEmpty())
-            defaultBinPath = "/system/bin";
-
         boolean isLoginShell = false;
-        if (executionCommand.executable == null) {
 
+        if (executionCommand.executable == null) {
+            for (String binDir : UnixShellEnvironment.LOGIN_SHELL_BIN_PATHS) {
+                if (executionCommand.executable != null) break;
                 for (String shellBinary : UnixShellEnvironment.LOGIN_SHELL_BINARIES) {
-                    File shellFile = new File(defaultBinPath, shellBinary);
+                    File shellFile = new File(binDir, shellBinary);
                     if (shellFile.canExecute()) {
                         executionCommand.executable = shellFile.getAbsolutePath();
                         break;
                     }
                 }
-
+            }
 
             if (executionCommand.executable == null) {
                 // Fall back to system shell as last resort:
@@ -111,7 +108,7 @@ public class TermuxSession {
                 // https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:external/mksh/Android.bp;l=114
                 executionCommand.executable = "/system/bin/sh";
             } else {
-                isLoginShell = true;
+               // isLoginShell = true;
             }
 
         }

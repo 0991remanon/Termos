@@ -65,19 +65,10 @@ public class AndroidShellEnvironment extends UnixShellEnvironment {
         return environment;
     }
 
-
-
     @NonNull
     @Override
     public String getDefaultWorkingDirectoryPath() {
         return "/";
-    }
-
-
-    @NonNull
-    @Override
-    public String getDefaultBinPath() {
-        return "/system/bin";
     }
 
     @NonNull
