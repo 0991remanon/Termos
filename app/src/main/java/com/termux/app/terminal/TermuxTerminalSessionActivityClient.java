@@ -16,7 +16,9 @@ import androidx.annotation.Nullable;
 import com.termux.R;
 import com.termux.app.TermuxActivity;
 import com.termux.app.TermuxService;
+import com.termux.app.Utils;
 import com.termux.shared.interact.ShareUtils;
+import com.termux.shared.shell.command.environment.UnixShellEnvironment;
 import com.termux.shared.termux.TermuxConstants;
 import com.termux.shared.termux.interact.TextInputDialogUtils;
 import com.termux.shared.termux.settings.preferences.TermuxPreferenceConstants;
@@ -375,7 +377,7 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
             if (currentSession == null) {
                 workingDirectory = mActivity.getProperties().getDefaultWorkingDirectory();
             } else {
-                workingDirectory = TermuxConstants.TERMUX_FILES_DIR_PATH;
+                workingDirectory = TermuxConstants.TERMUX_HOME_DIR_PATH;
                // workingDirectory = currentSession.getCwd();
             }
 
@@ -390,7 +392,28 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
                 executable = null;
             }
             if (!mActivity.getPreferences().isCustomShellEnabled()) executable = "/system/bin/sh";
-            TermuxSession newTermuxSession = service.createTermuxSession(executable, null, null, workingDirectory, sessionName);
+
+            if (executable == null) {
+                for (String binDir : UnixShellEnvironment.LOGIN_SHELL_BIN_PATHS) {
+                    if (executable != null) break;
+                    for (String shellBinary : UnixShellEnvironment.LOGIN_SHELL_BINARIES) {
+                        File shellFile = new File(binDir, shellBinary);
+                        if (shellFile.canExecute()) {
+                            executable = shellFile.getAbsolutePath();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (executable == null) executable = "/system/bin/sh";
+
+            String[] arguments = null;
+            if (executable.endsWith("/bash")){
+                String bashrc = TermuxConstants.TERMUX_PREFIX_DIR_PATH + "/.bashrc";
+                if (Utils.createBashrc(new String[]{bashrc, TermuxConstants.TERMUX_HOME_DIR_PATH, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH})) arguments = new String[]{"--rcfile", bashrc};
+            }
+            TermuxSession newTermuxSession = service.createTermuxSession(executable, arguments, null, workingDirectory, sessionName);
             if (newTermuxSession == null) return;
 
             TerminalSession newTerminalSession = newTermuxSession.getTerminalSession();
