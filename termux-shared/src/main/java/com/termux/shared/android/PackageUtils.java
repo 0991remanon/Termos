@@ -742,11 +742,6 @@ public class PackageUtils {
         try {
             PackageManager packageManager = context.getPackageManager();
             if (packageManager != null) {
-                if (toastString != null && alwaysShowToast) {
-//Loger #############
-
-                    toastString = null;
-                }
 
                 Boolean currentlyDisabled = PackageUtils.isComponentDisabled(context, packageName, className, false);
                 if (currentlyDisabled == null)

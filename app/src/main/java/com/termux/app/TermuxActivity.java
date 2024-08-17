@@ -325,7 +325,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     public void onDestroy() {
         if (System.currentTimeMillis() - aLong <= 2000) {
             getPreferences().setCustomShellString("");
-            getPreferences().setCustomRootString("");
+            getPreferences().setUseCustomArguments(false);
             getPreferences().setRootAsDefault(false);
         }
         super.onDestroy();
@@ -448,8 +448,6 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         ListView termuxSessionsListView = findViewById(R.id.terminal_sessions_list);
         mTermuxSessionListViewController = new TermuxSessionsListViewController(this, mTermuxService.getTermuxSessions());
         termuxSessionsListView.setAdapter(mTermuxSessionListViewController);
-        termuxSessionsListView.setOnItemClickListener(mTermuxSessionListViewController);
-        termuxSessionsListView.setOnItemLongClickListener(mTermuxSessionListViewController);
     }
 
     private void setTerminalToolbarView(Bundle savedInstanceState) {
@@ -569,7 +567,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     public void showToast(String text, boolean longDuration) {
         if (text == null || text.isEmpty()) return;
         if (mLastToast != null) mLastToast.cancel();
-        mLastToast = Toast.makeText(TermuxActivity.this, text, longDuration ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT);
+        mLastToast = Utils.doToast(TermuxActivity.this, text, longDuration ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT);
         mLastToast.setGravity(Gravity.TOP, 0, 0);
         mLastToast.show();
     }

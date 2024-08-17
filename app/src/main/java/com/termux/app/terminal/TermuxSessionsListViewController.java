@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ import com.termux.terminal.TerminalSession;
 
 import java.util.List;
 
-public class TermuxSessionsListViewController extends ArrayAdapter<TermuxSession> implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class TermuxSessionsListViewController extends ArrayAdapter<TermuxSession> {
 
     final TermuxActivity mActivity;
 
@@ -79,21 +80,43 @@ public class TermuxSessionsListViewController extends ArrayAdapter<TermuxSession
         }
         int color = sessionRunning || sessionAtRow.getExitStatus() == 0 ? Color.WHITE : Color.RED;
         sessionTitleView.setTextColor(color);
+
+        sessionTitleView.setOnClickListener(new OnClickSessionName(sessionAtRow, mActivity));
+        sessionTitleView.setOnLongClickListener(new OnClickSessionName(sessionAtRow, mActivity));
+        sessionRowView.findViewById(R.id.close_button).setOnClickListener(new OnClickCloseBunnon(sessionAtRow));
         return sessionRowView;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        TermuxSession clickedSession = getItem(position);
-        mActivity.getTermuxTerminalSessionClient().setCurrentSession(clickedSession.getTerminalSession());
-        mActivity.getDrawer().closeDrawers();
+    private static class OnClickCloseBunnon implements View.OnClickListener {
+        private final TerminalSession gSession;
+        private OnClickCloseBunnon(TerminalSession session){
+            gSession = session;
+        }
+
+        @Override
+        public void onClick(View v) {
+            gSession.finishIfRunning();
+        }
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        final TermuxSession selectedSession = getItem(position);
-        mActivity.getTermuxTerminalSessionClient().renameSession(selectedSession.getTerminalSession());
-        return true;
-    }
+    private static class OnClickSessionName implements View.OnClickListener, View.OnLongClickListener {
+        private final TerminalSession gSession;
+        private final TermuxActivity gActivity;
+        private OnClickSessionName(TerminalSession session, TermuxActivity activity){
+            gSession = session;
+            gActivity = activity;
+        }
 
+        @Override
+        public void onClick(View v) {
+            gActivity.getTermuxTerminalSessionClient().setCurrentSession(gSession);
+            gActivity.getDrawer().closeDrawers();
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            gActivity.getTermuxTerminalSessionClient().renameSession(gSession);
+            return true;
+        }
+    }
 }

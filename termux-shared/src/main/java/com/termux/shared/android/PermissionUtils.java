@@ -119,7 +119,6 @@ public class PermissionUtils {
                                              int requestCode) {
         List<String> permissionsNotRequested = getPermissionsNotRequested(context, permissions);
         if (permissionsNotRequested.size() > 0) {
-//Loger #############
             return false;
         }
 
@@ -127,8 +126,6 @@ public class PermissionUtils {
             int result = ContextCompat.checkSelfPermission(context, permission);
             // If at least one permission not granted
             if (result != PackageManager.PERMISSION_GRANTED) {
-//Loger #############
-
 
                 try {
                     if (context instanceof AppCompatActivity)
@@ -136,16 +133,9 @@ public class PermissionUtils {
                     else if (context instanceof Activity)
                         ((Activity) context).requestPermissions(permissions, requestCode);
                     else {
-                        Error.logErrorAndShowToast(context, LOG_TAG,
-                            FunctionErrno.ERRNO_PARAMETER_NOT_INSTANCE_OF.getError("context", "requestPermissions", "Activity or AppCompatActivity"));
                         return false;
                     }
                 } catch (Exception e) {
-                    String errmsg = context.getString(R.string.error_failed_to_request_permissions, requestCode, Arrays.toString(permissions));
-//Loger #############
-
-//Loger #############
-
                     return false;
                 }
 

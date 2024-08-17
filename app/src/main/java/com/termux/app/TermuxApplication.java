@@ -34,4 +34,5 @@ public class TermuxApplication extends Application {
             TermuxShellEnvironment.writeEnvironmentToFile(this);
         }
     }
+
 }

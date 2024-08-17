@@ -26,8 +26,6 @@ import javax.annotation.Nullable;
 
 public class ShareUtils {
 
-    private static final String LOG_TAG = "ShareUtils";
-
     /**
      * Open the system app chooser that allows the user to select which app to send the intent.
      *
@@ -44,10 +42,7 @@ public class ShareUtils {
         chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try {
             context.startActivity(chooserIntent);
-        } catch (Exception e) {
-//Loger #############
-
-        }
+        } catch (Exception e) {}
     }
 
     /**
@@ -168,10 +163,7 @@ public class ShareUtils {
         } catch (ActivityNotFoundException e) {
             // If no activity found to handle intent, show system chooser
             openSystemAppChooser(context, intent, context.getString(R.string.title_open_url_with));
-        } catch (Exception e) {
-//Loger #############
-
-        }
+        } catch (Exception e) {}
     }
 
     /**
@@ -197,7 +189,6 @@ public class ShareUtils {
         if ((FileUtils.isPathInDirPath(filePath, Environment.getExternalStorageDirectory().getAbsolutePath(), true) ||
             FileUtils.isPathInDirPath(filePath, "/sdcard", true)) &&
             !PermissionUtils.checkPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-//Loger #############
 
 
             if (storagePermissionRequestCode >= 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

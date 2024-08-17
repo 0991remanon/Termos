@@ -154,6 +154,20 @@
 				<string name="termux_custom_shell_path_dialog_message">Если оставить поле пустым, будет выполнен автоматический поиск</string>
 				<string name="termux_custom_shell_path_dialog_title">Введите путь к исполняемому файлу</string>
 
+                <!-- Custom arguments switcher -->
+                <string name="termux_use_custom_arguments_title">Использовать аргументы запуска</string>
+                <string name="termux_use_custom_arguments_on">Аргументы запуска используются.</string>
+                <string name="termux_use_custom_arguments_off">Аргументы запуска не используются. (Стандартно)</string>
+
+                <!-- Custom arguments dialog -->
+                <string name="termux_custom_arguments_title">Аргументы запуска оболочки</string>
+                <string name="termux_custom_arguments_dialog_message">Пример:
+                    Вы ввели
+                    -x
+                    Команда запуска оболочки будет иметь вид
+                    /system/bin/sh -x</string>
+                <string name="termux_custom_arguments_dialog_title">Введите аргументы запуска</string>
+
                 <!-- Root as default -->
                 <string name="termux_root_as_default_title">Root по умолчанию</string>
                 <string name="termux_root_as_default_off">Сеансы начинаются со стандартными правами. (Стандартно)</string>

@@ -99,7 +99,7 @@
 
         <!-- Terminal IO Preferences -->
         <string name="termux_terminal_io_preferences_title">Terminal I/O</string>
-        <string name="termux_terminal_io_preferences_summary">Preferences for terminal I/O</string>
+        <string name="termux_terminal_io_preferences_summary">Preferences For Terminal I/O</string>
 
             <!-- Keyboard Category -->
             <string name="termux_keyboard_header">Keyboard</string>
@@ -156,8 +156,22 @@
 				<string name="termux_custom_shell_path_dialog_message">If you leave the field empty, an automatic search will be performed</string>
 				<string name="termux_custom_shell_path_dialog_title">Enter path to executable</string>
 
+                <!-- Custom arguments switcher -->
+                <string name="termux_use_custom_arguments_title">Use launch arguments</string>
+                <string name="termux_use_custom_arguments_on">Launch arguments are used.</string>
+                <string name="termux_use_custom_arguments_off">Launch arguments are not used. (Default)</string>
+
+                <!-- Custom arguments dialog -->
+                <string name="termux_custom_arguments_title">Shell Launch Arguments</string>
+                <string name="termux_custom_arguments_dialog_message">Example:
+                    You entered
+                    -x
+                    The shell startup command will be
+                    /system/bin/sh -x</string>
+                <string name="termux_custom_arguments_dialog_title">Enter launch arguments</string>
+
                 <!-- Root as default -->
-                <string name="termux_root_as_default_title">Root as default</string>
+                <string name="termux_root_as_default_title">Root As Default</string>
                 <string name="termux_root_as_default_off">Sessions start with standard rights. (Default)</string>
                 <string name="termux_root_as_default_on">Sessions start with root rights. (Very dangerous)</string>
 
