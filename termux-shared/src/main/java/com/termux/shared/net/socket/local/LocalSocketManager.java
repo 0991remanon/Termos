@@ -73,8 +73,7 @@ public class LocalSocketManager {
                 System.loadLibrary(LOCAL_SOCKET_LIBRARY);
                 localSocketLibraryLoaded = true;
             } catch (Throwable t) {
-                Error error = LocalSocketErrno.ERRNO_START_LOCAL_SOCKET_LIB_LOAD_FAILED_WITH_EXCEPTION.getError(t, LOCAL_SOCKET_LIBRARY,  t.getMessage());
-                return error;
+                return LocalSocketErrno.ERRNO_START_LOCAL_SOCKET_LIB_LOAD_FAILED_WITH_EXCEPTION.getError(t, LOCAL_SOCKET_LIBRARY,  t.getMessage());
             }
         }
 
@@ -334,16 +333,6 @@ public class LocalSocketManager {
         return mLocalSocketRunConfig;
     }
 
-    /** Get {@link #mLocalSocketManagerClient}. */
-    public ILocalSocketManager getLocalSocketManagerClient() {
-        return mLocalSocketManagerClient;
-    }
-
-    /** Get {@link #mServerSocket}. */
-    public LocalServerSocket getServerSocket() {
-        return mServerSocket;
-    }
-
     /** Get {@link #mLocalSocketManagerClientThreadUEH}. */
     public Thread.UncaughtExceptionHandler getLocalSocketManagerClientThreadUEH() {
         return mLocalSocketManagerClientThreadUEH;
@@ -354,36 +343,13 @@ public class LocalSocketManager {
      * or the default handler that just logs the exception.
      */
     protected Thread.UncaughtExceptionHandler getLocalSocketManagerClientThreadUEHOrDefault() {
-        Thread.UncaughtExceptionHandler uncaughtExceptionHandler =
-            mLocalSocketManagerClient.getLocalSocketManagerClientThreadUEH(this);
-        return uncaughtExceptionHandler;
+        return mLocalSocketManagerClient.getLocalSocketManagerClientThreadUEH(this);
     }
 
     /** Get {@link #mIsRunning}. */
     public boolean isRunning() {
         return mIsRunning;
     }
-    /** Get an error markdown {@link String} for the {@link LocalSocketManager}. */
-    public static String getErrorMarkdownString(@NonNull Error error,
-                                                @NonNull LocalSocketRunConfig localSocketRunConfig,
-                                                @Nullable LocalClientSocket clientSocket) {
-        StringBuilder markdownString = new StringBuilder();
-
-        markdownString.append(error.getErrorMarkdownString());
-        markdownString.append("\n##\n\n\n");
-
-        markdownString.append(localSocketRunConfig.getMarkdownString());
-
-        if (clientSocket != null) {
-            markdownString.append("\n\n\n");
-            markdownString.append(clientSocket.getMarkdownString());
-        }
-
-        return markdownString.toString();
-    }
-
-
-
 
 
     @Nullable private static native JniResult createServerSocketNative(@NonNull String serverTitle, @NonNull byte[] path, int backlog);

@@ -140,17 +140,12 @@ public class LocalServerSocket implements Closeable {
 
     /** Close server socket. */
     public synchronized Error closeServerSocket(boolean logErrorMessage) {
-//Loger #############
-
 
         try {
             close();
         } catch (IOException e) {
-            Error error = LocalSocketErrno.ERRNO_CLOSE_SERVER_SOCKET_FAILED_WITH_EXCEPTION.getError(e, mLocalSocketRunConfig.getTitle(), e.getMessage());
-            if (logErrorMessage)
-//Loger #############
 
-            return error;
+            return LocalSocketErrno.ERRNO_CLOSE_SERVER_SOCKET_FAILED_WITH_EXCEPTION.getError(e, mLocalSocketRunConfig.getTitle(), e.getMessage());
         }
 
         return null;
@@ -159,8 +154,6 @@ public class LocalServerSocket implements Closeable {
     /** Implementation for {@link Closeable#close()} to close server socket. */
     @Override
     public synchronized void close() throws IOException {
-//Loger #############
-
 
         int fd = mLocalSocketRunConfig.getFD();
 
