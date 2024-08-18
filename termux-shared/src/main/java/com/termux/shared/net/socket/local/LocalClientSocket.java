@@ -69,11 +69,8 @@ public class LocalClientSocket implements Closeable {
         try {
             close();
         } catch (IOException e) {
-            Error error = LocalSocketErrno.ERRNO_CLOSE_CLIENT_SOCKET_FAILED_WITH_EXCEPTION.getError(e, mLocalSocketRunConfig.getTitle(), e.getMessage());
-            if (logErrorMessage)
-//Loger #############
 
-            return error;
+            return LocalSocketErrno.ERRNO_CLOSE_CLIENT_SOCKET_FAILED_WITH_EXCEPTION.getError(e, mLocalSocketRunConfig.getTitle(), e.getMessage());
         }
 
         return null;
@@ -313,13 +310,6 @@ public class LocalClientSocket implements Closeable {
         return null;
     }
 
-
-
-    /** Get {@link #mFD} for the client socket. */
-    public int getFD() {
-        return mFD;
-    }
-
     /** Set {@link #mFD}. Value must be greater than 0 or -1. */
     private void setFD(int fd) {
         if (fd >= 0)
@@ -331,11 +321,6 @@ public class LocalClientSocket implements Closeable {
     /** Get {@link #mPeerCred} for the client socket. */
     public PeerCred getPeerCred() {
         return mPeerCred;
-    }
-
-    /** Get {@link #mCreationTime} for the client socket. */
-    public long getCreationTime() {
-        return mCreationTime;
     }
 
     /** Get {@link #mOutputStream} for the client socket. The stream will automatically close when client socket is closed. */
@@ -364,18 +349,12 @@ public class LocalClientSocket implements Closeable {
     @NonNull
     public String getMarkdownString() {
 
-        String markdownString = "## " + "Client Socket" +
+        return "## " + "Client Socket" +
             "\n" + MarkdownUtils.getSingleLineMarkdownStringEntry("FD", mFD, "-") +
             "\n" + MarkdownUtils.getSingleLineMarkdownStringEntry("Creation Time", mCreationTime, "-") +
             "\n\n\n" +
             mPeerCred.getMarkdownString();
-
-        return markdownString;
     }
-
-
-
-
 
     /** Wrapper class to allow pass by reference of int values. */
     public static final class MutableInt {
@@ -385,8 +364,6 @@ public class LocalClientSocket implements Closeable {
             this.value = value;
         }
     }
-
-
 
     /** The {@link InputStream} implementation for the {@link LocalClientSocket}. */
     protected class SocketInputStream extends InputStream {
