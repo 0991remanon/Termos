@@ -8,11 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.system.Os;
+import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -207,6 +209,8 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         setContentView(R.layout.activity_termux);
 
+        makeEnvDirs();
+
         // Load termux shared preferences
         // This will also fail if TermuxConstants.TERMUX_PACKAGE_NAME does not equal applicationId
         mPreferences = TermuxAppSharedPreferences.build(this, true);
@@ -245,6 +249,10 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         setToggleKeyboardView();
 
+        try {
+            setTextSize();
+            findViewById(R.id.left_drawer).setBackground(new ButtonBg(Integer.parseInt(mPreferences.getTerminalDrawerTransparency()), Utils.dpAsPx(this, 1)));
+        } catch (Exception e) {}
         registerForContextMenu(mTerminalView);
         requestStoragePermission(false);
         FileReceiverActivity.updateFileReceiverActivityComponentsState(this);
@@ -297,6 +305,11 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         if (mTermuxTerminalViewClient != null)
             mTermuxTerminalViewClient.onResume();
 
+        try {
+            setTextSize();
+            findViewById(R.id.left_drawer).setBackground(new ButtonBg(Integer.parseInt(mPreferences.getTerminalDrawerTransparency()), Utils.dpAsPx(this, 1)));
+        } catch (Exception e) {}
+
         mIsOnResumeAfterOnCreate = false;
     }
 
@@ -325,7 +338,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     public void onDestroy() {
         if (System.currentTimeMillis() - aLong <= 2000) {
             getPreferences().setCustomShellString("");
-            getPreferences().setCustomRootString("");
+            getPreferences().setUseCustomArguments(false);
             getPreferences().setRootAsDefault(false);
         }
         super.onDestroy();
@@ -412,6 +425,13 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             mTermuxTerminalViewClient.onReloadProperties();
     }
 
+    public void setTextSize() {
+        try {
+            float dipInPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+            getTerminalView().setTextSize((int) (Integer.parseInt(getPreferences().getTextSize()) * dipInPixels));
+        } catch (Exception e) {}
+    }
+
     private void setMargins() {
         RelativeLayout relativeLayout = findViewById(R.id.activity_termux_root_relative_layout);
         int marginHorizontal = mProperties.getTerminalMarginHorizontal();
@@ -448,8 +468,6 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         ListView termuxSessionsListView = findViewById(R.id.terminal_sessions_list);
         mTermuxSessionListViewController = new TermuxSessionsListViewController(this, mTermuxService.getTermuxSessions());
         termuxSessionsListView.setAdapter(mTermuxSessionListViewController);
-        termuxSessionsListView.setOnItemClickListener(mTermuxSessionListViewController);
-        termuxSessionsListView.setOnItemLongClickListener(mTermuxSessionListViewController);
     }
 
     private void setTerminalToolbarView(Bundle savedInstanceState) {
@@ -506,7 +524,10 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     }
 
     private void setSettingsButtonView() {
-        ImageButton settingsButton = findViewById(R.id.settings_button);
+        View settingsButton = findViewById(R.id.settings_button);
+        settingsButton.setBackground(new ButtonBg(0, false));
+        int padding = Utils.dpAsPx(this, 5);
+        settingsButton.setPadding(padding, padding, padding, padding);
         settingsButton.setOnClickListener(v -> {
             ActivityUtils.startActivity(this, new Intent(this, SettingsActivity.class));
         });
@@ -514,6 +535,9 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
     private void setNewSessionButtonView() {
         View newSessionButton = findViewById(R.id.new_session_button);
+        newSessionButton.setBackground(new ButtonBg(0, false));
+        int padding = Utils.dpAsPx(this, 5);
+        newSessionButton.setPadding(padding, padding, padding, padding);
         newSessionButton.setOnClickListener(v -> mTermuxTerminalSessionActivityClient.addNewDefaultSession(null));
         newSessionButton.setOnLongClickListener(v -> {
             TextInputDialogUtils.textInput(TermuxActivity.this, R.string.title_create_named_session, null,
@@ -526,6 +550,9 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
     private void setNewRootSessionButtonView() {
         View newSessionButton = findViewById(R.id.new_root_session_button);
+        newSessionButton.setBackground(new ButtonBg(0, false));
+        int padding = Utils.dpAsPx(this, 5);
+        newSessionButton.setPadding(padding, padding, padding, padding);
         newSessionButton.setOnClickListener(v -> mTermuxTerminalSessionActivityClient.addNewRootSession(null));
         newSessionButton.setOnLongClickListener(v -> {
             TextInputDialogUtils.textInput(TermuxActivity.this, R.string.title_create_named_root_session, null,
@@ -537,12 +564,16 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     }
 
     private void setToggleKeyboardView() {
-        findViewById(R.id.toggle_keyboard_button).setOnClickListener(v -> {
+        View toogleKeyboard = findViewById(R.id.toggle_keyboard_button);
+        toogleKeyboard.setBackground(new ButtonBg(0, false));
+        int padding = Utils.dpAsPx(this, 5);
+        toogleKeyboard.setPadding(padding, padding, padding, padding);
+        toogleKeyboard.setOnClickListener(v -> {
             mTermuxTerminalViewClient.onToggleSoftKeyboardRequest();
             getDrawer().closeDrawers();
         });
 
-        findViewById(R.id.toggle_keyboard_button).setOnLongClickListener(v -> {
+        toogleKeyboard.setOnLongClickListener(v -> {
             toggleTerminalToolbar();
             return true;
         });
@@ -569,7 +600,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     public void showToast(String text, boolean longDuration) {
         if (text == null || text.isEmpty()) return;
         if (mLastToast != null) mLastToast.cancel();
-        mLastToast = Toast.makeText(TermuxActivity.this, text, longDuration ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT);
+        mLastToast = Utils.doToast(TermuxActivity.this, text, longDuration ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT);
         mLastToast.setGravity(Gravity.TOP, 0, 0);
         mLastToast.show();
     }
@@ -713,6 +744,18 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         }.start();
     }
 
+    static void makeEnvDirs(){
+        new Thread() {
+            public void run() {
+                try {
+                    FileUtils.createDirectoryFile(TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH);
+                    FileUtils.createDirectoryFile(TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH);
+                    FileUtils.createDirectoryFile(TermuxConstants.TERMUX_HOME_DIR_PATH);
+                } catch (Exception e) {}
+            }
+        }.start();
+    }
+
     static void setupStorageSymlinks(final Context context) {
         new Thread() {
             public void run() {
@@ -724,7 +767,6 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
                     if (error != null) {
                         return;
                     }
-                    FileUtils.createDirectoryFile(TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH);
 
                     // Get primary storage root "/storage/emulated/0" symlink
                     File sharedDir = Environment.getExternalStorageDirectory();

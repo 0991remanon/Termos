@@ -54,7 +54,6 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
 
     private List<KeyboardShortcut> mSessionShortcuts;
 
-    private static final String LOG_TAG = "TermuxTerminalViewClient";
 
     public TermuxTerminalViewClient(TermuxActivity activity, TermuxTerminalSessionActivityClient termuxTerminalSessionActivityClient) {
         this.mActivity = activity;
@@ -71,7 +70,7 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
     public void onCreate() {
         onReloadProperties();
 
-        mActivity.getTerminalView().setTextSize(mActivity.getPreferences().getFontSize());
+        mActivity.setTextSize();
         mActivity.getTerminalView().setKeepScreenOn(mActivity.getPreferences().shouldKeepScreenOn());
     }
 
@@ -142,8 +141,9 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
     @Override
     public float onScale(float scale) {
         if (scale < 0.9f || scale > 1.1f) {
-            boolean increase = scale > 1.f;
-            changeFontSize(increase);
+//            boolean increase = scale > 1.f;
+//            changeFontSize(increase);
+            if (scale < 1.f) mActivity.getDrawer().open();
             return 1.0f;
         }
         return scale;
@@ -236,12 +236,12 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
                 showUrlSelection();
             } else if (unicodeChar == 'v') {
                 doPaste();
-            } else if (unicodeChar == '+' || e.getUnicodeChar(KeyEvent.META_SHIFT_ON) == '+') {
+//            } else if (unicodeChar == '+' || e.getUnicodeChar(KeyEvent.META_SHIFT_ON) == '+') {
                 // We also check for the shifted char here since shift may be required to produce '+',
                 // see https://github.com/termux/termux-api/issues/2
-                changeFontSize(true);
-            } else if (unicodeChar == '-') {
-                changeFontSize(false);
+//                changeFontSize(true);
+//            } else if (unicodeChar == '-') {
+//                changeFontSize(false);
             } else if (unicodeChar >= '1' && unicodeChar <= '9') {
                 int index = unicodeChar - '1';
                 mTermuxTerminalSessionActivityClient.switchToSession(index);
@@ -478,10 +478,10 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
         }
     }
 
-    public void changeFontSize(boolean increase) {
-        mActivity.getPreferences().changeFontSize(increase);
-        mActivity.getTerminalView().setTextSize(mActivity.getPreferences().getFontSize());
-    }
+//    public void changeFontSize(boolean increase) {
+//        mActivity.getPreferences().changeFontSize(increase);
+//        mActivity.getTerminalView().setTextSize(mActivity.getPreferences().getFontSize());
+//    }
 
     /**
      * Called when user requests the soft keyboard to be toggled via "KEYBOARD" toggle button in

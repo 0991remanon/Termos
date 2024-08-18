@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="trans_values">
+        <item>-16777216</item>
+		<item>-436207616</item>
+		<item>-872415232</item>
+		<item>-1308622848</item>
+		<item>-1728053248</item>
+		<item>2130706432</item>
+		<item>1711276032</item>
+		<item>1275068416</item>
+		<item>855638016</item>
+		<item>436207616</item>
+    </string-array>
+    <string-array name="trans_list">
+		<item>0%</item>
+		<item>10%</item>
+		<item>20%</item>
+		<item>30%</item>
+		<item>40%</item>
+		<item>50%</item>
+		<item>60%</item>
+		<item>70%</item>
+		<item>80%</item>
+		<item>90%</item>
+    </string-array>
+	<string-array name="text_size">
+		<item>6</item>
+		<item>8</item>
+		<item>10</item>
+		<item>12</item>
+		<item>14</item>
+		<item>16</item>
+		<item>18</item>
+		<item>20</item>
+		<item>22</item>
+		<item>24</item>
+	</string-array>
+</resources>

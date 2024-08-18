@@ -182,7 +182,7 @@ public class ResultSender {
             FileUtils.APP_WORKING_DIRECTORY_PERMISSIONS, true, true,
             true, true);
         if (error != null) {
-            error.appendMessage("\n" + context.getString(R.string.msg_directory_absolute_path, "Result", resultConfig.resultDirectoryPath));
+            error.appendMessage("\n");
             return error;
         }
 

@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.termux.shared.shell.ShellUtils;
 import com.termux.shared.shell.command.ExecutionCommand;
+import com.termux.shared.termux.TermuxConstants;
 
 import java.util.HashMap;
 
@@ -48,7 +49,7 @@ public abstract class UnixShellEnvironment implements IShellEnvironment {
     public static final String ENV_TMPDIR = "TMPDIR";
 
     /** Possible paths to common/supported login shell binaries . */
-    public static final String[] LOGIN_SHELL_BIN_PATHS = new String[]{"/product/bin", "/apex/com.android.runtime/bin", "/apex/com.android.art/bin", "/system_ext/bin", "/system/bin", "/system/xbin", "/odm/bin", "/vendor/bin", "/vendor/xbin"};
+    public static final String[] LOGIN_SHELL_BIN_PATHS = new String[]{TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH, "/product/bin", "/apex/com.android.runtime/bin", "/apex/com.android.art/bin", "/system_ext/bin", "/system/bin", "/system/xbin", "/odm/bin", "/vendor/bin", "/vendor/xbin"};
 
     /** Names for common/supported login shell binaries. */
     public static final String[] LOGIN_SHELL_BINARIES = new String[]{"login", "bash", "zsh", "fish", "sh"};

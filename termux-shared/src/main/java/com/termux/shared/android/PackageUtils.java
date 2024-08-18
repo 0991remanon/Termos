@@ -67,7 +67,6 @@ public class PackageUtils {
      * @param packageName The package name whose {@link Context} to get.
      * @param exitAppOnError If {@code true} and failed to get package context, then a dialog will
      *                       be shown which when dismissed will exit the app.
-     * @param helpUrl The help user to add to {@link R.string#error_get_package_context_failed_help_url_message}.
      * @return Returns the {@link Context}. This will {@code null} if an exception is raised.
      */
     @Nullable
@@ -76,14 +75,10 @@ public class PackageUtils {
         Context packageContext = getContextForPackage(context, packageName);
 
         if (packageContext == null && exitAppOnError) {
-            String errorMessage = context.getString(R.string.error_get_package_context_failed_message,
-                packageName);
-            if (!DataUtils.isNullOrEmpty(helpUrl))
-                errorMessage += "\n" + context.getString(R.string.error_get_package_context_failed_help_url_message, helpUrl);
 
             MessageDialogUtils.exitAppWithErrorMessage(context,
-                context.getString(R.string.error_get_package_context_failed_title),
-                errorMessage);
+                "",
+                "");
         }
 
         return packageContext;
@@ -127,7 +122,7 @@ public class PackageUtils {
     /**
      * Get the {@link PackageInfo} for the package associated with the {@code packageName}.
      *
-     * Also check {@link #isAppInstalled(Context, String, String) if targetting targeting sdk
+     * Also check isAppInstalled(Context, String, String) if targetting targeting sdk
      * `30` (android `11`) since {@link PackageManager.NameNotFoundException} may be thrown.
      *
      * @param context The {@link Context} for operations.
@@ -161,7 +156,7 @@ public class PackageUtils {
     /**
      * Get the {@link ApplicationInfo} for the {@code packageName}.
      *
-     * Also check {@link #isAppInstalled(Context, String, String) if targetting targeting sdk
+     * Also check isAppInstalled(Context, String, String) if targetting targeting sdk
      * `30` (android `11`) since {@link PackageManager.NameNotFoundException} may be thrown.
      *
      * @param context The {@link Context} for operations.
@@ -606,19 +601,6 @@ public class PackageUtils {
     }
 
     /**
-     * Check if the current user is the primary user. This is done by checking if the the serial
-     * number for the current user equals 0.
-     *
-     * @param context The {@link Context} for operations.
-     * @return Returns {@code true} if the current user is the primary user, otherwise [@code false}.
-     */
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public static boolean isCurrentUserThePrimaryUser(@NonNull Context context) {
-        Long userId = getUserIdForPackage(context);
-        return userId != null && userId == 0;
-    }
-
-    /**
      * Get the profile owner package name for the current user.
      *
      * @param context The {@link Context} for operations.
@@ -639,8 +621,6 @@ public class PackageUtils {
         }
         return null;
     }
-
-
 
     /**
      * Get the process id of the main app process of a package. This will work for sharedUserId. Note
@@ -669,59 +649,6 @@ public class PackageUtils {
     }
 
 
-
-    /**
-     * Check if app is installed and enabled. This can be used by external apps that don't
-     * share `sharedUserId` with the an app.
-     *
-     * If your third-party app is targeting sdk `30` (android `11`), then it needs to add package
-     * name to the `queries` element or request `QUERY_ALL_PACKAGES` permission in its
-     * `AndroidManifest.xml`. Otherwise it will get `PackageSetting{...... package_name/......} BLOCKED`
-     * errors in `logcat` and  {@link PackageManager.NameNotFoundException} may be thrown.
-     * `RUN_COMMAND` intent won't work either.
-     * Check [package-visibility](https://developer.android.com/training/basics/intents/package-visibility#package-name),
-     * `QUERY_ALL_PACKAGES` [googleplay policy](https://support.google.com/googleplay/android-developer/answer/10158779
-     * and this [article](https://medium.com/androiddevelopers/working-with-package-visibility-dc252829de2d) for more info.
-     *
-     * {@code
-     * <manifest
-     *     <queries>
-     *         <package android:name="com.termux" />
-     *    </queries>
-     *
-     *    <application
-     *        ....
-     *    </application>
-     * </manifest>
-     * }
-     *
-     * @param context The context for operations.
-     * @param appName The name of the app.
-     * @param packageName The package name of the package.
-     * @return Returns {@code errmsg} if {@code packageName} is not installed or disabled, otherwise {@code null}.
-     */
-    public static String isAppInstalled(@NonNull final Context context, String appName, String packageName) {
-        String errmsg = null;
-
-        ApplicationInfo applicationInfo = getApplicationInfoForPackage(context, packageName);
-        boolean isAppEnabled = (applicationInfo != null && applicationInfo.enabled);
-
-        // If app is not installed or is disabled
-        if (!isAppEnabled)
-            errmsg = context.getString(R.string.error_app_not_installed_or_disabled_warning, appName, packageName);
-
-        return errmsg;
-    }
-
-
-    /** Wrapper for {@link #setComponentState(Context, String, String, boolean, String, boolean, boolean)} with
-     * {@code alwaysShowToast} {@code true}. */
-    public static String setComponentState(@NonNull final Context context, @NonNull String packageName,
-                                           @NonNull String className, boolean newState, String toastString,
-                                           boolean showErrorMessage) {
-        return setComponentState(context, packageName, className, newState, toastString, showErrorMessage, true);
-    }
-
     /**
      * Enable or disable a {@link ComponentName} with a call to
      * {@link PackageManager#setComponentEnabledSetting(ComponentName, int, int)}.
@@ -742,11 +669,6 @@ public class PackageUtils {
         try {
             PackageManager packageManager = context.getPackageManager();
             if (packageManager != null) {
-                if (toastString != null && alwaysShowToast) {
-//Loger #############
-
-                    toastString = null;
-                }
 
                 Boolean currentlyDisabled = PackageUtils.isComponentDisabled(context, packageName, className, false);
                 if (currentlyDisabled == null)
@@ -767,9 +689,7 @@ public class PackageUtils {
             }
             return null;
         } catch (final Exception e) {
-            String errmsg = context.getString(
-                newState ? R.string.error_enable_component_failed : R.string.error_disable_component_failed,
-                packageName, className) + ": " + e.getMessage();
+            String errmsg = ": " + e.getMessage();
             return errmsg;
         }
     }

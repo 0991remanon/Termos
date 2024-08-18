@@ -95,6 +95,11 @@ public final class TermuxPreferenceConstants {
         public static final String KEY_TERMINAL_MARGIN_ADJUSTMENT = "terminal_margin_adjustment";
         public static final boolean DEFAULT_TERMINAL_MARGIN_ADJUSTMENT = true;
 
+        /**
+         * Defines the key for whether to show transparency terminal drawer.
+         */
+        public static final String KEY_TRANSPARENCY_DRAWER = "terminal_drawer_transparency";
+        public static final String DEFAULT_TRANSPARENCY_DRAWER = "-16777216";
 
         /**
          * Defines the key for whether to show terminal toolbar containing extra keys and text input field.
@@ -137,16 +142,22 @@ public final class TermuxPreferenceConstants {
         public static final String DEFAULT_VALUE_KEY_CUSTOM_SHELL_STRING = "";
 
         /**
-         * Defines the key that specifies the path to the user's shell.
+         * Defines the key that specifies starting root sessions.
          */
         public static final String ROOT_AS_DEFAULT = "root_as_default";
         public static final boolean DEFAULT_VALUE_KEY_ROOT_AS_DEFAULT = false;
 
         /**
-         * Defines the key that specifies the path to the user's shell.
+         * Defines the key that specifies adding user shell arguments.
          */
-        public static final String CUSTOM_ROOT_STRING = "custom_root_string";
-        public static final String DEFAULT_VALUE_KEY_CUSTOM_ROOT_STRING = "";
+        public static final String USE_CUSTOM_ARGUMENTS = "use_custom_arguments";
+        public static final boolean DEFAULT_VALUE_KEY_USE_CUSTOM_ARGUMENTS = false;
+
+        /**
+         * Defines the key that specifies user shell arguments.
+         */
+        public static final String CUSTOM_ARGUMENTS_STRING = "custom_arguments";
+        public static final String DEFAULT_VALUE_KEY_CUSTOM_ARGUMENTS_STRING = "";
 
         /**
          * Defines the key for whether to always keep screen on.
@@ -160,6 +171,11 @@ public final class TermuxPreferenceConstants {
          */
         public static final String KEY_FONTSIZE = "fontsize";
 
+        /**
+         * Defines the key for font size of termux terminal view.
+         */
+        public static final String KEY_TEXTSIZE = "text_size";
+        public static final String DEFAULT_TEXTSIZE = "14";
 
         /**
          * Defines the key for current termux terminal session.

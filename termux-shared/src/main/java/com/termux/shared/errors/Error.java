@@ -24,9 +24,6 @@ public class Error implements Serializable {
     /** The error exceptions. */
     private List<Throwable> throwablesList = new ArrayList<>();
 
-    private static final String LOG_TAG = "Error";
-
-
     public Error() {
         InitError(null, null, null, null);
     }
@@ -133,21 +130,6 @@ public class Error implements Serializable {
 
     public boolean isStateFailed() {
         return code > Errno.ERRNO_SUCCESS.getCode();
-    }
-
-    /**
-     * Log the {@link Error} and show a toast for the minimal {@link String} for the {@link Error}.
-     *
-     * @param context The {@link Context} for operations.
-     * @param logTag The log tag to use for logging.
-     * @param error The {@link Error} to convert.
-     */
-    public static void logErrorAndShowToast(Context context, String logTag, Error error) {
-        if (error == null) return;
-        error.logErrorAndShowToast(context, logTag);
-    }
-
-    public void logErrorAndShowToast(Context context, String logTag) {
     }
 
     public String getErrorMarkdownString() {

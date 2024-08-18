@@ -45,7 +45,7 @@
                 android:dividerHeight="0dp"
                 android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical"
-                android:background="@drawable/drawer_bg">
+                android:background="@android:color/black">
 
             <TextView
                 android:layout_width="match_parent"
@@ -73,12 +73,12 @@
 
                     <ImageButton
                         android:id="@+id/new_root_session_button"
-                        style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@drawable/root"
-                        android:contentDescription="@string/action_toggle_soft_keyboard" />
+                        android:background="@null"
+                        android:contentDescription="@string/new_root_session" />
 
                 </LinearLayout>
 
@@ -90,8 +90,7 @@
 
                     <ImageButton
                         android:id="@+id/toggle_keyboard_button"
-						style="?android:attr/buttonBarButtonStyle"
-						android:layout_width="match_parent"
+						android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@drawable/ic_keyboard"
@@ -100,8 +99,7 @@
 
                     <ImageButton
                         android:id="@+id/new_session_button"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@drawable/ic_new_session"
@@ -110,8 +108,7 @@
 
                     <ImageButton
                         android:id="@+id/settings_button"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@drawable/ic_settings"

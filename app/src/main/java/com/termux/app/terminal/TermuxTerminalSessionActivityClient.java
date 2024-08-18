@@ -34,6 +34,9 @@ import com.termux.terminal.TextStyle;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 /** The {@link TerminalSessionClient} implementation that may require an {@link Activity} for its interface methods. */
@@ -407,11 +410,14 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
 
             if (executable == null) executable = "/system/bin/sh";
 
+            if (TextUtils.isEmpty(sessionName)) sessionName = "$ " + executable.replaceAll("/.*/", "");
             String[] arguments = null;
             if (executable.endsWith("/bash")){
                 String bashrc = TermuxConstants.TERMUX_PREFIX_DIR_PATH + "/.bashrc";
-                if (Utils.createBashrc(new String[]{bashrc, TermuxConstants.TERMUX_HOME_DIR_PATH, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH})) arguments = new String[]{"--rcfile", bashrc};
+                if (Utils.createBashrc(new String[]{bashrc, TermuxConstants.TERMUX_HOME_DIR_PATH, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH, executable})) arguments = new String[]{"--rcfile", bashrc};
             }
+
+            if (mActivity.getPreferences().getUseCustomArguments()) arguments = dealWithArguments(arguments);
             TermuxSession newTermuxSession = service.createTermuxSession(executable, arguments, null, workingDirectory, sessionName);
             if (newTermuxSession == null) return;
 
@@ -476,11 +482,14 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
 
             if (executable == null) executable = "/system/bin/sh";
 
+            if (TextUtils.isEmpty(sessionName)) sessionName = "# " + executable.replaceAll("/.*/", "");
             String[] arguments = new String[]{"-c", executable};
             if (executable.endsWith("/bash")){
                 String bashrc = TermuxConstants.TERMUX_PREFIX_DIR_PATH + "/.bashrc";
-                if (Utils.createBashrc(new String[]{bashrc, TermuxConstants.TERMUX_HOME_DIR_PATH, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH})) arguments = new String[]{"-c", executable + " --rcfile " + bashrc};
+                if (Utils.createBashrc(new String[]{bashrc, TermuxConstants.TERMUX_HOME_DIR_PATH, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH, executable})) arguments = new String[]{"-c", executable + " --rcfile " + bashrc};
             }
+
+            if (mActivity.getPreferences().getUseCustomArguments()) arguments = dealWithRootArguments(arguments);
             TermuxSession newTermuxSession = service.createTermuxSession("su", arguments, null, workingDirectory, sessionName);
             if (newTermuxSession == null) return;
 
@@ -488,6 +497,35 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
             setCurrentSession(newTerminalSession);
 
             mActivity.getDrawer().closeDrawers();
+        }
+    }
+
+    private String[] dealWithRootArguments(String[] in){
+        String fromSettings = mActivity.getPreferences().getCustomArgumentsString();
+        if (fromSettings == null || fromSettings.trim().isEmpty()) return in;
+        String[] userArr = Utils.parseArguments(fromSettings);
+        if (userArr == null) return in;
+        List<String> args = new ArrayList<>();
+        args.add(in[0]);
+        StringBuilder sb = new StringBuilder().append(in[1]);
+        for (String arg : userArr){
+            sb.append(" ").append(arg);
+        }
+        args.add(sb.toString());
+        return args.toArray(new String[0]);
+    }
+
+    private String[] dealWithArguments(String[] in){
+        if (in == null || in.length == 0) {
+            return Utils.parseArguments(mActivity.getPreferences().getCustomArgumentsString());
+        } else {
+            String fromSettings = mActivity.getPreferences().getCustomArgumentsString();
+            if (fromSettings == null || fromSettings.trim().isEmpty()) return in;
+            String[] userArr = Utils.parseArguments(fromSettings);
+            if (userArr == null) return in;
+            List<String> args = new ArrayList<>(Arrays.asList(in));
+            args.addAll(Arrays.asList(userArr));
+            return args.toArray(new String[0]);
         }
     }
 

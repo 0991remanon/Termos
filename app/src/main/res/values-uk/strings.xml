@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE resources [
+    <!ENTITY TERMUX_PACKAGE_NAME "com.termos">
+    <!ENTITY TERMUX_APP_NAME "Термос">
+    ]>
+
+<resources>
+
+    <string name="application_name">&TERMUX_APP_NAME;</string>
+
+    <!-- Termux RUN_COMMAND permission -->
+    <string name="permission_run_command_label">Виконання команд у середовищі &TERMUX_APP_NAME;</string>
+    <string name="permission_run_command_description">виконувати довільні команди в середовищі &TERMUX_APP_NAME; та отримувати доступ до файлів</string>
+
+    <!-- Terminal Sidebar and Shortcuts -->
+    <string name="action_new_session">Новий сеанс</string>
+    <string name="title_max_terminals_reached">Досягнуто межі кількості сеансів</string>
+    <string name="msg_max_terminals_reached">Закрийте один із існуючих перед початком нового.</string>
+
+    <string name="title_rename_session">Задати назву сеансу</string>
+    <string name="action_rename_session_confirm">Задати</string>
+    <string name="title_create_named_root_session">Новий іменний root сеанс</string>
+    <string name="title_create_named_session">Новий іменний сеанс</string>
+    <string name="action_create_named_session_confirm">Створити</string>
+
+    <string name="new_root_session">Новий root сеанс</string>
+    <string name="action_toggle_soft_keyboard">Клавіатура</string>
+    <string name="sessions_list">Сеанси:</string>
+
+    <!-- Terminal Popup -->
+    <string name="action_select_url">Обрати URL</string>
+    <string name="title_select_url_dialog">Натисніть URL, щоб скопіювати, або натисніть і утримуйте, щоб відкрити</string>
+    <string name="title_select_url_none_found">Не знайдено жодного URL.</string>
+    <string name="msg_select_url_copied_to_clipboard">URL скопійовано</string>
+
+    <string name="action_share_transcript">Надіслати текст з екрану</string>
+    <string name="title_share_transcript">Текст з екрану</string>
+    <string name="title_share_transcript_with">Надіслати текст через:</string>
+
+    <string name="action_share_selected_text">Надіслати вибраний текст</string>
+    <string name="title_share_selected_text">Вибраний текст</string>
+    <string name="title_share_selected_text_with">Надіслати вибраний текст через:</string>
+
+    <string name="action_autofill_password">Автозаповнення пароля</string>
+
+    <string name="action_reset_terminal">Перезапустити</string>
+    <string name="msg_terminal_reset">Термінал перезапущено</string>
+
+    <string name="action_kill_process">Вбити процес (%d)</string>
+    <string name="title_confirm_kill_process">Завершити сесію?</string>
+
+    <string name="action_toggle_keep_screen_on">Утримувати екран увімкненим</string>
+    <string name="action_open_settings">Налаштування</string>
+
+    <!-- Termux Notifications -->
+    <string name="notification_action_exit">Вихід</string>
+    <string name="notification_action_wake_lock">Запросити wakelock</string>
+    <string name="notification_action_wake_unlock">Відкликати wakelock</string>
+
+    <!-- Termux File Receiver -->
+    <string name="title_file_received">Зберегти файл у ~/downloads/</string>
+    <string name="action_file_received_edit">Правити</string>
+    <string name="action_file_received_open_directory">Відкрити директорію</string>
+
+	<string name="error_wrong_custom_shell_path">Неправильний шлях до оболонки користувача!</string>
+
+    <!-- Termux Settings -->
+    <string name="title_activity_termux_settings">Налаштування</string>
+
+        <!-- Terminal IO Preferences -->
+        <string name="termux_terminal_io_preferences_title">Налаштування введення/виводу</string>
+        <string name="termux_terminal_io_preferences_summary">Налаштування взаємодії з терміналом</string>
+
+            <!-- Keyboard Category -->
+            <string name="termux_keyboard_header">Клавіатура</string>
+
+                <!-- Soft Keyboard -->
+                <string name="termux_soft_keyboard_enabled_title">Програмна клавіатура</string>
+                <string name="termux_soft_keyboard_enabled_off">Програмну клавіатуру буде вимкнено.</string>
+                <string name="termux_soft_keyboard_enabled_on">Програмну клавіатуру буде увімкнено. (Стандартно)</string>
+
+                <!-- Soft Keyboard Only If No Hardware-->
+                <string name="termux_soft_keyboard_enabled_only_if_no_hardware_title">Програмна/аналогова клавіатура</string>
+                <string name="termux_soft_keyboard_enabled_only_if_no_hardware_off">Програмна клавіатура буде активна, навіть якщо аналогова клавіатура підключена. (Стандартно)</string>
+                <string name="termux_soft_keyboard_enabled_only_if_no_hardware_on">Програмна клавіатура буде активна, тільки якщо аналогова клавіатура не підключена.</string>
+
+            <!-- Other Category -->
+            <string name="termux_other_header">Інше</string>
+
+                <!-- Vibration-->
+                <string name="termux_vibration_title">Вібрація</string>
+                <string name="termux_vibration_off">Вимкнена.</string>
+                <string name="termux_vibration_on">Увімкнена. (Стандартно)</string>
+
+        <!-- Terminal View Preferences -->
+        <string name="termux_terminal_view_preferences_title">Зовнішній вигляд терміналу</string>
+        <string name="termux_terminal_view_preferences_summary">Налаштування зовнішнього вигляду терміналу</string>
+
+            <!-- View Category -->
+            <string name="termux_terminal_view_view_header">Зовнішній вигляд</string>
+
+                <!-- Terminal View Margin Adjustment -->
+                <string name="termux_terminal_view_terminal_margin_adjustment_title">Підганяння меж терміналу</string>
+                <string name="termux_terminal_view_terminal_margin_adjustment_off">Підганяння меж терміналу буде відключено.</string>
+                <string name="termux_terminal_view_terminal_margin_adjustment_on">Підгонка меж терміналу включена.
+ Потрібно увімкнути, щоб спробувати виправити проблему, коли програмна клавіатура закриває частину додаткових клавіш або терміналу.
+ Якщо це викликає мерехтіння екрану на вашому пристрої, відключіть. (Стандартно)</string>
+
+                <!-- Terminal Drawer Transparency-->
+                <string name="termux_terminal_drawer_transparency_title">Напівпрозора шторка</string>
+                <string name="termux_terminal_drawer_transparency_summary">Ступінь прозорості висувної шторки.</string>
+
+                <!-- Terminal Text Size -->
+                <string name="termux_terminal_text_size_title">Розмір тексту</string>
+
+        <!-- Terminal Environment Preferences -->
+        <string name="termux_terminal_env_preferences_title">Налаштування середовища</string>
+        <string name="termux_terminal_env_preferences_summary">Налаштування виконуваного середовища терміналу</string>
+
+            <!-- Environment Category -->
+            <string name="termux_terminal_env_shell_header">Оболонка</string>
+
+                <!-- Terminal Environment Adjustment -->
+                <string name="termux_terminal_env_custom_shell_title">Індивідуальна оболонка</string>
+                <string name="termux_terminal_env_custom_shell_off">Використовувати \"/system/bin/sh\". (Стандартно)</string>
+                <string name="termux_terminal_env_custom_shell_on">Знайти та використовувати \"login\", \"bash\", \"zsh\" або \"fish\", якщо вони встановлені.</string>
+
+				<!-- Custom shell path dialog -->
+				<string name="termux_custom_shell_path_title">Шлях до оболонки</string>
+				<string name="termux_custom_shell_path_dialog_message">Якщо залишити поле порожнім, буде виконано автоматичний пошук</string>
+				<string name="termux_custom_shell_path_dialog_title">Введіть шлях до виконуваного файлу</string>
+
+                <!-- Custom arguments switcher -->
+                <string name="termux_use_custom_arguments_title">Використати аргументи запуску</string>
+                <string name="termux_use_custom_arguments_on">Аргументи запуску використовуються.</string>
+                <string name="termux_use_custom_arguments_off">Аргументи запуску не використовуються. (Стандартно)</string>
+
+                <!-- Custom arguments dialog -->
+                <string name="termux_custom_arguments_title">Аргументи запуску оболонки</string>
+                <string name="termux_custom_arguments_dialog_message">"Приклад:
+Ви ввели
+-x
+Команда запуску оболонки матиме вигляд
+/system/bin/sh -x"</string>
+                <string name="termux_custom_arguments_dialog_title">Введіть аргументи запуску</string>
+
+                <!-- Root as default -->
+                <string name="termux_root_as_default_title">Root за замовчуванням</string>
+                <string name="termux_root_as_default_off">Сеанси розпочинаються зі стандартними правами. (Стандартно)</string>
+                <string name="termux_root_as_default_on">Сеанси розпочинаються з правами root. (Дуже небезпечно)</string>
+
+</resources>

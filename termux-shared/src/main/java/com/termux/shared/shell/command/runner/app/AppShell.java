@@ -81,7 +81,7 @@ public final class AppShell {
                                    final boolean isSynchronous) {
         if (executionCommand.executable == null || executionCommand.executable.isEmpty()) {
             executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(),
-                currentPackageContext.getString(R.string.error_executable_unset, executionCommand.getCommandIdAndLabelLogString()));
+                "");
             AppShell.processAppShellResult(null, executionCommand);
             return null;
         }
@@ -113,7 +113,7 @@ public final class AppShell {
         String[] environmentArray = environmentList.toArray(new String[0]);
 
         if (!executionCommand.setState(ExecutionState.EXECUTING)) {
-            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), currentPackageContext.getString(R.string.error_failed_to_execute_app_shell_command, executionCommand.getCommandIdAndLabelLogString()));
+            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), "");
             AppShell.processAppShellResult(null, executionCommand);
             return null;
         }
@@ -127,7 +127,7 @@ public final class AppShell {
         try {
             process = Runtime.getRuntime().exec(commandArray, environmentArray, new File(executionCommand.workingDirectory));
         } catch (IOException e) {
-            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), currentPackageContext.getString(R.string.error_failed_to_execute_app_shell_command, executionCommand.getCommandIdAndLabelLogString()), e);
+            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), "", e);
             AppShell.processAppShellResult(null, executionCommand);
             return null;
         }
@@ -194,7 +194,7 @@ public final class AppShell {
                 } else {
                     // other issues we don't know how to handle, leads to
                     // returning null
-                    mExecutionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), context.getString(R.string.error_exception_received_while_executing_app_shell_command, mExecutionCommand.getCommandIdAndLabelLogString(), e.getMessage()), e);
+                    mExecutionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), "", e);
                     mExecutionCommand.resultData.exitCode = 1;
                     AppShell.processAppShellResult(this, null);
                     kill();
@@ -249,7 +249,7 @@ public final class AppShell {
             return;
         }
 
-        if (mExecutionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), context.getString(R.string.error_sending_sigkill_to_process))) {
+        if (mExecutionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), "")) {
             if (processResult) {
                 mExecutionCommand.resultData.exitCode = 137; // SIGKILL
                 AppShell.processAppShellResult(this, null);

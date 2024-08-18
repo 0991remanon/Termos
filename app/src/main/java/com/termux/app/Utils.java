@@ -3,17 +3,32 @@ package com.termux.app;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.text.TextUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utils {
     public static void darkToast(Context c, CharSequence ch, int t){
         Toast tst = Toast.makeText(c, ch, t);
         makeUp(c, tst);
         tst.show();
+    }
+
+    public static Toast doToast(Context c, int r, int t){
+        Toast tst = Toast.makeText(c, r, t);
+        makeUp(c, tst);
+        return tst;
+    }
+
+    public static Toast doToast(Context c, CharSequence ch, int t){
+        Toast tst = Toast.makeText(c, ch, t);
+        makeUp(c, tst);
+        return tst;
     }
 
     public static void darkToast(Context c, int r, int t){
@@ -27,11 +42,11 @@ public class Utils {
             GradientDrawable shape = new GradientDrawable();
             shape.setShape(GradientDrawable.RECTANGLE);
             shape.setCornerRadii(new float[] { 45, 45, 45, 45, 45, 45, 45, 45 });
-            shape.setColor(Color.parseColor("#d0242528"));
-            shape.setStroke(1, Color.parseColor("#60ffffff"));
+            shape.setColor(Color.parseColor("#d0000000"));
+            shape.setStroke(2, Color.parseColor("#60ffffff"));
             tst.getView().setBackgroundColor(Color.parseColor("#00000000"));
             TextView tw = tst.getView().findViewById(android.R.id.message);
-            tw.setTextColor(Color.parseColor("#ff0096ff"));
+            tw.setTextColor(Color.parseColor("#ffffffff"));
             int ff = dpAsPx(c, 25);
             int tf = dpAsPx(c, 15);
             tw.setPadding(ff,tf,ff,tf);
@@ -43,9 +58,55 @@ public class Utils {
         return Math.round(c.getResources().getDisplayMetrics().density * ((float) i));
     }
 
+    public static String[] parseArguments(String command) {
+        if (command == null || command.trim().isEmpty()) return null;
+        try {
+            List<String> args = new ArrayList<>();
+            StringBuilder currentArg = new StringBuilder();
+            boolean inQuotes = false;
+            char quoteChar = 0;
+
+            for (int i = 0; i < command.length(); i++) {
+                char c = command.charAt(i);
+
+                if (inQuotes) {
+                    if (c == quoteChar) {
+                        inQuotes = false;
+                    } else if (c == '\\' && i + 1 < command.length() && (command.charAt(i + 1) == quoteChar || command.charAt(i + 1) == '\\')) {
+                        currentArg.append(command.charAt(++i));
+                    } else {
+                        currentArg.append(c);
+                    }
+                } else {
+                    if (c == '\'' || c == '"') {
+                        inQuotes = true;
+                        quoteChar = c;
+                    } else if (c == '\\' && i + 1 < command.length()) {
+                        currentArg.append(command.charAt(++i));
+                    } else if (Character.isWhitespace(c)) {
+                        if (currentArg.length() > 0) {
+                            args.add(currentArg.toString());
+                            currentArg.setLength(0);
+                        }
+                    } else {
+                        currentArg.append(c);
+                    }
+                }
+            }
+
+            if (currentArg.length() > 0) {
+                args.add(currentArg.toString());
+            }
+
+            return args.toArray(new String[0]);
+        } catch (Exception e){
+            return null;
+        }
+    }
+
     public static boolean textToFile(String file, String text) {
         try (FileOutputStream fos = new FileOutputStream(file)) {
-            fos.write(text.getBytes()); // Записываем байты в файл
+            fos.write(text.getBytes());
         } catch (Exception e) {return false;}
         return true;
     }
@@ -58,9 +119,12 @@ public class Utils {
                 "\nexport TERM=xterm" +
                 "\nexport TMPDIR=\"" +
                 args[2] +
+                "\"\nexport SHELL=\"" +
+                args[3] +
                 "\"\nexport HISTFILE=\"$HOME\"/.bash_history" +
                 "\nexport HISTCONTROL=ignoreboth:erasedups" +
                 "\nexport HISTSIZE=1000" +
+                "\nexport HISTFILESIZE=10000" +
                 "\nexport USER=$(id -un)" +
                 "\nif [[ $- != *i* ]] ; then\n  return\nfi" +
                 "\nshopt -s checkwinsize" +

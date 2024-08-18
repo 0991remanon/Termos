@@ -124,7 +124,7 @@ public class TermuxSession {
         String[] environmentArray = environmentList.toArray(new String[0]);
 
         if (!executionCommand.setState(ExecutionCommand.ExecutionState.EXECUTING)) {
-            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), currentPackageContext.getString(R.string.error_failed_to_execute_termux_session_command, executionCommand.getCommandIdAndLabelLogString()));
+            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), "");
             TermuxSession.processTermuxSessionResult(null, executionCommand);
             return null;
         }
@@ -185,7 +185,7 @@ public class TermuxSession {
             return;
         }
 
-        if (mExecutionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), context.getString(R.string.error_sending_sigkill_to_process))) {
+        if (mExecutionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), "")) {
             if (processResult) {
                 mExecutionCommand.resultData.exitCode = 137; // SIGKILL
 

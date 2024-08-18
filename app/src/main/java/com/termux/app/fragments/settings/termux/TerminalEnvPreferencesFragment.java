@@ -64,6 +64,9 @@ class TerminalEnvPreferencesDataStore extends PreferenceDataStore {
             case "root_as_default":
                 mPreferences.setRootAsDefault(value);
                 break;
+            case "use_custom_arguments":
+                mPreferences.setUseCustomArguments(value);
+                break;
             default:
                 break;
         }
@@ -78,6 +81,8 @@ class TerminalEnvPreferencesDataStore extends PreferenceDataStore {
                 return mPreferences.isCustomShellEnabled();
             case "root_as_default":
                 return mPreferences.getRootAsDefault();
+            case "use_custom_arguments":
+                return mPreferences.getUseCustomArguments();
             default:
                 return false;
         }
@@ -90,11 +95,23 @@ class TerminalEnvPreferencesDataStore extends PreferenceDataStore {
 
         switch (key) {
             case "custom_shell_string":
-                if (value == null || value.trim().isEmpty() || !new File(value).canExecute()) {
+                if (value == null || value.trim().isEmpty()) {
+                    mPreferences.setCustomShellString("");
+                    break;
+                }
+                if (!new File(value).canExecute()) {
                     Utils.darkToast(mContext, R.string.error_wrong_custom_shell_path, 1);
                     return;
                 }
                 mPreferences.setCustomShellString(value);
+                break;
+            case "custom_arguments":
+                if (value == null || value.trim().isEmpty()) {
+                    mPreferences.setCustomArgumentsString("");
+                    break;
+                }
+                mPreferences.setCustomArgumentsString(value);
+                break;
             default:
                 break;
         }
@@ -108,6 +125,8 @@ class TerminalEnvPreferencesDataStore extends PreferenceDataStore {
         switch (key) {
             case "custom_shell_string":
                 return mPreferences.getCustomShellString();
+            case "custom_arguments":
+                return mPreferences.getCustomArgumentsString();
             default:
                 break;
         }

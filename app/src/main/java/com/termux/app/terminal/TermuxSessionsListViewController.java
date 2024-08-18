@@ -13,19 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.termux.R;
+import com.termux.app.ButtonBg;
 import com.termux.app.TermuxActivity;
+import com.termux.app.Utils;
 import com.termux.shared.termux.shell.command.runner.terminal.TermuxSession;
 import com.termux.terminal.TerminalSession;
 
 import java.util.List;
 
-public class TermuxSessionsListViewController extends ArrayAdapter<TermuxSession> implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class TermuxSessionsListViewController extends ArrayAdapter<TermuxSession> {
 
     final TermuxActivity mActivity;
 
@@ -54,7 +58,9 @@ public class TermuxSessionsListViewController extends ArrayAdapter<TermuxSession
             sessionTitleView.setText("null session");
             return sessionRowView;
         }
-        sessionTitleView.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.session_background_black_selected));
+        sessionTitleView.setBackground(new ButtonBg(0, false, true));
+        int padding = Utils.dpAsPx(mActivity, 5);
+        sessionTitleView.setPadding(padding, padding, padding, padding);
 
         String name = sessionAtRow.mSessionName;
         String sessionTitle = sessionAtRow.getTitle();
@@ -79,21 +85,47 @@ public class TermuxSessionsListViewController extends ArrayAdapter<TermuxSession
         }
         int color = sessionRunning || sessionAtRow.getExitStatus() == 0 ? Color.WHITE : Color.RED;
         sessionTitleView.setTextColor(color);
+
+        sessionTitleView.setOnClickListener(new OnClickSessionName(sessionAtRow, mActivity));
+        sessionTitleView.setOnLongClickListener(new OnClickSessionName(sessionAtRow, mActivity));
+        ImageButton closeButton = sessionRowView.findViewById(R.id.close_button);
+        closeButton.setBackground(new ButtonBg(0, false));
+        closeButton.setPadding(padding, padding, padding, padding);
+        closeButton.setOnClickListener(new OnClickCloseBunnon(sessionAtRow));
+
         return sessionRowView;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        TermuxSession clickedSession = getItem(position);
-        mActivity.getTermuxTerminalSessionClient().setCurrentSession(clickedSession.getTerminalSession());
-        mActivity.getDrawer().closeDrawers();
+    private static class OnClickCloseBunnon implements View.OnClickListener {
+        private final TerminalSession gSession;
+        private OnClickCloseBunnon(TerminalSession session){
+            gSession = session;
+        }
+
+        @Override
+        public void onClick(View v) {
+            gSession.finishIfRunning();
+        }
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        final TermuxSession selectedSession = getItem(position);
-        mActivity.getTermuxTerminalSessionClient().renameSession(selectedSession.getTerminalSession());
-        return true;
-    }
+    private static class OnClickSessionName implements View.OnClickListener, View.OnLongClickListener {
+        private final TerminalSession gSession;
+        private final TermuxActivity gActivity;
+        private OnClickSessionName(TerminalSession session, TermuxActivity activity){
+            gSession = session;
+            gActivity = activity;
+        }
 
+        @Override
+        public void onClick(View v) {
+            gActivity.getTermuxTerminalSessionClient().setCurrentSession(gSession);
+            gActivity.getDrawer().closeDrawers();
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            gActivity.getTermuxTerminalSessionClient().renameSession(gSession);
+            return true;
+        }
+    }
 }

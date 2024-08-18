@@ -3,12 +3,6 @@
 <!DOCTYPE resources [
     <!ENTITY TERMUX_PACKAGE_NAME "com.termos">
     <!ENTITY TERMUX_APP_NAME "Termos">
-    <!ENTITY TERMUX_API_APP_NAME "Termux:API">
-    <!ENTITY TERMUX_BOOT_APP_NAME "Termux:Boot">
-    <!ENTITY TERMUX_FLOAT_APP_NAME "Termux:Float">
-    <!ENTITY TERMUX_STYLING_APP_NAME "Termux:Styling">
-    <!ENTITY TERMUX_TASKER_APP_NAME "Termux:Tasker">
-    <!ENTITY TERMUX_WIDGET_APP_NAME "Termux:Widget">
     ]>
 
 <resources>
@@ -34,9 +28,6 @@
     <string name="new_root_session">New root session</string>
     <string name="action_toggle_soft_keyboard">Keyboard</string>
     <string name="sessions_list">Sessions:</string>
-
-    <string name="msg_enabling_terminal_toolbar">Enabling Terminal Toolbar</string>
-    <string name="msg_disabling_terminal_toolbar">Disabling Terminal Toolbar</string>
 
     <!-- Terminal Popup -->
     <string name="action_select_url">Select URL</string>
@@ -68,29 +59,10 @@
     <string name="notification_action_wake_lock">Acquire wakelock</string>
     <string name="notification_action_wake_unlock">Release wakelock</string>
 
-    <!-- TermuxService -->
-    <string name="error_display_over_other_apps_permission_not_granted_to_start_terminal">&TERMUX_APP_NAME; requires
-        \"Display over other apps\" permission to start terminal sessions from background on Android >= 10.
-        Grants it from Settings -> Apps -> &TERMUX_APP_NAME; -> Advanced</string>
-    <string name="error_termux_service_invalid_execution_command_runner">Invalid execution command runner to TermuxService: `%1$s`</string>
-    <string name="error_termux_service_unsupported_execution_command_runner">Unsupported execution command runner to TermuxService: `%1$s`</string>
-    <string name="error_termux_service_unsupported_execution_command_shell_create_mode">Unsupported execution command shell create mode to TermuxService: `%1$s`</string>
-    <string name="error_termux_service_execution_command_shell_name_unset">Shell name not set but `%1$s` shell create mode passed</string>
-
-    <!-- Termux RunCommandService -->
-    <string name="error_run_command_service_invalid_intent_action">Invalid intent action to RunCommandService: `%1$s`</string>
-    <string name="error_run_command_service_invalid_execution_command_runner">Invalid execution command runner to RunCommandService: `%1$s`</string>
-    <string name="error_run_command_service_mandatory_extra_missing">Mandatory extra missing to RunCommandService: \"%1$s\"</string>
-    <string name="error_run_command_service_api_help">Visit %1$s for more info on RUN_COMMAND Intent usage.</string>
-
     <!-- Termux File Receiver -->
     <string name="title_file_received">Save file in ~/downloads/</string>
     <string name="action_file_received_edit">Edit</string>
     <string name="action_file_received_open_directory">Open directory</string>
-
-    <!-- Miscellaneous -->
-    <string name="error_termux_service_start_failed_general">Failed to start TermuxService. Check logcat for exception message.</string>
-    <string name="error_termux_service_start_failed_bg">Failed to start TermuxService while app is in background due to android bg restrictions.</string>
 
 	<string name="error_wrong_custom_shell_path">Wrong custom shell path!</string>
 
@@ -99,7 +71,7 @@
 
         <!-- Terminal IO Preferences -->
         <string name="termux_terminal_io_preferences_title">Terminal I/O</string>
-        <string name="termux_terminal_io_preferences_summary">Preferences for terminal I/O</string>
+        <string name="termux_terminal_io_preferences_summary">Preferences For Terminal I/O</string>
 
             <!-- Keyboard Category -->
             <string name="termux_keyboard_header">Keyboard</string>
@@ -139,6 +111,13 @@
                     It should be enabled to try to fix the issue where soft keyboard covers part of extra keys/terminal view.
                     If it causes screen flickering on your devices, then disable it. (Default)</string>
 
+                <!-- Terminal Drawer Transparency -->
+                <string name="termux_terminal_drawer_transparency_title">Translucent Curtain</string>
+                <string name="termux_terminal_drawer_transparency_summary">Transparency level of the sliding curtain.</string>
+
+                <!-- Terminal Text Size -->
+                <string name="termux_terminal_text_size_title">Text Size</string>
+
         <!-- Terminal Environment Preferences -->
         <string name="termux_terminal_env_preferences_title">Environment Settings</string>
         <string name="termux_terminal_env_preferences_summary">Terminal Runtime Environment Settings</string>
@@ -156,8 +135,22 @@
 				<string name="termux_custom_shell_path_dialog_message">If you leave the field empty, an automatic search will be performed</string>
 				<string name="termux_custom_shell_path_dialog_title">Enter path to executable</string>
 
+                <!-- Custom arguments switcher -->
+                <string name="termux_use_custom_arguments_title">Use launch arguments</string>
+                <string name="termux_use_custom_arguments_on">Launch arguments are used.</string>
+                <string name="termux_use_custom_arguments_off">Launch arguments are not used. (Default)</string>
+
+                <!-- Custom arguments dialog -->
+                <string name="termux_custom_arguments_title">Shell Launch Arguments</string>
+                <string name="termux_custom_arguments_dialog_message">"Example:
+You entered
+-x
+The shell startup command will be
+/system/bin/sh -x"</string>
+                <string name="termux_custom_arguments_dialog_title">Enter launch arguments</string>
+
                 <!-- Root as default -->
-                <string name="termux_root_as_default_title">Root as default</string>
+                <string name="termux_root_as_default_title">Root As Default</string>
                 <string name="termux_root_as_default_off">Sessions start with standard rights. (Default)</string>
                 <string name="termux_root_as_default_on">Sessions start with root rights. (Very dangerous)</string>
 

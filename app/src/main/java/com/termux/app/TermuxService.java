@@ -328,8 +328,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
         executionCommand.runner = IntentUtils.getStringExtraIfSet(intent, TERMUX_SERVICE.EXTRA_RUNNER,
             (intent.getBooleanExtra(TERMUX_SERVICE.EXTRA_BACKGROUND, false) ? Runner.APP_SHELL.getName() : Runner.TERMINAL_SESSION.getName()));
         if (Runner.runnerOf(executionCommand.runner) == null) {
-            String errmsg = this.getString(R.string.error_termux_service_invalid_execution_command_runner, executionCommand.runner);
-            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), errmsg);
+            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), "");
             return;
         }
 
@@ -372,8 +371,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
         else if (Runner.TERMINAL_SESSION.equalsRunner(executionCommand.runner))
             executeTermuxSessionCommand(executionCommand);
         else {
-            String errmsg = getString(R.string.error_termux_service_unsupported_execution_command_runner, executionCommand.runner);
-            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), errmsg);
+            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), "");
         }
     }
 

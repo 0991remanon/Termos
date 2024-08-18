@@ -119,7 +119,6 @@ public class PermissionUtils {
                                              int requestCode) {
         List<String> permissionsNotRequested = getPermissionsNotRequested(context, permissions);
         if (permissionsNotRequested.size() > 0) {
-//Loger #############
             return false;
         }
 
@@ -127,8 +126,6 @@ public class PermissionUtils {
             int result = ContextCompat.checkSelfPermission(context, permission);
             // If at least one permission not granted
             if (result != PackageManager.PERMISSION_GRANTED) {
-//Loger #############
-
 
                 try {
                     if (context instanceof AppCompatActivity)
@@ -136,16 +133,9 @@ public class PermissionUtils {
                     else if (context instanceof Activity)
                         ((Activity) context).requestPermissions(permissions, requestCode);
                     else {
-                        Error.logErrorAndShowToast(context, LOG_TAG,
-                            FunctionErrno.ERRNO_PARAMETER_NOT_INSTANCE_OF.getError("context", "requestPermissions", "Activity or AppCompatActivity"));
                         return false;
                     }
                 } catch (Exception e) {
-                    String errmsg = context.getString(R.string.error_failed_to_request_permissions, requestCode, Arrays.toString(permissions));
-//Loger #############
-
-//Loger #############
-
                     return false;
                 }
 
@@ -278,10 +268,7 @@ public class PermissionUtils {
                                                                                  int requestCode,
                                                                                  boolean prioritizeManageExternalStoragePermission,
                                                                                  boolean showErrorMessage) {
-//Loger #############
 
-
-        String errmsg;
         Boolean requestLegacyStoragePermission = null;
 
         if (prioritizeManageExternalStoragePermission && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
@@ -291,8 +278,6 @@ public class PermissionUtils {
             requestLegacyStoragePermission = isLegacyExternalStoragePossible(context);
 
         boolean checkIfHasRequestedLegacyExternalStorage = checkIfHasRequestedLegacyExternalStorage(context);
-
-//Loger #############
 
         if (requestLegacyStoragePermission && checkIfHasRequestedLegacyExternalStorage) {
             // Check if requestLegacyExternalStorage is set to true in app manifest
@@ -304,15 +289,7 @@ public class PermissionUtils {
             return true;
         }
 
-
-        errmsg = context.getString(R.string.msg_storage_permission_not_granted);
-//Loger #############
-
-        if (showErrorMessage)
-//Loger #############
-
-
-        if (requestCode < 0 || Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+        if (requestCode < 0)
             return false;
 
         if (requestLegacyStoragePermission || Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
@@ -455,23 +432,13 @@ public class PermissionUtils {
      */
     public static boolean hasRequestedLegacyExternalStorage(@NonNull Context context,
                                                             boolean showErrorMessage) {
-        String errmsg;
         Boolean hasRequestedLegacyExternalStorage = PackageUtils.hasRequestedLegacyExternalStorage(context);
         if (hasRequestedLegacyExternalStorage != null && !hasRequestedLegacyExternalStorage) {
-            errmsg = context.getString(R.string.error_has_not_requested_legacy_external_storage,
-                context.getPackageName(), PackageUtils.getTargetSDKForPackage(context), Build.VERSION.SDK_INT);
-//Loger #############
-
-            //Loger #############
             return !showErrorMessage;
         }
 
         return true;
     }
-
-
-
-
 
     /**
      * Check if {@link Manifest.permission#SYSTEM_ALERT_WINDOW} permission has been granted.
@@ -480,47 +447,7 @@ public class PermissionUtils {
      * @return Returns {@code true} if permission is granted, otherwise {@code false}.
      */
     public static boolean checkDisplayOverOtherAppsPermission(@NonNull Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
-            return Settings.canDrawOverlays(context);
-        else
-            return true;
-    }
-
-    /** Wrapper for {@link #requestDisplayOverOtherAppsPermission(Context, int)}. */
-    public static Error requestDisplayOverOtherAppsPermission(@NonNull Context context) {
-        return requestDisplayOverOtherAppsPermission(context, -1);
-    }
-
-    /**
-     * Request user to grant {@link Manifest.permission#SYSTEM_ALERT_WINDOW} permission to the app.
-     *
-     * @param context The context for operations, like an {@link Activity} or {@link Service} context.
-     *                It must be an instance of {@link Activity} or {@link AppCompatActivity} if
-     *                result is required via the Activity#onActivityResult() callback and
-     *                {@code requestCode} is `>=0`.
-     * @param requestCode The request code to use while asking for permission. It must be `>=0` if
-     *                    result it required.
-     * @return Returns the {@code error} if requesting the permission was not successful, otherwise {@code null}.
-     */
-    public static Error requestDisplayOverOtherAppsPermission(@NonNull Context context, int requestCode) {
-//Loger #############
-
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            return null;
-
-        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-        intent.setData(Uri.parse("package:" + context.getPackageName()));
-
-        // Flag must not be passed for activity contexts, otherwise onActivityResult() will not be called with permission grant result.
-        // Flag must be passed for non-activity contexts like services, otherwise "Calling startActivity() from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK flag" exception will be raised.
-        if (!(context instanceof Activity))
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        if (requestCode >=0)
-            return ActivityUtils.startActivityForResult(context, requestCode, intent);
-        else
-            return ActivityUtils.startActivity(context, intent);
+        return Settings.canDrawOverlays(context);
     }
 
     /**
@@ -538,10 +465,6 @@ public class PermissionUtils {
         return checkDisplayOverOtherAppsPermission(context);
     }
 
-
-
-
-
     /**
      * Check if {@link Manifest.permission#REQUEST_IGNORE_BATTERY_OPTIMIZATIONS} permission has been
      * granted.
@@ -550,11 +473,8 @@ public class PermissionUtils {
      * @return Returns {@code true} if permission is granted, otherwise {@code false}.
      */
     public static boolean checkIfBatteryOptimizationsDisabled(@NonNull Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            return powerManager.isIgnoringBatteryOptimizations(context.getPackageName());
-        } else
-            return true;
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        return powerManager.isIgnoringBatteryOptimizations(context.getPackageName());
     }
 
     /** Wrapper for {@link #requestDisableBatteryOptimizations(Context, int)}. */

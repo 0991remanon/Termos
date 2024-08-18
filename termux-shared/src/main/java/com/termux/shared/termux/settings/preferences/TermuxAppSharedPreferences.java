@@ -20,8 +20,6 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
     private int MAX_FONTSIZE;
     private int DEFAULT_FONTSIZE;
 
-    private static final String LOG_TAG = "TermuxAppSharedPreferences";
-
     private TermuxAppSharedPreferences(@NonNull Context context) {
         super(context,
             SharedPreferenceUtils.getPrivateSharedPreferences(context,
@@ -29,7 +27,7 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
             SharedPreferenceUtils.getPrivateAndMultiProcessSharedPreferences(context,
                 TermuxConstants.TERMUX_DEFAULT_PREFERENCES_FILE_BASENAME_WITHOUT_EXTENSION));
 
-        setFontVariables(context);
+//        setFontVariables(context);
     }
 
     /**
@@ -91,6 +89,22 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
         SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.KEY_TERMINAL_MARGIN_ADJUSTMENT, value, false);
     }
 
+    public String getTerminalDrawerTransparency() {
+        return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.KEY_TRANSPARENCY_DRAWER, TERMUX_APP.DEFAULT_TRANSPARENCY_DRAWER, false);
+    }
+
+    public void setTerminalDrawerTransparency(String value) {
+        SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.KEY_TRANSPARENCY_DRAWER, value, false);
+    }
+
+    public String getTextSize() {
+        return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.KEY_TEXTSIZE, TERMUX_APP.DEFAULT_TEXTSIZE, false);
+    }
+
+    public void setTextSize(String value) {
+        SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.KEY_TEXTSIZE, value, false);
+    }
+
     public boolean isVibrationEnabled() {
         return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.VIBRATION_ENABLED, TERMUX_APP.DEFAULT_VALUE_KEY_VIBRATION_ENABLED);
     }
@@ -139,12 +153,20 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
         return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.ROOT_AS_DEFAULT, TERMUX_APP.DEFAULT_VALUE_KEY_ROOT_AS_DEFAULT);
     }
 
-    public String getCustomRootString() {
-        return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.CUSTOM_ROOT_STRING, TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_ROOT_STRING, false);
+    public void setUseCustomArguments(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_ARGUMENTS, value, false);
     }
 
-    public void setCustomRootString(String value) {
-        SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CUSTOM_ROOT_STRING, value, false);
+    public boolean getUseCustomArguments() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_ARGUMENTS, TERMUX_APP.DEFAULT_VALUE_KEY_USE_CUSTOM_ARGUMENTS);
+    }
+
+    public String getCustomArgumentsString() {
+        return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.CUSTOM_ARGUMENTS_STRING, TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_ARGUMENTS_STRING, false);
+    }
+
+    public void setCustomArgumentsString(String value) {
+        SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CUSTOM_ARGUMENTS_STRING, value, false);
     }
 
     public boolean shouldKeepScreenOn() {
@@ -157,52 +179,57 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
 
 
 
-    public static int[] getDefaultFontSizes(Context context) {
-        float dipInPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics());
 
-        int[] sizes = new int[3];
 
-        // This is a bit arbitrary and sub-optimal. We want to give a sensible default for minimum font size
-        // to prevent invisible text due to zoom be mistake:
-        sizes[1] = (int) (4f * dipInPixels); // min
+//    public static int[] getDefaultFontSizes(Context context) {
+//        float dipInPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics());
+//
+//        int[] sizes = new int[3];
+//
+//        // This is a bit arbitrary and sub-optimal. We want to give a sensible default for minimum font size
+//        // to prevent invisible text due to zoom be mistake:
+//        sizes[1] = (int) (4f * dipInPixels); // min
+//
+//        // http://www.google.com/design/spec/style/typography.html#typography-line-height
+//        int defaultFontSize = Math.round(12 * dipInPixels);
+//        // Make it divisible by 2 since that is the minimal adjustment step:
+//        if (defaultFontSize % 2 == 1) defaultFontSize--;
+//
+//        sizes[0] = defaultFontSize; // default
+//
+//        sizes[2] = 256; // max
+//
+//        return sizes;
+//    }
 
-        // http://www.google.com/design/spec/style/typography.html#typography-line-height
-        int defaultFontSize = Math.round(12 * dipInPixels);
-        // Make it divisible by 2 since that is the minimal adjustment step:
-        if (defaultFontSize % 2 == 1) defaultFontSize--;
+//    public void setFontVariables(Context context) {
+//        int[] sizes = getDefaultFontSizes(context);
+//
+//        DEFAULT_FONTSIZE = sizes[0];
+//        MIN_FONTSIZE = sizes[1];
+//        MAX_FONTSIZE = sizes[2];
+//    }
 
-        sizes[0] = defaultFontSize; // default
+//    public int getFontSize() {
+//        int fontSize = SharedPreferenceUtils.getIntStoredAsString(mSharedPreferences, TERMUX_APP.KEY_FONTSIZE, DEFAULT_FONTSIZE);
+//        return DataUtils.clamp(fontSize, MIN_FONTSIZE, MAX_FONTSIZE);
+//    }
 
-        sizes[2] = 256; // max
+//    public void setFontSize(int value) {
+//        SharedPreferenceUtils.setIntStoredAsString(mSharedPreferences, TERMUX_APP.KEY_FONTSIZE, value, false);
+//    }
 
-        return sizes;
-    }
+//    public void changeFontSize(boolean increase) {
+//        int fontSize = getFontSize();
+//
+//        fontSize += (increase ? 1 : -1) * 2;
+//        fontSize = Math.max(MIN_FONTSIZE, Math.min(fontSize, MAX_FONTSIZE));
+//
+//        setFontSize(fontSize);
+//    }
 
-    public void setFontVariables(Context context) {
-        int[] sizes = getDefaultFontSizes(context);
 
-        DEFAULT_FONTSIZE = sizes[0];
-        MIN_FONTSIZE = sizes[1];
-        MAX_FONTSIZE = sizes[2];
-    }
 
-    public int getFontSize() {
-        int fontSize = SharedPreferenceUtils.getIntStoredAsString(mSharedPreferences, TERMUX_APP.KEY_FONTSIZE, DEFAULT_FONTSIZE);
-        return DataUtils.clamp(fontSize, MIN_FONTSIZE, MAX_FONTSIZE);
-    }
-
-    public void setFontSize(int value) {
-        SharedPreferenceUtils.setIntStoredAsString(mSharedPreferences, TERMUX_APP.KEY_FONTSIZE, value, false);
-    }
-
-    public void changeFontSize(boolean increase) {
-        int fontSize = getFontSize();
-
-        fontSize += (increase ? 1 : -1) * 2;
-        fontSize = Math.max(MIN_FONTSIZE, Math.min(fontSize, MAX_FONTSIZE));
-
-        setFontSize(fontSize);
-    }
 
 
 
@@ -213,15 +240,6 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
     public void setCurrentSession(String value) {
         SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.KEY_CURRENT_SESSION, value, false);
     }
-
-    public int getLastNotificationId() {
-        return SharedPreferenceUtils.getInt(mSharedPreferences, TERMUX_APP.KEY_LAST_NOTIFICATION_ID, TERMUX_APP.DEFAULT_VALUE_KEY_LAST_NOTIFICATION_ID);
-    }
-
-    public void setLastNotificationId(int notificationId) {
-        SharedPreferenceUtils.setInt(mSharedPreferences, TERMUX_APP.KEY_LAST_NOTIFICATION_ID, notificationId, false);
-    }
-
 
     public synchronized int getAndIncrementAppShellNumberSinceBoot() {
         // Keep value at MAX_VALUE on integer overflow and not 0, since not first shell
@@ -243,41 +261,6 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
     public synchronized void resetTerminalSessionNumberSinceBoot() {
         SharedPreferenceUtils.setInt(mSharedPreferences, TERMUX_APP.KEY_TERMINAL_SESSION_NUMBER_SINCE_BOOT,
             TERMUX_APP.DEFAULT_VALUE_TERMINAL_SESSION_NUMBER_SINCE_BOOT, true);
-    }
-
-
-    public boolean isTerminalViewKeyLoggingEnabled() {
-        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.KEY_TERMINAL_VIEW_KEY_LOGGING_ENABLED, TERMUX_APP.DEFAULT_VALUE_TERMINAL_VIEW_KEY_LOGGING_ENABLED);
-    }
-
-    public void setTerminalViewKeyLoggingEnabled(boolean value) {
-        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.KEY_TERMINAL_VIEW_KEY_LOGGING_ENABLED, value, false);
-    }
-
-
-
-    public boolean arePluginErrorNotificationsEnabled(boolean readFromFile) {
-        if (readFromFile)
-            return SharedPreferenceUtils.getBoolean(mMultiProcessSharedPreferences, TERMUX_APP.KEY_PLUGIN_ERROR_NOTIFICATIONS_ENABLED, TERMUX_APP.DEFAULT_VALUE_PLUGIN_ERROR_NOTIFICATIONS_ENABLED);
-        else
-            return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.KEY_PLUGIN_ERROR_NOTIFICATIONS_ENABLED, TERMUX_APP.DEFAULT_VALUE_PLUGIN_ERROR_NOTIFICATIONS_ENABLED);
-    }
-
-    public void setPluginErrorNotificationsEnabled(boolean value) {
-        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.KEY_PLUGIN_ERROR_NOTIFICATIONS_ENABLED, value, false);
-    }
-
-
-
-    public boolean areCrashReportNotificationsEnabled(boolean readFromFile) {
-        if (readFromFile)
-            return SharedPreferenceUtils.getBoolean(mMultiProcessSharedPreferences, TERMUX_APP.KEY_CRASH_REPORT_NOTIFICATIONS_ENABLED, TERMUX_APP.DEFAULT_VALUE_CRASH_REPORT_NOTIFICATIONS_ENABLED);
-       else
-            return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.KEY_CRASH_REPORT_NOTIFICATIONS_ENABLED, TERMUX_APP.DEFAULT_VALUE_CRASH_REPORT_NOTIFICATIONS_ENABLED);
-    }
-
-    public void setCrashReportNotificationsEnabled(boolean value) {
-        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.KEY_CRASH_REPORT_NOTIFICATIONS_ENABLED, value, false);
     }
 
 }

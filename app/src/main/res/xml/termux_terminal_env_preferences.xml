@@ -20,6 +20,21 @@
             app:dependency="use_custom_shell" />
 
         <SwitchPreferenceCompat
+            app:key="use_custom_arguments"
+            app:summaryOff="@string/termux_use_custom_arguments_off"
+            app:summaryOn="@string/termux_use_custom_arguments_on"
+            app:title="@string/termux_use_custom_arguments_title"
+            app:disableDependentsState="false" />
+
+        <EditTextPreference
+            app:key="custom_arguments"
+            app:title="@string/termux_custom_arguments_title"
+            app:dialogTitle="@string/termux_custom_arguments_dialog_title"
+            app:dialogMessage="@string/termux_custom_arguments_dialog_message"
+            app:useSimpleSummaryProvider="true"
+            app:dependency="use_custom_arguments" />
+
+        <SwitchPreferenceCompat
             app:key="root_as_default"
             app:summaryOff="@string/termux_root_as_default_off"
             app:summaryOn="@string/termux_root_as_default_on"

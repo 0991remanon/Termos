@@ -10,6 +10,20 @@
             app:summaryOn="@string/termux_terminal_view_terminal_margin_adjustment_on"
             app:title="@string/termux_terminal_view_terminal_margin_adjustment_title" />
 
+        <ListPreference
+            app:key="terminal_drawer_transparency"
+            app:entries="@array/trans_list"
+            app:entryValues="@array/trans_values"
+            app:summary="@string/termux_terminal_drawer_transparency_summary"
+            app:title="@string/termux_terminal_drawer_transparency_title" />
+
+        <ListPreference
+            app:key="text_size"
+            app:entries="@array/text_size"
+            app:entryValues="@array/text_size"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/termux_terminal_text_size_title" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
