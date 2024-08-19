@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.termux.R;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -140,5 +142,11 @@ public class Utils {
                 "\nunset use_color safe_term match_lhs";
 
         return textToFile(args[0], text);
+    }
+
+    public static boolean isDirOkey(String path) {
+        if (path == null || path.trim().isEmpty()) return false;
+        File homeDir = new File(path);
+        return homeDir.exists() && homeDir.isDirectory();
     }
 }

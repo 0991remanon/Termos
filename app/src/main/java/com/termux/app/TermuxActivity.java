@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -57,6 +58,7 @@ import com.termux.shared.termux.TermuxUtils;
 import com.termux.shared.termux.extrakeys.ExtraKeysView;
 import com.termux.shared.termux.interact.TextInputDialogUtils;
 import com.termux.shared.termux.settings.preferences.TermuxAppSharedPreferences;
+import com.termux.shared.termux.settings.preferences.TermuxPreferenceConstants;
 import com.termux.shared.termux.settings.properties.TermuxAppSharedProperties;
 import com.termux.shared.view.KeyboardUtils;
 import com.termux.shared.view.ViewUtils;
@@ -250,7 +252,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         setToggleKeyboardView();
 
         try {
-            setTextSize();
+            setTextDesign();
             findViewById(R.id.left_drawer).setBackground(new ButtonBg(Integer.parseInt(mPreferences.getTerminalDrawerTransparency()), Utils.dpAsPx(this, 1)));
         } catch (Exception e) {}
         registerForContextMenu(mTerminalView);
@@ -306,7 +308,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             mTermuxTerminalViewClient.onResume();
 
         try {
-            setTextSize();
+            setTextDesign();
             findViewById(R.id.left_drawer).setBackground(new ButtonBg(Integer.parseInt(mPreferences.getTerminalDrawerTransparency()), Utils.dpAsPx(this, 1)));
         } catch (Exception e) {}
 
@@ -425,10 +427,16 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             mTermuxTerminalViewClient.onReloadProperties();
     }
 
-    public void setTextSize() {
+    public void setTextDesign() {
         try {
+            TermuxAppSharedPreferences prefs = getPreferences();
             float dipInPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
-            getTerminalView().setTextSize((int) (Integer.parseInt(getPreferences().getTextSize()) * dipInPixels));
+            String color = TermuxPreferenceConstants.TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_TEXT_COLOR;
+            if (prefs.getUseCustomTextColor()) color = prefs.getCustomTextColor();
+            getTerminalView().setTextSize((int) (Integer.parseInt(prefs.getTextSize()) * dipInPixels), Integer.parseInt(color));
+            color = TermuxPreferenceConstants.TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_BACKGROUND_COLOR;
+            if (prefs.getUseCustomBackgroundColor()) color = prefs.getCustomBackgroundColor();
+            findViewById(R.id.activity_termux_root_relative_layout).setBackgroundColor(Integer.parseInt(color));
         } catch (Exception e) {}
     }
 
@@ -528,8 +536,26 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         settingsButton.setBackground(new ButtonBg(0, false));
         int padding = Utils.dpAsPx(this, 5);
         settingsButton.setPadding(padding, padding, padding, padding);
+
         settingsButton.setOnClickListener(v -> {
             ActivityUtils.startActivity(this, new Intent(this, SettingsActivity.class));
+        });
+
+        settingsButton.setOnLongClickListener(v -> {
+            final AlertDialog.Builder b = new AlertDialog.Builder(this);
+                b.setIcon(android.R.drawable.ic_dialog_alert);
+                b.setTitle(R.string.reset_all_settings_title);
+                b.setNeutralButton(android.R.string.yes, (dialog, id) -> {
+                    try {
+                        SharedPreferences prefs = getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.clear();
+                        editor.apply();
+                    } catch (Exception e) {}
+                    });
+                b.setPositiveButton(android.R.string.no, null);
+                b.show();
+            return true;
         });
     }
 
@@ -685,7 +711,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         final AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setIcon(android.R.drawable.ic_dialog_alert);
-        b.setMessage(R.string.title_confirm_kill_process);
+        b.setTitle(R.string.title_confirm_kill_process);
         b.setPositiveButton(android.R.string.yes, (dialog, id) -> {
             dialog.dismiss();
             session.finishIfRunning();

@@ -14,7 +14,8 @@
         android:layout_weight="1"
         android:layout_marginHorizontal="3dp"
         android:layout_marginVertical="0dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@android:color/black">
 
         <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/drawer_layout"

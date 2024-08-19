@@ -124,6 +124,18 @@ public final class TermuxPreferenceConstants {
         public static final boolean DEFAULT_VALUE_KEY_SOFT_KEYBOARD_ENABLED_ONLY_IF_NO_HARDWARE = false;
 
         /**
+         * Defines the key for whether the pinch in will be enabled.
+         */
+        public static final String PINCH_IN_ENABLED = "pinch_in_enabled";
+        public static final boolean DEFAULT_VALUE_KEY_PINCH_IN_ENABLED = true;
+
+        /**
+         * Defines the key for whether the pinch out will be enabled.
+         */
+        public static final String PINCH_OUT_ENABLED = "pinch_out_enabled";
+        public static final boolean DEFAULT_VALUE_KEY_PINCH_OUT_ENABLED = false;
+
+        /**
          * Defines the key for whether the vibration will be enabled.
          */
         public static final String VIBRATION_ENABLED = "vibration_enabled";
@@ -142,6 +154,18 @@ public final class TermuxPreferenceConstants {
         public static final String DEFAULT_VALUE_KEY_CUSTOM_SHELL_STRING = "";
 
         /**
+         * Defines the key that specifies the path to the user's $HOME.
+         */
+        public static final String CUSTOM_HOME_STRING = "custom_home_string";
+        public static final String DEFAULT_VALUE_KEY_CUSTOM_HOME_STRING = "";
+
+        /**
+         * Defines the key that specifies the path to the user's $HOME.
+         */
+        public static final String CUSTOM_TEXT_COLOR = "custom_text_color";
+        public static final String DEFAULT_VALUE_KEY_CUSTOM_TEXT_COLOR = "-1";
+
+        /**
          * Defines the key that specifies starting root sessions.
          */
         public static final String ROOT_AS_DEFAULT = "root_as_default";
@@ -152,6 +176,36 @@ public final class TermuxPreferenceConstants {
          */
         public static final String USE_CUSTOM_ARGUMENTS = "use_custom_arguments";
         public static final boolean DEFAULT_VALUE_KEY_USE_CUSTOM_ARGUMENTS = false;
+
+        /**
+         * Defines the key that specifies using or not user's custom text color.
+         */
+        public static final String USE_CUSTOM_TEXT_COLOR = "use_custom_text_color";
+        public static final boolean DEFAULT_VALUE_KEY_USE_CUSTOM_TEXT_COLOR = false;
+
+        /**
+         * Defines the key that specifies using or not user's custom background color.
+         */
+        public static final String USE_CUSTOM_BACKGROUND_COLOR = "use_custom_background_color";
+        public static final boolean DEFAULT_VALUE_KEY_USE_CUSTOM_BACKGROUND_COLOR = false;
+
+        /**
+         * Defines the key that specifies user's custom background color.
+         */
+        public static final String CUSTOM_BACKGROUND_COLOR = "custom_background_color";
+        public static final String DEFAULT_VALUE_KEY_CUSTOM_BACKGROUND_COLOR = "-16777216";
+
+        /**
+         * Defines the key that specifies using or not user's custom $HOME.
+         */
+        public static final String USE_CUSTOM_HOME = "use_custom_home";
+        public static final boolean DEFAULT_VALUE_KEY_USE_CUSTOM_HOME = false;
+
+        /**
+         * Defines the key that specifies using or not user's custom $HOME when root.
+         */
+        public static final String USE_CUSTOM_HOME_ROOT = "custom_home_root";
+        public static final boolean DEFAULT_VALUE_KEY_USE_CUSTOM_HOME_ROOT = false;
 
         /**
          * Defines the key that specifies user shell arguments.

@@ -105,6 +105,22 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
         SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.KEY_TEXTSIZE, value, false);
     }
 
+    public boolean getPinchInEnabled() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.PINCH_IN_ENABLED, TERMUX_APP.DEFAULT_VALUE_KEY_PINCH_IN_ENABLED);
+    }
+
+    public void setPinchInEnabled(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.PINCH_IN_ENABLED, value, false);
+    }
+
+    public boolean getPinchOutEnabled() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.PINCH_OUT_ENABLED, TERMUX_APP.DEFAULT_VALUE_KEY_PINCH_OUT_ENABLED);
+    }
+
+    public void setPinchOutEnabled(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.PINCH_OUT_ENABLED, value, false);
+    }
+
     public boolean isVibrationEnabled() {
         return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.VIBRATION_ENABLED, TERMUX_APP.DEFAULT_VALUE_KEY_VIBRATION_ENABLED);
     }
@@ -145,6 +161,22 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
         SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CUSTOM_SHELL_STRING, value, false);
     }
 
+    public String getCustomTextColor() {
+        return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.CUSTOM_TEXT_COLOR, TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_TEXT_COLOR, false);
+    }
+
+    public void setCustomTextColor(String value) {
+        SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CUSTOM_TEXT_COLOR, value, false);
+    }
+
+    public String getCustomHomeString() {
+        return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.CUSTOM_HOME_STRING, TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_HOME_STRING, false);
+    }
+
+    public void setCustomHomeString(String value) {
+        SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CUSTOM_HOME_STRING, value, false);
+    }
+
     public void setRootAsDefault(boolean value) {
         SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.ROOT_AS_DEFAULT, value, false);
     }
@@ -159,6 +191,46 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
 
     public boolean getUseCustomArguments() {
         return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_ARGUMENTS, TERMUX_APP.DEFAULT_VALUE_KEY_USE_CUSTOM_ARGUMENTS);
+    }
+
+    public void setUseCustomTextColor(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_TEXT_COLOR, value, false);
+    }
+
+    public boolean getUseCustomTextColor() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_TEXT_COLOR, TERMUX_APP.DEFAULT_VALUE_KEY_USE_CUSTOM_TEXT_COLOR);
+    }
+
+    public void setUseCustomBackgroundColor(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_BACKGROUND_COLOR, value, false);
+    }
+
+    public boolean getUseCustomBackgroundColor() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_BACKGROUND_COLOR, TERMUX_APP.DEFAULT_VALUE_KEY_USE_CUSTOM_BACKGROUND_COLOR);
+    }
+
+    public void setUseCustomHome(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_HOME, value, false);
+    }
+
+    public boolean getUseCustomHome() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_HOME, TERMUX_APP.DEFAULT_VALUE_KEY_USE_CUSTOM_HOME);
+    }
+
+    public void setUseCustomHomeWhenRoot(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_HOME_ROOT, value, false);
+    }
+
+    public boolean getUseCustomHomeWhenRoot() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_HOME_ROOT, TERMUX_APP.DEFAULT_VALUE_KEY_USE_CUSTOM_HOME_ROOT);
+    }
+
+    public String getCustomBackgroundColor() {
+        return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.CUSTOM_BACKGROUND_COLOR, TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_BACKGROUND_COLOR, false);
+    }
+
+    public void setCustomBackgroundColor(String value) {
+        SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CUSTOM_BACKGROUND_COLOR, value, false);
     }
 
     public String getCustomArgumentsString() {

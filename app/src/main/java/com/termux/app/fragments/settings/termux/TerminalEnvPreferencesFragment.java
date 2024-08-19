@@ -67,6 +67,12 @@ class TerminalEnvPreferencesDataStore extends PreferenceDataStore {
             case "use_custom_arguments":
                 mPreferences.setUseCustomArguments(value);
                 break;
+            case "use_custom_home":
+                mPreferences.setUseCustomHome(value);
+                break;
+            case "custom_home_root":
+                mPreferences.setUseCustomHomeWhenRoot(value);
+                break;
             default:
                 break;
         }
@@ -83,6 +89,10 @@ class TerminalEnvPreferencesDataStore extends PreferenceDataStore {
                 return mPreferences.getRootAsDefault();
             case "use_custom_arguments":
                 return mPreferences.getUseCustomArguments();
+            case "use_custom_home":
+                return mPreferences.getUseCustomHome();
+            case "custom_home_root":
+                return mPreferences.getUseCustomHomeWhenRoot();
             default:
                 return false;
         }
@@ -101,9 +111,21 @@ class TerminalEnvPreferencesDataStore extends PreferenceDataStore {
                 }
                 if (!new File(value).canExecute()) {
                     Utils.darkToast(mContext, R.string.error_wrong_custom_shell_path, 1);
-                    return;
+                    break;
                 }
                 mPreferences.setCustomShellString(value);
+                break;
+            case "custom_home_string":
+                if (value == null || value.trim().isEmpty()) {
+                    mPreferences.setCustomHomeString("");
+                    break;
+                }
+                File homeDir = new File(value);
+                if (!homeDir.exists() || !homeDir.isDirectory()) {
+                    Utils.darkToast(mContext, R.string.error_wrong_custom_home_path, 1);
+                    break;
+                }
+                mPreferences.setCustomHomeString(value);
                 break;
             case "custom_arguments":
                 if (value == null || value.trim().isEmpty()) {
@@ -125,6 +147,8 @@ class TerminalEnvPreferencesDataStore extends PreferenceDataStore {
         switch (key) {
             case "custom_shell_string":
                 return mPreferences.getCustomShellString();
+            case "custom_home_string":
+                return mPreferences.getCustomHomeString();
             case "custom_arguments":
                 return mPreferences.getCustomArgumentsString();
             default:

@@ -8,10 +8,15 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 #-dontobfuscate
+
 -repackageclasses ''
 -allowaccessmodification
 -optimizationpasses 9
 -ignorewarnings
+
+-renamesourcefileattribute ""
+-shrinkunusedprotofields
+-overloadaggressively
 
 #-renamesourcefileattribute SourceFile
 #-keepattributes SourceFile,LineNumberTable

@@ -63,6 +63,12 @@ class TerminalIOPreferencesDataStore extends PreferenceDataStore {
             case "soft_keyboard_enabled_only_if_no_hardware":
                 mPreferences.setSoftKeyboardEnabledOnlyIfNoHardware(value);
                 break;
+            case "pinch_in_enabled":
+                mPreferences.setPinchInEnabled(value);
+                break;
+            case "pinch_out_enabled":
+                mPreferences.setPinchOutEnabled(value);
+                break;
             default:
                 break;
         }
@@ -79,6 +85,10 @@ class TerminalIOPreferencesDataStore extends PreferenceDataStore {
                 return mPreferences.isVibrationEnabled();
             case "soft_keyboard_enabled_only_if_no_hardware":
                 return mPreferences.isSoftKeyboardEnabledOnlyIfNoHardware();
+            case "pinch_in_enabled":
+                return mPreferences.getPinchInEnabled();
+            case "pinch_out_enabled":
+                return mPreferences.getPinchOutEnabled();
             default:
                 return false;
         }

@@ -17,7 +17,25 @@
             app:title="@string/termux_soft_keyboard_enabled_only_if_no_hardware_title" />
 
     </PreferenceCategory>
-	
+
+    <PreferenceCategory
+        app:key="touchscreen"
+        app:title="@string/termux_touchscreen_header">
+
+        <SwitchPreferenceCompat
+            app:key="pinch_in_enabled"
+            app:summaryOff="@string/termux_pinch_in_off"
+            app:summaryOn="@string/termux_pinch_in_on"
+            app:title="@string/termux_pinch_in_title" />
+
+        <SwitchPreferenceCompat
+            app:key="pinch_out_enabled"
+            app:summaryOff="@string/termux_pinch_out_off"
+            app:summaryOn="@string/termux_pinch_out_on"
+            app:title="@string/termux_pinch_out_title" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory
         app:key="other"
         app:title="@string/termux_other_header">
@@ -29,5 +47,5 @@
             app:title="@string/termux_vibration_title" />
 
     </PreferenceCategory>
-	
+
 </PreferenceScreen>

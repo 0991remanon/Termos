@@ -24,6 +24,32 @@
             app:useSimpleSummaryProvider="true"
             app:title="@string/termux_terminal_text_size_title" />
 
+        <SwitchPreferenceCompat
+            app:key="use_custom_text_color"
+            app:summaryOff="@string/termux_terminal_text_color_off"
+            app:summaryOn="@string/termux_terminal_text_color_on"
+            app:title="@string/termux_terminal_text_color_title"
+            app:disableDependentsState="false" />
+
+        <Preference
+            app:key="custom_text_color"
+            app:title="@string/termux_terminal_select_text_color_title"
+            app:summary="@string/termux_terminal_select_text_color_summary"
+            app:dependency="use_custom_text_color" />
+
+        <SwitchPreferenceCompat
+            app:key="use_custom_background_color"
+            app:summaryOff="@string/termux_terminal_background_color_off"
+            app:summaryOn="@string/termux_terminal_background_color_on"
+            app:title="@string/termux_terminal_background_color_title"
+            app:disableDependentsState="false" />
+
+        <Preference
+            app:key="custom_background_color"
+            app:title="@string/termux_terminal_select_background_color_title"
+            app:summary="@string/termux_terminal_select_background_color_summary"
+            app:dependency="use_custom_background_color" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -24,6 +24,8 @@
     <string name="title_create_named_session">Новий іменний сеанс</string>
     <string name="action_create_named_session_confirm">Створити</string>
 
+    <string name="reset_all_settings_title">Скинути всі налаштування?</string>
+
     <string name="new_root_session">Новий root сеанс</string>
     <string name="action_toggle_soft_keyboard">Клавіатура</string>
     <string name="sessions_list">Сеанси:</string>
@@ -64,6 +66,7 @@
     <string name="action_file_received_open_directory">Відкрити директорію</string>
 
 	<string name="error_wrong_custom_shell_path">Неправильний шлях до оболонки користувача!</string>
+    <string name="error_wrong_custom_home_path">Неправильний користувацький шлях до $HOME!</string>
 
     <!-- Termux Settings -->
     <string name="title_activity_termux_settings">Налаштування</string>
@@ -80,15 +83,28 @@
                 <string name="termux_soft_keyboard_enabled_off">Програмну клавіатуру буде вимкнено.</string>
                 <string name="termux_soft_keyboard_enabled_on">Програмну клавіатуру буде увімкнено. (Стандартно)</string>
 
-                <!-- Soft Keyboard Only If No Hardware-->
+                <!-- Soft Keyboard Only If No Hardware -->
                 <string name="termux_soft_keyboard_enabled_only_if_no_hardware_title">Програмна/аналогова клавіатура</string>
                 <string name="termux_soft_keyboard_enabled_only_if_no_hardware_off">Програмна клавіатура буде активна, навіть якщо аналогова клавіатура підключена. (Стандартно)</string>
                 <string name="termux_soft_keyboard_enabled_only_if_no_hardware_on">Програмна клавіатура буде активна, тільки якщо аналогова клавіатура не підключена.</string>
 
+            <!-- Touchscreen Category -->
+            <string name="termux_touchscreen_header">Сенсорний екран</string>
+
+                <!-- Pinch in -->
+                <string name="termux_pinch_in_title">Щипок усередину</string>
+                <string name="termux_pinch_in_off">Нічого не робить.</string>
+                <string name="termux_pinch_in_on">Витягує бічну шторку. (Стандартно)</string>
+
+                <!-- Pinch out -->
+                <string name="termux_pinch_out_title">Щипок назовні</string>
+                <string name="termux_pinch_out_off">Нічого не робить. (Стандартно)</string>
+                <string name="termux_pinch_out_on">Закриває поточний сеанс.</string>
+
             <!-- Other Category -->
             <string name="termux_other_header">Інше</string>
 
-                <!-- Vibration-->
+                <!-- Vibration -->
                 <string name="termux_vibration_title">Вібрація</string>
                 <string name="termux_vibration_off">Вимкнена.</string>
                 <string name="termux_vibration_on">Увімкнена. (Стандартно)</string>
@@ -114,11 +130,29 @@
                 <!-- Terminal Text Size -->
                 <string name="termux_terminal_text_size_title">Розмір тексту</string>
 
+                <!-- Terminal Text Color -->
+                <string name="termux_terminal_text_color_title">Колір тексту</string>
+                <string name="termux_terminal_text_color_off">Використовуйте справжній колір тексту. (Стандартно)</string>
+                <string name="termux_terminal_text_color_on">Замінювати колір тексту на свій.</string>
+
+                <!-- Select Text Color -->
+                <string name="termux_terminal_select_text_color_title">Вибір кольору тексту</string>
+                <string name="termux_terminal_select_text_color_summary">Відкриває діалог вибору кольору тексту.</string>
+
+                <!-- Terminal Background Color -->
+                <string name="termux_terminal_background_color_title">Колір тла</string>
+                <string name="termux_terminal_background_color_off">Використовуйте справжній колір тла. (Стандартно)</string>
+                <string name="termux_terminal_background_color_on">Замінювати колір тла на свій.</string>
+
+                <!-- Select Background Color -->
+                <string name="termux_terminal_select_background_color_title">Вибір кольору тла</string>
+                <string name="termux_terminal_select_background_color_summary">Відкриває діалог вибору кольору тла.</string>
+
         <!-- Terminal Environment Preferences -->
         <string name="termux_terminal_env_preferences_title">Налаштування середовища</string>
         <string name="termux_terminal_env_preferences_summary">Налаштування виконуваного середовища терміналу</string>
 
-            <!-- Environment Category -->
+            <!-- Shell Category -->
             <string name="termux_terminal_env_shell_header">Оболонка</string>
 
                 <!-- Terminal Environment Adjustment -->
@@ -145,9 +179,31 @@
 /system/bin/sh -x"</string>
                 <string name="termux_custom_arguments_dialog_title">Введіть аргументи запуску</string>
 
+            <!-- Environment Category -->
+            <string name="termux_terminal_env_header">Середовище оболонки</string>
+
+                <!-- Use Custom $HOME -->
+                <string name="termux_custom_home_use_title">Змінювати $HOME</string>
+                <string name="termux_custom_home_use_off">Не використовувати користувацький $HOME. (Стандартно)</string>
+                <string name="termux_custom_home_use_on">Використовувати користувацький $HOME.</string>
+
+                <!-- Custom $HOME -->
+                <string name="termux_custom_home_title">Користувацький $HOME</string>
+                <string name="termux_custom_home_dialog_title">Введіть шлях до директорії</string>
+                <string name="termux_custom_home_dialog_message">"Приклад:
+/storage/emulated/0"</string>
+
+            <!-- Dangerous Category -->
+            <string name="termux_terminal_dangerous_header">Небезпечно</string>
+
                 <!-- Root as default -->
                 <string name="termux_root_as_default_title">Root за замовчуванням</string>
                 <string name="termux_root_as_default_off">Сеанси розпочинаються зі стандартними правами. (Стандартно)</string>
                 <string name="termux_root_as_default_on">Сеанси розпочинаються з правами root. (Дуже небезпечно)</string>
+
+                <!-- Custom $HOME When Root -->
+                <string name="termux_custom_home_root_title">$HOME коли root</string>
+                <string name="termux_custom_home_root_off">Директорія програми. (Стандартно)</string>
+                <string name="termux_custom_home_root_on">Використовувати шлях користувача. (Дуже небезпечно)</string>
 
 </resources>

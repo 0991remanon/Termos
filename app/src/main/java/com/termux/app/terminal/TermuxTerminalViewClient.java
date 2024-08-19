@@ -38,6 +38,7 @@ import java.util.Map;
 
 public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
 
+    private static long lastPinch = 0;
     final TermuxActivity mActivity;
 
     final TermuxTerminalSessionActivityClient mTermuxTerminalSessionActivityClient;
@@ -70,7 +71,7 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
     public void onCreate() {
         onReloadProperties();
 
-        mActivity.setTextSize();
+        mActivity.setTextDesign();
         mActivity.getTerminalView().setKeepScreenOn(mActivity.getPreferences().shouldKeepScreenOn());
     }
 
@@ -143,7 +144,19 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
         if (scale < 0.9f || scale > 1.1f) {
 //            boolean increase = scale > 1.f;
 //            changeFontSize(increase);
-            if (scale < 1.f) mActivity.getDrawer().open();
+
+            try {
+                if (scale < 1.f && mActivity.getPreferences().getPinchInEnabled()) {
+                    mActivity.getDrawer().open();
+                    return 1.0f;
+                }
+                long currentTime = System.currentTimeMillis();
+                if (scale > 1.f && currentTime - lastPinch > 500 && mActivity.getPreferences().getPinchOutEnabled()) {
+                    lastPinch = currentTime;
+                    mActivity.getCurrentSession().finishIfRunning();
+                }
+            } catch (Exception e) {}
+
             return 1.0f;
         }
         return scale;

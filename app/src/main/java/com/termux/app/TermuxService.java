@@ -203,7 +203,7 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
     }
 
     /** Process action to stop service. */
-    private void actionStopService() {
+    public void actionStopService() {
         ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancelAll();
         mWantsToStop = true;
         killAllTermuxExecutionCommands();

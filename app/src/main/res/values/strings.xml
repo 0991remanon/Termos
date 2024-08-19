@@ -25,6 +25,8 @@
     <string name="title_create_named_root_session">New named root session</string>
     <string name="action_create_named_session_confirm">Create</string>
 
+    <string name="reset_all_settings_title">Reset all settings?</string>
+
     <string name="new_root_session">New root session</string>
     <string name="action_toggle_soft_keyboard">Keyboard</string>
     <string name="sessions_list">Sessions:</string>
@@ -65,6 +67,7 @@
     <string name="action_file_received_open_directory">Open directory</string>
 
 	<string name="error_wrong_custom_shell_path">Wrong custom shell path!</string>
+    <string name="error_wrong_custom_home_path">Wrong custom $HOME path!</string>
 
     <!-- Termux Settings -->
     <string name="title_activity_termux_settings">&TERMUX_APP_NAME; Settings</string>
@@ -81,17 +84,30 @@
                 <string name="termux_soft_keyboard_enabled_off">Soft keyboard will be disabled.</string>
                 <string name="termux_soft_keyboard_enabled_on">Soft keyboard will be enabled. (Default)</string>
 
-                <!-- Soft Keyboard Only If No Hardware-->
+                <!-- Soft Keyboard Only If No Hardware -->
                 <string name="termux_soft_keyboard_enabled_only_if_no_hardware_title">Soft Keyboard Only If No Hardware</string>
                 <string name="termux_soft_keyboard_enabled_only_if_no_hardware_off">Soft keyboard will be enabled even if
                     hardware keyboard is connected. (Default)</string>
                 <string name="termux_soft_keyboard_enabled_only_if_no_hardware_on">Soft keyboard will be enabled only if
                     no hardware keyboard is connected.</string>
 
+            <!-- Touchscreen Category -->
+            <string name="termux_touchscreen_header">Touchscreen</string>
+
+                <!-- Pinch in -->
+                <string name="termux_pinch_in_title">Pinch</string>
+                <string name="termux_pinch_in_off">Does nothing.</string>
+                <string name="termux_pinch_in_on">Pulls out the side curtain. (Default)</string>
+
+                <!-- Pinch out -->
+                <string name="termux_pinch_out_title">Unpinch</string>
+                <string name="termux_pinch_out_off">Does nothing. (Default)</string>
+                <string name="termux_pinch_out_on">Closes the current session.</string>
+
             <!-- Other Category -->
             <string name="termux_other_header">Other</string>
 
-                <!-- Vibration-->
+                <!-- Vibration -->
                 <string name="termux_vibration_title">Vibration</string>
                 <string name="termux_vibration_off">Disabled.</string>
                 <string name="termux_vibration_on">Enabled. (Default)</string>
@@ -118,11 +134,29 @@
                 <!-- Terminal Text Size -->
                 <string name="termux_terminal_text_size_title">Text Size</string>
 
+                <!-- Terminal Text Color -->
+                <string name="termux_terminal_text_color_title">Text Color</string>
+                <string name="termux_terminal_text_color_off">Use true text color. (Default)</string>
+                <string name="termux_terminal_text_color_on">Replace text color with your own.</string>
+
+                <!-- Select Text Color -->
+                <string name="termux_terminal_select_text_color_title">Select Text Color</string>
+                <string name="termux_terminal_select_text_color_summary">Opens a dialog for selecting text color.</string>
+
+                <!-- Terminal Background Color -->
+                <string name="termux_terminal_background_color_title">Background Color</string>
+                <string name="termux_terminal_background_color_off">Use true background color. (Default)</string>
+                <string name="termux_terminal_background_color_on">Replace background color with your own.</string>
+
+                <!-- Select Background Color -->
+                <string name="termux_terminal_select_background_color_title">Select Background Color</string>
+                <string name="termux_terminal_select_background_color_summary">Opens a dialog for selecting background color.</string>
+
         <!-- Terminal Environment Preferences -->
         <string name="termux_terminal_env_preferences_title">Environment Settings</string>
         <string name="termux_terminal_env_preferences_summary">Terminal Runtime Environment Settings</string>
 
-            <!-- Environment Category -->
+            <!-- Shell Category -->
             <string name="termux_terminal_env_shell_header">Shell</string>
 
                 <!-- Terminal Environment Adjustment -->
@@ -136,7 +170,7 @@
 				<string name="termux_custom_shell_path_dialog_title">Enter path to executable</string>
 
                 <!-- Custom arguments switcher -->
-                <string name="termux_use_custom_arguments_title">Use launch arguments</string>
+                <string name="termux_use_custom_arguments_title">Use Launch Arguments</string>
                 <string name="termux_use_custom_arguments_on">Launch arguments are used.</string>
                 <string name="termux_use_custom_arguments_off">Launch arguments are not used. (Default)</string>
 
@@ -149,9 +183,31 @@ The shell startup command will be
 /system/bin/sh -x"</string>
                 <string name="termux_custom_arguments_dialog_title">Enter launch arguments</string>
 
+            <!-- Environment Category -->
+            <string name="termux_terminal_env_header">Environment</string>
+
+                <!-- Use Custom $HOME -->
+                <string name="termux_custom_home_use_title">Change $HOME</string>
+                <string name="termux_custom_home_use_off">"Don't use user's $HOME. (Default)"</string>
+                <string name="termux_custom_home_use_on">Use custom $HOME.</string>
+
+                <!-- Custom $HOME -->
+                <string name="termux_custom_home_title">Custom $HOME</string>
+                <string name="termux_custom_home_dialog_title">Enter the path to the directory</string>
+                <string name="termux_custom_home_dialog_message">"Example:
+/storage/emulated/0"</string>
+
+            <!-- Dangerous Category -->
+            <string name="termux_terminal_dangerous_header">Dangerous</string>
+
                 <!-- Root as default -->
                 <string name="termux_root_as_default_title">Root As Default</string>
                 <string name="termux_root_as_default_off">Sessions start with standard rights. (Default)</string>
                 <string name="termux_root_as_default_on">Sessions start with root rights. (Very dangerous)</string>
+
+                <!-- Custom $HOME When Root -->
+                <string name="termux_custom_home_root_title">$HOME When Root</string>
+                <string name="termux_custom_home_root_off">Program directory. (Default)</string>
+                <string name="termux_custom_home_root_on">Use custom path. (Very dangerous)</string>
 
 </resources>

@@ -19,6 +19,7 @@ import com.termux.terminal.WcWidth;
 public final class TerminalRenderer {
 
     final int mTextSize;
+    final int mTextColor;
     final Typeface mTypeface;
     private final Paint mTextPaint = new Paint();
 
@@ -33,13 +34,19 @@ public final class TerminalRenderer {
 
     private final float[] asciiMeasures = new float[127];
 
-    public TerminalRenderer(int textSize, Typeface typeface) {
+    private final boolean mChangeColor;
+
+    public TerminalRenderer(int textSize, Typeface typeface, int textColor) {
         mTextSize = textSize;
+        mTextColor = textColor;
         mTypeface = typeface;
+
+        mChangeColor = textColor != -1;
 
         mTextPaint.setTypeface(typeface);
         mTextPaint.setAntiAlias(true);
         mTextPaint.setTextSize(textSize);
+        mTextPaint.setColor(textColor);
 
         mFontLineSpacing = (int) Math.ceil(mTextPaint.getFontSpacing());
         mFontAscent = (int) Math.ceil(mTextPaint.ascent());
@@ -224,7 +231,7 @@ public final class TerminalRenderer {
             mTextPaint.setUnderlineText(underline);
             mTextPaint.setTextSkewX(italic ? -0.35f : 0.f);
             mTextPaint.setStrikeThruText(strikeThrough);
-            mTextPaint.setColor(foreColor);
+            mTextPaint.setColor(mChangeColor ? mTextColor : foreColor);
 
             // The text alignment is the default Paint.Align.LEFT.
             canvas.drawText(text, startCharIndex, runWidthChars, left, y - mFontLineSpacingAndAscent, mTextPaint);

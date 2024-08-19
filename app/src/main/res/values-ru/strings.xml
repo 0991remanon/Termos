@@ -24,6 +24,8 @@
     <string name="title_create_named_session">Новый именной сеанс</string>
     <string name="action_create_named_session_confirm">Создать</string>
 
+    <string name="reset_all_settings_title">Сбросить все настройки?</string>
+
     <string name="new_root_session">Новый root сеанс</string>
     <string name="action_toggle_soft_keyboard">Клавиатура</string>
     <string name="sessions_list">Сеансы:</string>
@@ -64,6 +66,7 @@
     <string name="action_file_received_open_directory">Открыть директорию</string>
 
 	<string name="error_wrong_custom_shell_path">Неправильный путь к пользовательской оболочке!</string>
+    <string name="error_wrong_custom_home_path">Неправильный пользовательский путь к $HOME!</string>
 
     <!-- Termux Settings -->
     <string name="title_activity_termux_settings">Настройки</string>
@@ -80,15 +83,28 @@
                 <string name="termux_soft_keyboard_enabled_off">Программная клавиатура будет отключена.</string>
                 <string name="termux_soft_keyboard_enabled_on">Программная клавиатура будет включена. (Стандартно)</string>
 
-                <!-- Soft Keyboard Only If No Hardware-->
+                <!-- Soft Keyboard Only If No Hardware -->
                 <string name="termux_soft_keyboard_enabled_only_if_no_hardware_title">Программная/аналоговая клавиатура</string>
                 <string name="termux_soft_keyboard_enabled_only_if_no_hardware_off">Программная клавиатура будет активна даже если аналоговая клавиатура подключена. (Стандартно)</string>
                 <string name="termux_soft_keyboard_enabled_only_if_no_hardware_on">Программная клавиатура будет активна только если аналоговая клавиатура не подключена.</string>
 
+            <!-- Touchscreen Category -->
+            <string name="termux_touchscreen_header">Сенсорный экран</string>
+
+                <!-- Pinch in -->
+                <string name="termux_pinch_in_title">Щипок внутрь</string>
+                <string name="termux_pinch_in_off">Ничего не делает.</string>
+                <string name="termux_pinch_in_on">Вытаскивает боковую шторку. (Стандартно)</string>
+
+                <!-- Pinch out -->
+                <string name="termux_pinch_out_title">Щипок наружу</string>
+                <string name="termux_pinch_out_off">Ничего не делает. (Стандартно)</string>
+                <string name="termux_pinch_out_on">Закрывает текущий сеанс.</string>
+
             <!-- Other Category -->
             <string name="termux_other_header">Остальное</string>
 
-                <!-- Vibration-->
+                <!-- Vibration -->
                 <string name="termux_vibration_title">Вибрация</string>
                 <string name="termux_vibration_off">Отключена.</string>
                 <string name="termux_vibration_on">Включена. (Стандартно)</string>
@@ -114,11 +130,29 @@
                 <!-- Terminal Text Size -->
                 <string name="termux_terminal_text_size_title">Размер текста</string>
 
+                <!-- Terminal Text Color -->
+                <string name="termux_terminal_text_color_title">Цвет текста</string>
+                <string name="termux_terminal_text_color_off">Использовать подлинный цвет текста. (Стандартно)</string>
+                <string name="termux_terminal_text_color_on">Заменять цвет текста на собственный.</string>
+
+                <!-- Select Text Color -->
+                <string name="termux_terminal_select_text_color_title">Выбор цвета текста</string>
+                <string name="termux_terminal_select_text_color_summary">Открывает диалог выбора цвета текста.</string>
+
+                <!-- Terminal Background Color -->
+                <string name="termux_terminal_background_color_title">Цвет фона</string>
+                <string name="termux_terminal_background_color_off">Использовать подлинный цвет фона. (Стандартно)</string>
+                <string name="termux_terminal_background_color_on">Заменять цвет фона на собственный.</string>
+
+                <!-- Select Background Color -->
+                <string name="termux_terminal_select_background_color_title">Выбор цвета фона</string>
+                <string name="termux_terminal_select_background_color_summary">Открывает диалог выбора цвета фона.</string>
+
         <!-- Terminal Environment Preferences -->
         <string name="termux_terminal_env_preferences_title">Настройки среды</string>
         <string name="termux_terminal_env_preferences_summary">Настройки исполняемой среды терминала</string>
 
-            <!-- Environment Category -->
+            <!-- Shell Category -->
             <string name="termux_terminal_env_shell_header">Оболочка</string>
 
                 <!-- Terminal Environment Adjustment -->
@@ -145,9 +179,31 @@
 /system/bin/sh -x"</string>
                 <string name="termux_custom_arguments_dialog_title">Введите аргументы запуска</string>
 
+            <!-- Environment Category -->
+            <string name="termux_terminal_env_header">Среда оболочки</string>
+
+                <!-- Use Custom $HOME -->
+                <string name="termux_custom_home_use_title">Изменять $HOME</string>
+                <string name="termux_custom_home_use_off">Не использовать пользовательский $HOME. (Стандартно)</string>
+                <string name="termux_custom_home_use_on">Использовать пользовательский $HOME.</string>
+
+                <!-- Custom $HOME -->
+                <string name="termux_custom_home_title">Пользовательский $HOME</string>
+                <string name="termux_custom_home_dialog_title">Введите путь к директории</string>
+                <string name="termux_custom_home_dialog_message">"Пример:
+/storage/emulated/0"</string>
+
+            <!-- Dangerous Category -->
+            <string name="termux_terminal_dangerous_header">Опасно</string>
+
                 <!-- Root as default -->
                 <string name="termux_root_as_default_title">Root по умолчанию</string>
                 <string name="termux_root_as_default_off">Сеансы начинаются со стандартными правами. (Стандартно)</string>
                 <string name="termux_root_as_default_on">Сеансы начинаются с правами root. (Очень опасно)</string>
+
+                <!-- Custom $HOME When Root -->
+                <string name="termux_custom_home_root_title">$HOME при root</string>
+                <string name="termux_custom_home_root_off">Директория программы. (Стандартно)</string>
+                <string name="termux_custom_home_root_on">Использовать пользовательский путь. (Очень опасно)</string>
 
 </resources>

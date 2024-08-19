@@ -6,18 +6,25 @@ import android.util.TypedValue;
 
 import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.termux.R;
+import com.termux.app.ColorPickerDialog;
 import com.termux.shared.termux.settings.preferences.TermuxAppSharedPreferences;
+import com.termux.shared.termux.settings.preferences.TermuxPreferenceConstants;
 
-import java.util.Collections;
-import java.util.HashSet;
 
 @Keep
-public class TerminalViewPreferencesFragment extends PreferenceFragmentCompat {
+public class TerminalViewPreferencesFragment extends PreferenceFragmentCompat implements ColorPickerDialog.OnColorChangedListener {
+
+    private final int TEXT_COLOR = 0;
+    private final int BACKGROUND_COLOR = 1;
+    private TerminalViewPreferencesDataStore terminalViewPreferencesDataStore;
+    private ColorPickerDialog cpd;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -25,11 +32,47 @@ public class TerminalViewPreferencesFragment extends PreferenceFragmentCompat {
         if (context == null) return;
 
         PreferenceManager preferenceManager = getPreferenceManager();
-        preferenceManager.setPreferenceDataStore(TerminalViewPreferencesDataStore.getInstance(context));
+        terminalViewPreferencesDataStore = TerminalViewPreferencesDataStore.getInstance(context);
+        preferenceManager.setPreferenceDataStore(terminalViewPreferencesDataStore);
 
         setPreferencesFromResource(R.xml.termux_terminal_view_preferences, rootKey);
+
+        Preference textColorPreference = findPreference("custom_text_color");
+        if (textColorPreference != null) {
+            textColorPreference.setOnPreferenceClickListener(pref -> {
+                try {
+                    cpd = new ColorPickerDialog(context, this, Integer.parseInt(terminalViewPreferencesDataStore.getString(TermuxPreferenceConstants.TERMUX_APP.CUSTOM_TEXT_COLOR, TermuxPreferenceConstants.TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_TEXT_COLOR)), TEXT_COLOR);
+                    cpd.show();
+                } catch (Exception e){}
+                return true;
+            });
+        }
+
+        Preference backgroundColorPreference = findPreference("custom_background_color");
+        if (backgroundColorPreference != null) {
+            backgroundColorPreference.setOnPreferenceClickListener(pref -> {
+                try {
+                    cpd = new ColorPickerDialog(context, this, Integer.parseInt(terminalViewPreferencesDataStore.getString(TermuxPreferenceConstants.TERMUX_APP.CUSTOM_BACKGROUND_COLOR, TermuxPreferenceConstants.TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_BACKGROUND_COLOR)), BACKGROUND_COLOR);
+                    cpd.show();
+                } catch (Exception e){}
+                return true;
+            });
+        }
        }
 
+    @Override
+    public void colorChanged(int color, int requestCode) {
+        if (terminalViewPreferencesDataStore == null) return;
+
+        switch (requestCode) {
+            case TEXT_COLOR:
+                terminalViewPreferencesDataStore.putString(TermuxPreferenceConstants.TERMUX_APP.CUSTOM_TEXT_COLOR, String.valueOf(color));
+                break;
+            case BACKGROUND_COLOR:
+                terminalViewPreferencesDataStore.putString(TermuxPreferenceConstants.TERMUX_APP.CUSTOM_BACKGROUND_COLOR, String.valueOf(color));
+                break;
+        }
+    }
 }
 
 class TerminalViewPreferencesDataStore extends PreferenceDataStore {
@@ -62,6 +105,12 @@ class TerminalViewPreferencesDataStore extends PreferenceDataStore {
             case "terminal_margin_adjustment":
                     mPreferences.setTerminalMarginAdjustment(value);
                 break;
+            case "use_custom_text_color":
+                mPreferences.setUseCustomTextColor(value);
+                break;
+            case "use_custom_background_color":
+                mPreferences.setUseCustomBackgroundColor(value);
+                break;
             default:
                 break;
         }
@@ -74,6 +123,10 @@ class TerminalViewPreferencesDataStore extends PreferenceDataStore {
         switch (key) {
             case "terminal_margin_adjustment":
                 return mPreferences.isTerminalMarginAdjustmentEnabled();
+            case "use_custom_text_color":
+                return mPreferences.getUseCustomTextColor();
+            case "use_custom_background_color":
+                return mPreferences.getUseCustomBackgroundColor();
             default:
                 return false;
         }
@@ -91,6 +144,12 @@ class TerminalViewPreferencesDataStore extends PreferenceDataStore {
             case "text_size":
                 mPreferences.setTextSize(value);
                 break;
+            case "custom_text_color":
+                mPreferences.setCustomTextColor(value);
+                break;
+            case "custom_background_color":
+                mPreferences.setCustomBackgroundColor(value);
+                break;
             default:
                 break;
         }
@@ -106,6 +165,10 @@ class TerminalViewPreferencesDataStore extends PreferenceDataStore {
                 return mPreferences.getTerminalDrawerTransparency();
             case "text_size":
                 return mPreferences.getTextSize();
+            case "custom_text_color":
+                return mPreferences.getCustomTextColor();
+            case "custom_background_color":
+                return mPreferences.getCustomBackgroundColor();
             default:
                 return null;
         }

@@ -382,7 +382,10 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
                 workingDirectory = TermuxConstants.TERMUX_HOME_DIR_PATH;
                 // workingDirectory = currentSession.getCwd();
             }
-
+            if (mActivity.getPreferences().getUseCustomHome()) {
+                String customHome = mActivity.getPreferences().getCustomHomeString();
+                if (Utils.isDirOkey(customHome)) workingDirectory = customHome;
+            }
             String executable = mActivity.getPreferences().getCustomShellString();
             try {
                 if (executable.trim().isEmpty() || !new File(executable).canExecute()) {
@@ -414,7 +417,7 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
             String[] arguments = null;
             if (executable.endsWith("/bash")){
                 String bashrc = TermuxConstants.TERMUX_PREFIX_DIR_PATH + "/.bashrc";
-                if (Utils.createBashrc(new String[]{bashrc, TermuxConstants.TERMUX_HOME_DIR_PATH, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH, executable})) arguments = new String[]{"--rcfile", bashrc};
+                if (Utils.createBashrc(new String[]{bashrc, workingDirectory, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH, executable})) arguments = new String[]{"--rcfile", bashrc};
             }
 
             if (mActivity.getPreferences().getUseCustomArguments()) arguments = dealWithArguments(arguments);
@@ -452,7 +455,11 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
                 workingDirectory = mActivity.getProperties().getDefaultWorkingDirectory();
             } else {
                 workingDirectory = TermuxConstants.TERMUX_HOME_DIR_PATH;
-               // workingDirectory = currentSession.getCwd();
+                // workingDirectory = currentSession.getCwd();
+            }
+            if (mActivity.getPreferences().getUseCustomHome() && mActivity.getPreferences().getUseCustomHomeWhenRoot()) {
+                String customHome = mActivity.getPreferences().getCustomHomeString();
+                if (Utils.isDirOkey(customHome)) workingDirectory = customHome;
             }
 
             String executable = mActivity.getPreferences().getCustomShellString();
@@ -486,7 +493,7 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
             String[] arguments = new String[]{"-c", executable};
             if (executable.endsWith("/bash")){
                 String bashrc = TermuxConstants.TERMUX_PREFIX_DIR_PATH + "/.bashrc";
-                if (Utils.createBashrc(new String[]{bashrc, TermuxConstants.TERMUX_HOME_DIR_PATH, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH, executable})) arguments = new String[]{"-c", executable + " --rcfile " + bashrc};
+                if (Utils.createBashrc(new String[]{bashrc, workingDirectory, TermuxConstants.TERMUX_TMP_PREFIX_DIR_PATH, executable})) arguments = new String[]{"-c", executable + " --rcfile " + bashrc};
             }
 
             if (mActivity.getPreferences().getUseCustomArguments()) arguments = dealWithRootArguments(arguments);
