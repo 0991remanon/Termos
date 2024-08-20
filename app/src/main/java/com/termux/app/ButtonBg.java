@@ -1,11 +1,10 @@
 package com.termux.app;
-import android.content.res.ColorStateList;
+
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
-import android.os.Build;
 
 
 public class ButtonBg extends StateListDrawable

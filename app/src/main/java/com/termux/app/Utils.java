@@ -3,11 +3,8 @@ package com.termux.app;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.text.TextUtils;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.termux.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

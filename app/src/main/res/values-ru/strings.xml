@@ -6,7 +6,21 @@
     ]>
 
 <resources>
+    <!-- ShareUtils -->
+    <string name="title_share_with">Отправить через</string>
+    <string name="title_open_url_with">Открыть URL в</string>
 
+    <!-- Miscellaneous -->
+    <string name="action_yes">Да</string>
+    <string name="action_no">Нет</string>
+    <string name="action_copy">Копировать</string>
+    <string name="action_share">Отправить</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_save_to_file">В файл</string>
+
+  <string name="paste_text">Вставить</string>
+  <string name="copy_text">Копировать</string>
+  <string name="text_selection_more">Ещё…</string>
     <string name="application_name">&TERMUX_APP_NAME;</string>
 
     <!-- Termux RUN_COMMAND permission -->
