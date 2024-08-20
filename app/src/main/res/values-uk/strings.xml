@@ -6,6 +6,12 @@
     ]>
 
 <resources>
+    <!-- Export/Import Settings -->
+    <string name="termux_terminal_export_import_title">Експортувати чи імпортувати налаштування?</string>
+    <string name="termux_terminal_export_import_message">Експорт у файл або імпорт із файлу всіх налаштувань &TERMUX_APP_NAME;</string>
+    <string name="termux_terminal_export">Експорт</string>
+    <string name="termux_terminal_import">Імпорт</string>
+
     <!-- ShareUtils -->
     <string name="title_share_with">Надіслати через</string>
     <string name="title_open_url_with">Відкрити URL у</string>
@@ -18,9 +24,9 @@
     <string name="action_cancel">Скасувати</string>
     <string name="action_save_to_file">У файл</string>
 
-  <string name="paste_text">Вставити</string>
-  <string name="copy_text">Копіювати</string>
-  <string name="text_selection_more">Ще…</string>
+    <string name="paste_text">Вставити</string>
+    <string name="copy_text">Копіювати</string>
+    <string name="text_selection_more">Ще…</string>
     <string name="application_name">&TERMUX_APP_NAME;</string>
 
     <!-- Termux RUN_COMMAND permission -->
@@ -219,5 +225,9 @@
                 <string name="termux_custom_home_root_title">$HOME коли root</string>
                 <string name="termux_custom_home_root_off">Директорія програми. (Стандартно)</string>
                 <string name="termux_custom_home_root_on">Використовувати шлях користувача. (Дуже небезпечно)</string>
+
+        <!-- Clear All Settings -->
+        <string name="termux_terminal_clear_all_settings_title">Очистити всі налаштування</string>
+        <string name="termux_terminal_clear_all_settings_summary">Усі налаштування будуть повернуті до стандартних.</string>
 
 </resources>

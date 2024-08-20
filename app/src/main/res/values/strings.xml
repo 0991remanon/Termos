@@ -6,6 +6,12 @@
     ]>
 
 <resources>
+    <!-- Export/Import Settings -->
+    <string name="termux_terminal_export_import_title">Export or import Settings?</string>
+    <string name="termux_terminal_export_import_message">Export to file or import from file all settings &TERMUX_APP_NAME;</string>
+    <string name="termux_terminal_export">Export</string>
+    <string name="termux_terminal_import">Import</string>
+
     <!-- ShareUtils -->
     <string name="title_share_with">Share With</string>
     <string name="title_open_url_with">Open URL With</string>
@@ -18,9 +24,9 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_save_to_file">Save To File</string>
 
-  <string name="paste_text">Paste</string>
-  <string name="copy_text">Copy</string>
-  <string name="text_selection_more">More…</string>
+    <string name="paste_text">Paste</string>
+    <string name="copy_text">Copy</string>
+    <string name="text_selection_more">More…</string>
     <string name="application_name">&TERMUX_APP_NAME;</string>
 
     <!-- Termux RUN_COMMAND permission -->
@@ -221,5 +227,9 @@ The shell startup command will be
                 <string name="termux_custom_home_root_title">$HOME When Root</string>
                 <string name="termux_custom_home_root_off">Program directory. (Default)</string>
                 <string name="termux_custom_home_root_on">Use custom path. (Very dangerous)</string>
+
+        <!-- Clear All Settings -->
+        <string name="termux_terminal_clear_all_settings_title">Clear All Settings</string>
+        <string name="termux_terminal_clear_all_settings_summary">All settings will be reset to default.</string>
 
 </resources>

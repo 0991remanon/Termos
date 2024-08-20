@@ -5,13 +5,19 @@
         app:summary="@string/termux_terminal_io_preferences_summary"
         app:fragment="com.termux.app.fragments.settings.termux.TerminalIOPreferencesFragment"/>
 
+	<Preference
+        app:title="@string/termux_terminal_env_preferences_title"
+        app:summary="@string/termux_terminal_env_preferences_summary"
+        app:fragment="com.termux.app.fragments.settings.termux.TerminalEnvPreferencesFragment"/>
+
     <Preference
         app:title="@string/termux_terminal_view_preferences_title"
         app:summary="@string/termux_terminal_view_preferences_summary"
         app:fragment="com.termux.app.fragments.settings.termux.TerminalViewPreferencesFragment"/>
 
-	<Preference
-        app:title="@string/termux_terminal_env_preferences_title"
-        app:summary="@string/termux_terminal_env_preferences_summary"
-        app:fragment="com.termux.app.fragments.settings.termux.TerminalEnvPreferencesFragment"/>
+    <Preference
+        app:key="clear_all_settings"
+        app:title="@string/termux_terminal_clear_all_settings_title"
+        app:summary="@string/termux_terminal_clear_all_settings_summary"/>
+
 </PreferenceScreen>

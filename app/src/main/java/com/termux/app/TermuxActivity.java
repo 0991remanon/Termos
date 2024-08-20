@@ -64,7 +64,17 @@ import com.termux.terminal.TerminalSessionClient;
 import com.termux.view.TerminalView;
 import com.termux.view.TerminalViewClient;
 
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * A terminal emulator activity.
@@ -336,7 +346,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     @Override
     public void onDestroy() {
         if (System.currentTimeMillis() - aLong <= 2000) {
-            getPreferences().setCustomShellString("");
+            getPreferences().setCustomShellEnabled(false);
             getPreferences().setUseCustomArguments(false);
             getPreferences().setRootAsDefault(false);
         }
@@ -540,18 +550,25 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         settingsButton.setOnLongClickListener(v -> {
             final AlertDialog.Builder b = new AlertDialog.Builder(this);
-                b.setIcon(android.R.drawable.ic_dialog_alert);
-                b.setTitle(R.string.reset_all_settings_title);
-                b.setNeutralButton(android.R.string.yes, (dialog, id) -> {
-                    try {
-                        SharedPreferences prefs = getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.clear();
-                        editor.apply();
-                    } catch (Exception e) {}
-                    });
-                b.setPositiveButton(android.R.string.no, null);
-                b.show();
+            b.setTitle(R.string.termux_terminal_export_import_title);
+            b.setMessage(R.string.termux_terminal_export_import_message);
+            b.setNeutralButton(android.R.string.no, null);
+            b.setNegativeButton(R.string.termux_terminal_export, (dialog, id) -> {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                    intent.setType("application/json");
+                    intent.putExtra(Intent.EXTRA_TITLE, getPackageName() + "_settings.json");
+                    startActivityForResult(intent, 1010);
+                } catch (Exception e) {}
+            });
+            b.setPositiveButton(R.string.termux_terminal_import, (dialog, id) -> {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.setType("application/json");
+                    startActivityForResult(intent, 1011);
+                } catch (Exception e) {}
+            });
+            b.show();
             return true;
         });
     }
@@ -861,9 +878,74 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PermissionUtils.REQUEST_GRANT_STORAGE_PERMISSION) {
-            requestStoragePermission(true);
+        switch (requestCode) {
+            case PermissionUtils.REQUEST_GRANT_STORAGE_PERMISSION:
+                requestStoragePermission(true);
+                break;
+            case 1010:
+                if (resultCode == RESULT_OK) {
+                    if (data != null && data.getData() != null) {
+                        try {
+                            OutputStream outputStream = getContentResolver().openOutputStream(data.getData());
+                            SharedPreferences prefs = getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);
+                            prefs.edit().apply();
+                            Map<String, ?> allEntries = prefs.getAll();
+
+                            JSONObject settings = new JSONObject(allEntries);
+
+                            if (outputStream != null) {
+                                outputStream.write(settings.toString().getBytes(StandardCharsets.UTF_8));
+                                outputStream.flush();
+                            }
+                        } catch (Exception e) {}
+                    }
+                }
+                break;
+            case 1011:
+                if (resultCode == RESULT_OK) {
+                    if (data != null && data.getData() != null) {
+                        try {
+                            InputStream inputStream = new BufferedInputStream(getContentResolver().openInputStream(data.getData()));
+                            if (inputStream != null) {
+                                StringBuilder sb = new StringBuilder().append("");
+                                inputStream.mark(65536);
+                                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8), 8192);
+                                String text;
+                                if ((text = br.readLine()) != null){
+                                    sb.append(text);
+                                }
+                                while ((text = br.readLine()) != null){
+                                    sb.append('\n');
+                                    sb.append(text);
+                                }
+                                JSONObject jsonObject = new JSONObject(sb.toString());
+                                SharedPreferences.Editor editor = getSharedPreferences(getPackageName() + "_preferences", MODE_PRIVATE).edit();
+
+                                for (Iterator<String> it = jsonObject.keys(); it.hasNext(); ) {
+                                    String key = it.next();
+                                    Object value = jsonObject.get(key);
+                                    if (value instanceof Boolean) {
+                                        editor.putBoolean(key, (Boolean) value);
+                                    } else if (value instanceof Float) {
+                                        editor.putFloat(key, (Float) value);
+                                    } else if (value instanceof Integer) {
+                                        editor.putInt(key, (Integer) value);
+                                    } else if (value instanceof Long) {
+                                        editor.putLong(key, (Long) value);
+                                    } else if (value instanceof String) {
+                                        editor.putString(key, (String) value);
+                                    }
+                                }
+                                editor.apply();
+                            }
+                        } catch (Exception e) {}
+                    }
+                }
+                break;
+            default:
+                break;
         }
+
     }
 
     @Override

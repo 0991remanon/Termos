@@ -6,6 +6,12 @@
     ]>
 
 <resources>
+    <!-- Export/Import Settings -->
+    <string name="termux_terminal_export_import_title">Экспортировать или импортировать настройки?</string>
+    <string name="termux_terminal_export_import_message">Экспорт в файл или импорт из файла всех настроек &TERMUX_APP_NAME;</string>
+    <string name="termux_terminal_export">Экспорт</string>
+    <string name="termux_terminal_import">Импорт</string>
+
     <!-- ShareUtils -->
     <string name="title_share_with">Отправить через</string>
     <string name="title_open_url_with">Открыть URL в</string>
@@ -18,9 +24,9 @@
     <string name="action_cancel">Отмена</string>
     <string name="action_save_to_file">В файл</string>
 
-  <string name="paste_text">Вставить</string>
-  <string name="copy_text">Копировать</string>
-  <string name="text_selection_more">Ещё…</string>
+    <string name="paste_text">Вставить</string>
+    <string name="copy_text">Копировать</string>
+    <string name="text_selection_more">Ещё…</string>
     <string name="application_name">&TERMUX_APP_NAME;</string>
 
     <!-- Termux RUN_COMMAND permission -->
@@ -219,5 +225,9 @@
                 <string name="termux_custom_home_root_title">$HOME при root</string>
                 <string name="termux_custom_home_root_off">Директория программы. (Стандартно)</string>
                 <string name="termux_custom_home_root_on">Использовать пользовательский путь. (Очень опасно)</string>
+
+        <!-- Clear All Settings -->
+        <string name="termux_terminal_clear_all_settings_title">Очистить все настройки</string>
+        <string name="termux_terminal_clear_all_settings_summary">Все настройки будут возвращены к стандартным.</string>
 
 </resources>
