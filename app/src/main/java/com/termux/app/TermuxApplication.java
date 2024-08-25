@@ -17,10 +17,10 @@ public class TermuxApplication extends Application {
         Context context = getApplicationContext();
 
         // Init app wide SharedProperties loaded from termux.properties
-        TermuxAppSharedProperties properties = TermuxAppSharedProperties.init(context);
+        TermuxAppSharedProperties.init(context);
 
         // Init app wide shell manager
-        TermuxShellManager shellManager = TermuxShellManager.init(context);
+        TermuxShellManager.init(context);
 
         // Check and create termux files directory. If failed to access it like in case of secondary
         // user or external sd card installation, then don't run files directory related code

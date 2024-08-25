@@ -51,8 +51,6 @@ public class FileReceiverActivity extends AppCompatActivity {
 
     private static final String API_TAG = TermuxConstants.TERMUX_APP_NAME + "FileReceiver";
 
-    private static final String LOG_TAG = "FileReceiverActivity";
-
     static boolean isSharedTextAnUrl(String sharedText) {
         return Patterns.WEB_URL.matcher(sharedText).matches()
             || Pattern.matches("magnet:\\?xt=urn:btih:.*?", sharedText);
@@ -66,9 +64,6 @@ public class FileReceiverActivity extends AppCompatActivity {
         final String action = intent.getAction();
         final String type = intent.getType();
         final String scheme = intent.getScheme();
-
-//Loger #############
-
 
         final String sharedTitle = IntentUtils.getStringExtraIfSet(intent, Intent.EXTRA_TITLE, null);
 
@@ -101,8 +96,6 @@ public class FileReceiverActivity extends AppCompatActivity {
             if (UriScheme.SCHEME_CONTENT.equals(scheme)) {
                 handleContentUri(dataUri, sharedTitle);
             } else if (UriScheme.SCHEME_FILE.equals(scheme)) {
-//Loger #############
-
 
                 // Get full path including fragment (anything after last "#")
                 String path = UriUtils.getUriFilePathWithFragment(dataUri);
@@ -135,8 +128,6 @@ public class FileReceiverActivity extends AppCompatActivity {
 
     void handleContentUri(@NonNull final Uri uri, String subjectFromIntent) {
         try {
-//Loger #############
-
 
             String attachmentFileName = null;
 
@@ -155,7 +146,6 @@ public class FileReceiverActivity extends AppCompatActivity {
             promptNameAndSave(in, attachmentFileName);
         } catch (Exception e) {
             showErrorDialogAndQuit("Unable to handle shared content:\n\n" + e.getMessage());
-//Loger #############
 
         }
     }
@@ -224,7 +214,6 @@ public class FileReceiverActivity extends AppCompatActivity {
             return outFile;
         } catch (IOException e) {
             showErrorDialogAndQuit("Error saving file:\n\n" + e);
-//Loger #############
 
             return null;
         }

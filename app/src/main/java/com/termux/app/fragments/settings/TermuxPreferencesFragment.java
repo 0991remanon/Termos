@@ -14,21 +14,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.termux.R;
-import com.termux.app.ColorPickerDialog;
-import com.termux.shared.android.PermissionUtils;
 import com.termux.shared.termux.settings.preferences.TermuxAppSharedPreferences;
-import com.termux.shared.termux.settings.preferences.TermuxPreferenceConstants;
-
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
-import java.util.Map;
 
 @Keep
 public class TermuxPreferencesFragment extends PreferenceFragmentCompat {

@@ -1,7 +1,6 @@
 package com.termux.view;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -44,7 +43,6 @@ import com.termux.view.textselection.TextSelectionCursorController;
 /** View displaying and interacting with a {@link TerminalSession}. */
 public final class TerminalView extends View {
 
-    Context mActivity;
     /** The currently displayed terminal session, whose emulator is {@link #mEmulator}. */
     public TerminalSession mTermSession;
     /** Our terminal emulator whose session is {@link #mTermSession}. */
@@ -543,7 +541,6 @@ public final class TerminalView extends View {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    @TargetApi(23)
     public boolean onTouchEvent(MotionEvent event) {
         if (mEmulator == null) return true;
         final int action = event.getAction();
@@ -970,7 +967,7 @@ public final class TerminalView extends View {
     }
 
     public int getPointY(int cy) {
-        return Math.round((cy - mTopRow) * mRenderer.mFontLineSpacing);
+        return Math.round((float) (cy - mTopRow) * mRenderer.mFontLineSpacing);
     }
 
     public int getTopRow() {

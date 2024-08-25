@@ -19,7 +19,6 @@ package com.termux.shared.shell;
 import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.WorkerThread;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -90,36 +89,6 @@ public class StreamGobbler extends Thread {
     private volatile boolean active = true;
     private volatile boolean calledOnClose = false;
 
-    private static final String LOG_TAG = "StreamGobbler";
-
-    /**
-     * <p>StreamGobbler constructor</p>
-     *
-     * <p>We use this class because shell STDOUT and STDERR should be read as quickly as
-     * possible to prevent a deadlock from occurring, or Process.waitFor() never
-     * returning (as the buffer is full, pausing the native process)</p>
-     *
-     * @param shell Name of the shell
-     * @param inputStream InputStream to read from
-     * @param outputList {@literal List<String>} to write to, or null
-     * @param logLevel The custom log level to use for logging the command output. If set to
-     */
-    @AnyThread
-    public StreamGobbler(@NonNull String shell, @NonNull InputStream inputStream,
-                         @Nullable List<String> outputList,
-                         @Nullable Integer logLevel) {
-        super("Gobbler#" + incThreadCounter());
-        this.shell = shell;
-        this.inputStream = inputStream;
-        reader = new BufferedReader(new InputStreamReader(inputStream));
-        streamClosedListener = null;
-
-        listWriter = outputList;
-        stringWriter = null;
-        lineListener = null;
-
-    }
-
     /**
      * <p>StreamGobbler constructor</p>
      *
@@ -147,36 +116,6 @@ public class StreamGobbler extends Thread {
         listWriter = null;
         stringWriter = outputString;
         lineListener = null;
-
-    }
-
-    /**
-     * <p>StreamGobbler constructor</p>
-     *
-     * <p>We use this class because shell STDOUT and STDERR should be read as quickly as
-     * possible to prevent a deadlock from occurring, or Process.waitFor() never
-     * returning (as the buffer is full, pausing the native process)</p>
-     *
-     * @param shell Name of the shell
-     * @param inputStream InputStream to read from
-     * @param onLineListener OnLineListener callback
-     * @param onStreamClosedListener OnStreamClosedListener callback
-     * @param logLevel The custom log level to use for logging the command output. If set to
-     */
-    @AnyThread
-    public StreamGobbler(@NonNull String shell, @NonNull InputStream inputStream,
-                         @Nullable OnLineListener onLineListener,
-                         @Nullable OnStreamClosedListener onStreamClosedListener,
-                         @Nullable Integer logLevel) {
-        super("Gobbler#" + incThreadCounter());
-        this.shell = shell;
-        this.inputStream = inputStream;
-        reader = new BufferedReader(new InputStreamReader(inputStream));
-        streamClosedListener = onStreamClosedListener;
-
-        listWriter = null;
-        stringWriter = null;
-        lineListener = onLineListener;
 
     }
 
@@ -222,87 +161,4 @@ public class StreamGobbler extends Thread {
         }
     }
 
-    /**
-     * <p>Resume consuming the input from the stream</p>
-     */
-    @AnyThread
-    public void resumeGobbling() {
-        if (!active) {
-            synchronized (this) {
-                active = true;
-                this.notifyAll();
-            }
-        }
-    }
-
-    /**
-     * <p>Suspend gobbling, so other code may read from the InputStream instead</p>
-     *
-     * <p>This should <i>only</i> be called from the OnLineListener callback!</p>
-     */
-    @AnyThread
-    public void suspendGobbling() {
-        synchronized (this) {
-            active = false;
-            this.notifyAll();
-        }
-    }
-
-    /**
-     * <p>Wait for gobbling to be suspended</p>
-     *
-     * <p>Obviously this cannot be called from the same thread as {@link #suspendGobbling()}</p>
-     */
-    @WorkerThread
-    public void waitForSuspend() {
-        synchronized (this) {
-            while (active) {
-                try {
-                    this.wait(32);
-                } catch (InterruptedException e) {
-                    // no action
-                }
-            }
-        }
-    }
-
-    /**
-     * <p>Is gobbling suspended ?</p>
-     *
-     * @return is gobbling suspended?
-     */
-    @AnyThread
-    public boolean isSuspended() {
-        synchronized (this) {
-            return !active;
-        }
-    }
-
-    /**
-     * <p>Get current source InputStream</p>
-     *
-     * @return source InputStream
-     */
-    @NonNull
-    @AnyThread
-    public InputStream getInputStream() {
-        return inputStream;
-    }
-
-    /**
-     * <p>Get current OnLineListener</p>
-     *
-     * @return OnLineListener
-     */
-    @Nullable
-    @AnyThread
-    public OnLineListener getOnLineListener() {
-        return lineListener;
-    }
-
-    void conditionalJoin() throws InterruptedException {
-        if (calledOnClose) return; // deadlock from callback, we're inside exit procedure
-        if (Thread.currentThread() == this) return; // can't join self
-        join();
-    }
 }

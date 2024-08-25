@@ -11,10 +11,6 @@ public class ShellEnvironmentVariable implements Comparable<ShellEnvironmentVari
     /** If environment variable {@link #value} is already escaped. */
     public boolean escaped;
 
-    public ShellEnvironmentVariable(String name, String value) {
-        this(name, value, false);
-    }
-
     public ShellEnvironmentVariable(String name, String value, boolean escaped) {
         this.name = name;
         this.value = value;

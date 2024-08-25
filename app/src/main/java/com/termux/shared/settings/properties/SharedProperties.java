@@ -270,21 +270,6 @@ public class SharedProperties {
     }
 
     /**
-     * A static function to get the {@link String} value for the {@link Properties} key read from
-     * the propertiesFile file.
-     *
-     * @param context The {@link Context} for the {@link #getPropertiesFromFile(Context,File,SharedPropertiesParser)} call.
-     * @param propertiesFile The {@link File} to read the {@link Properties} from.
-     * @param key The key to read.
-     * @param def The default value.
-     * @param sharedPropertiesParser The implementation of the {@link SharedPropertiesParser} interface.
-     * @return Returns the {@link String} object. This will be {@code null} if key is not found.
-     */
-    public static String getProperty(Context context, File propertiesFile, String key, String def, @Nullable SharedPropertiesParser sharedPropertiesParser) {
-        return (String) getDefaultIfNull(getDefaultIfNull(getPropertiesFromFile(context, propertiesFile, sharedPropertiesParser), new Properties()).get(key), def);
-    }
-
-    /**
      * A static function to get the internal {@link Object} value for the {@link String} value for
      * the {@link Properties} key read from the propertiesFile file.
      *
@@ -389,17 +374,6 @@ public class SharedProperties {
     public static Map<String, Object> getMapCopy(Map<String, Object> map) {
         if (map == null) return null;
         return new HashMap<>(map);
-    }
-
-    /**
-     * Get the boolean value for the {@link String} value.
-     *
-     * @param value The {@link String} value to convert.
-     * @return Returns {@code true} or {@code false} if value is the literal string "true" or "false" respectively,
-     * regardless of case. Otherwise returns {@code null}.
-     */
-    public static Boolean getBooleanValueForStringValue(String value) {
-        return MAP_GENERIC_BOOLEAN.get(toLowerCase(value));
     }
 
     /**

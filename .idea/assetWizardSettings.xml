@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="baseline_close_24" />
-                            <entry key="sourceFile" value="C:\Users\a\Desktop\d.svg" />
+                            <entry key="outputName" value="drawing" />
+                            <entry key="sourceFile" value="C:\Users\a\StudioProjects\Termos\drawing.svg" />
                           </map>
                         </option>
                       </PersistentState>

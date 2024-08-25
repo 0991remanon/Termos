@@ -3,12 +3,10 @@ package com.termux.shared.termux.settings.properties;
 import com.google.common.collect.ImmutableBiMap;
 import com.termux.shared.settings.properties.SharedProperties;
 import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.shell.am.TermuxAmSocketServer;
 import com.termux.terminal.TerminalEmulator;
 import com.termux.view.TerminalView;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -125,7 +123,7 @@ public final class TermuxPropertyConstants {
 
 
 
-    /** Defines the key for whether the {@link TermuxAmSocketServer} should be run at app startup */
+    /** Defines the key for whether the Termux Am SocketServer should be run at app startup */
     public static final String KEY_RUN_TERMUX_AM_SOCKET_SERVER =  "run-termux-am-socket-server"; // Default: "run-termux-am-socket-server"
 
 
@@ -166,7 +164,6 @@ public final class TermuxPropertyConstants {
     public static final String VALUE_BELL_BEHAVIOUR_VIBRATE = "vibrate";
     public static final String VALUE_BELL_BEHAVIOUR_BEEP = "beep";
     public static final String VALUE_BELL_BEHAVIOUR_IGNORE = "ignore";
-    public static final String DEFAULT_VALUE_BELL_BEHAVIOUR = VALUE_BELL_BEHAVIOUR_VIBRATE;
 
     public static final int IVALUE_BELL_BEHAVIOUR_VIBRATE = 1;
     public static final int IVALUE_BELL_BEHAVIOUR_BEEP = 2;
@@ -433,19 +430,5 @@ public final class TermuxPropertyConstants {
         KEY_EXTRA_KEYS_TEXT_ALL_CAPS,
         KEY_RUN_TERMUX_AM_SOCKET_SERVER
     ));
-
-    /** Defines the set for keys loaded by termux that have default inverted boolean behaviour with false as default.
-     * "false" -> true
-     * "true" -> false
-     * default: false
-     */
-    public static final Set<String> TERMUX_DEFAULT_INVERETED_FALSE_BOOLEAN_BEHAVIOUR_PROPERTIES_LIST = new HashSet<>(Collections.emptyList());
-
-    /** Defines the set for keys loaded by termux that have default inverted boolean behaviour with true as default.
-     * "false" -> true
-     * "true" -> false
-     * default: true
-     */
-    public static final Set<String> TERMUX_DEFAULT_INVERETED_TRUE_BOOLEAN_BEHAVIOUR_PROPERTIES_LIST = new HashSet<>(Collections.emptyList());
 
 }

@@ -4,7 +4,6 @@ import android.app.ActivityManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -25,8 +24,6 @@ import java.security.MessageDigest;
 import java.util.List;
 
 public class PackageUtils {
-
-    private static final String LOG_TAG = "PackageUtils";
 
     /**
      * Get the {@link Context} for the package name with {@link Context#CONTEXT_RESTRICTED} flags.
@@ -53,8 +50,6 @@ public class PackageUtils {
         try {
             return context.createPackageContext(packageName, flags);
         } catch (Exception e) {
-//Loger #############
-
             return null;
         }
     }
@@ -81,18 +76,6 @@ public class PackageUtils {
         }
 
         return packageContext;
-    }
-
-
-
-    /**
-     * Get the {@link PackageInfo} for the package associated with the {@code context}.
-     *
-     * @param context The {@link Context} for the package.
-     * @return Returns the {@link PackageInfo}. This will be {@code null} if an exception is raised.
-     */
-    public static PackageInfo getPackageInfoForPackage(@NonNull final Context context) {
-        return getPackageInfoForPackage(context, context.getPackageName());
     }
 
     /**
@@ -137,8 +120,6 @@ public class PackageUtils {
             return null;
         }
     }
-
-
 
     /**
      * Get the {@link ApplicationInfo} for the {@code packageName}.
@@ -185,8 +166,6 @@ public class PackageUtils {
             return (Integer) ReflectionUtils.invokeField(ApplicationInfo.class, "privateFlags", applicationInfo).value;
         } catch (Exception e) {
             // ClassCastException may be thrown
-//Loger #############
-
             return null;
         }
     }
@@ -214,8 +193,6 @@ public class PackageUtils {
             return (String) ReflectionUtils.invokeField(ApplicationInfo.class, Build.VERSION.SDK_INT < Build.VERSION_CODES.O ? "seinfo" : "seInfo", applicationInfo).value;
         } catch (Exception e) {
             // ClassCastException may be thrown
-//Loger #############
-
             return null;
         }
     }
@@ -236,8 +213,6 @@ public class PackageUtils {
             return (String) ReflectionUtils.invokeField(ApplicationInfo.class, "seInfoUser", applicationInfo).value;
         } catch (Exception e) {
             // ClassCastException may be thrown
-//Loger #############
-
             return null;
         }
     }
@@ -255,8 +230,6 @@ public class PackageUtils {
             return (Integer) ReflectionUtils.invokeField(ApplicationInfo.class, fieldName, null).value;
         } catch (Exception e) {
             // ClassCastException may be thrown
-//Loger #############
-
             return null;
         }
     }
@@ -280,55 +253,6 @@ public class PackageUtils {
         return ( 0 != ( privateFlags & flagToCheck ) );
     }
 
-
-
-
-
-    /**
-     * Get the app name for the package associated with the {@code context}.
-     *
-     * @param context The {@link Context} for the package.
-     * @return Returns the {@code android:name} attribute.
-     */
-    public static String getAppNameForPackage(@NonNull final Context context) {
-        return getAppNameForPackage(context, context.getApplicationInfo());
-    }
-
-    /**
-     * Get the app name for the package associated with the {@code applicationInfo}.
-     *
-     * @param context The {@link Context} for operations.
-     * @param applicationInfo The {@link ApplicationInfo} for the package.
-     * @return Returns the {@code android:name} attribute.
-     */
-    public static String getAppNameForPackage(@NonNull final Context context, @NonNull final ApplicationInfo applicationInfo) {
-        return applicationInfo.loadLabel(context.getPackageManager()).toString();
-    }
-
-
-
-    /**
-     * Get the package name for the package associated with the {@code context}.
-     *
-     * @param context The {@link Context} for the package.
-     * @return Returns the package name.
-     */
-    public static String getPackageNameForPackage(@NonNull final Context context) {
-        return getPackageNameForPackage(context.getApplicationInfo());
-    }
-
-    /**
-     * Get the package name for the package associated with the {@code applicationInfo}.
-     *
-     * @param applicationInfo The {@link ApplicationInfo} for the package.
-     * @return Returns the package name.
-     */
-    public static String getPackageNameForPackage(@NonNull final ApplicationInfo applicationInfo) {
-        return applicationInfo.packageName;
-    }
-
-
-
     /**
      * Get the uid for the package associated with the {@code context}.
      *
@@ -348,8 +272,6 @@ public class PackageUtils {
     public static int getUidForPackage(@NonNull final ApplicationInfo applicationInfo) {
         return applicationInfo.uid;
     }
-
-
 
     /**
      * Get the {@code targetSdkVersion} for the package associated with the {@code context}.
@@ -371,18 +293,6 @@ public class PackageUtils {
         return applicationInfo.targetSdkVersion;
     }
 
-
-
-    /**
-     * Get the base apk path for the package associated with the {@code context}.
-     *
-     * @param context The {@link Context} for the package.
-     * @return Returns the base apk path.
-     */
-    public static String getBaseAPKPathForPackage(@NonNull final Context context) {
-        return getBaseAPKPathForPackage(context.getApplicationInfo());
-    }
-
     /**
      * Get the base apk path for the package associated with the {@code applicationInfo}.
      *
@@ -391,19 +301,6 @@ public class PackageUtils {
      */
     public static String getBaseAPKPathForPackage(@NonNull final ApplicationInfo applicationInfo) {
         return applicationInfo.publicSourceDir;
-    }
-
-
-
-    /**
-     * Check if the app associated with the {@code context} has {@link ApplicationInfo#FLAG_DEBUGGABLE}
-     * set.
-     *
-     * @param context The {@link Context} for the package.
-     * @return Returns {@code true} if app is debuggable, otherwise {@code false}.
-     */
-    public static boolean isAppForPackageADebuggableBuild(@NonNull final Context context) {
-        return isAppForPackageADebuggableBuild(context.getApplicationInfo());
     }
 
     /**
@@ -417,19 +314,6 @@ public class PackageUtils {
         return ( 0 != ( applicationInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE ) );
     }
 
-
-
-    /**
-     * Check if the app associated with the {@code context} has {@link ApplicationInfo#FLAG_EXTERNAL_STORAGE}
-     * set.
-     *
-     * @param context The {@link Context} for the package.
-     * @return Returns {@code true} if app is installed on external storage, otherwise {@code false}.
-     */
-    public static boolean isAppInstalledOnExternalStorage(@NonNull final Context context) {
-        return isAppInstalledOnExternalStorage(context.getApplicationInfo());
-    }
-
     /**
      * Check if the app associated with the {@code applicationInfo} has {@link ApplicationInfo#FLAG_EXTERNAL_STORAGE}
      * set.
@@ -440,8 +324,6 @@ public class PackageUtils {
     public static boolean isAppInstalledOnExternalStorage(@NonNull final ApplicationInfo applicationInfo) {
         return ( 0 != ( applicationInfo.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE ) );
     }
-
-
 
     /**
      * Check if the app associated with the {@code context} has
@@ -471,31 +353,6 @@ public class PackageUtils {
         return isApplicationInfoPrivateFlagSetForPackage("PRIVATE_FLAG_REQUEST_LEGACY_EXTERNAL_STORAGE", applicationInfo);
     }
 
-
-
-    /**
-     * Get the {@code versionCode} for the package associated with the {@code context}.
-     *
-     * @param context The {@link Context} for the package.
-     * @return Returns the {@code versionCode}. This will be {@code null} if an exception is raised.
-     */
-    @Nullable
-    public static Integer getVersionCodeForPackage(@NonNull final Context context) {
-        return getVersionCodeForPackage(context, context.getPackageName());
-    }
-
-    /**
-     * Get the {@code versionCode} for the {@code packageName}.
-     *
-     * @param context The {@link Context} for operations.
-     * @param packageName The package name of the package.
-     * @return Returns the {@code versionCode}. This will be {@code null} if an exception is raised.
-     */
-    @Nullable
-    public static Integer getVersionCodeForPackage(@NonNull final Context context, @NonNull final String packageName) {
-        return getVersionCodeForPackage(getPackageInfoForPackage(context, packageName));
-    }
-
     /**
      * Get the {@code versionCode} for the {@code packageName}.
      *
@@ -505,31 +362,6 @@ public class PackageUtils {
     @Nullable
     public static Integer getVersionCodeForPackage(@Nullable final PackageInfo packageInfo) {
         return packageInfo != null ? packageInfo.versionCode : null;
-    }
-
-
-
-    /**
-     * Get the {@code versionName} for the package associated with the {@code context}.
-     *
-     * @param context The {@link Context} for the package.
-     * @return Returns the {@code versionName}. This will be {@code null} if an exception is raised.
-     */
-    @Nullable
-    public static String getVersionNameForPackage(@NonNull final Context context) {
-        return getVersionNameForPackage(context, context.getPackageName());
-    }
-
-    /**
-     * Get the {@code versionName} for the {@code packageName}.
-     *
-     * @param context The {@link Context} for operations.
-     * @param packageName The package name of the package.
-     * @return Returns the {@code versionName}. This will be {@code null} if an exception is raised.
-     */
-    @Nullable
-    public static String getVersionNameForPackage(@NonNull final Context context, @NonNull final String packageName) {
-        return getVersionNameForPackage(getPackageInfoForPackage(context, packageName));
     }
 
     /**
@@ -542,19 +374,6 @@ public class PackageUtils {
     @Nullable
     public static String getVersionNameForPackage(@Nullable final PackageInfo packageInfo) {
         return packageInfo != null ? packageInfo.versionName : null;
-    }
-
-
-
-    /**
-     * Get the {@code SHA-256 digest} of signing certificate for the package associated with the {@code context}.
-     *
-     * @param context The {@link Context} for the package.
-     * @return Returns the {@code SHA-256 digest}. This will be {@code null} if an exception is raised.
-     */
-    @Nullable
-    public static String getSigningCertificateSHA256DigestForPackage(@NonNull final Context context) {
-        return getSigningCertificateSHA256DigestForPackage(context, context.getPackageName());
     }
 
     /**
@@ -582,8 +401,6 @@ public class PackageUtils {
             return null;
         }
     }
-
-
 
     /**
      * Get the serial number for the user for the package associated with the {@code context}.
@@ -647,7 +464,6 @@ public class PackageUtils {
         return null;
     }
 
-
     /**
      * Enable or disable a {@link ComponentName} with a call to
      * {@link PackageManager#setComponentEnabledSetting(ComponentName, int, int)}.
@@ -688,8 +504,7 @@ public class PackageUtils {
             }
             return null;
         } catch (final Exception e) {
-            String errmsg = ": " + e.getMessage();
-            return errmsg;
+            return ": " + e.getMessage();
         }
     }
 
@@ -717,32 +532,6 @@ public class PackageUtils {
         } catch (final Exception e) {}
 
         return null;
-    }
-
-    /**
-     * Check if an {@link android.app.Activity} {@link ComponentName} can be called by calling
-     * {@link PackageManager#queryIntentActivities(Intent, int)}.
-     *
-     * @param context The {@link Context} for operations.
-     * @param packageName The package name of the component.
-     * @param className The {@link Class} name of the component.
-     * @param flags The flags to filter results.
-     * @return Returns {@code true} if it exists, otherwise {@code false}.
-     */
-    public static boolean doesActivityComponentExist(@NonNull final Context context, @NonNull String packageName,
-                                                     @NonNull String className, int flags) {
-        try {
-            PackageManager packageManager = context.getPackageManager();
-            if (packageManager != null) {
-                Intent intent = new Intent();
-                intent.setClassName(packageName, className);
-                return packageManager.queryIntentActivities(intent, flags).size() > 0;
-            }
-        } catch (final Exception e) {
-            // ignore
-        }
-
-        return false;
     }
 
 }

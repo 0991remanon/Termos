@@ -230,6 +230,6 @@ The shell startup command will be
 
         <!-- Clear All Settings -->
         <string name="termux_terminal_clear_all_settings_title">Clear All Settings</string>
-        <string name="termux_terminal_clear_all_settings_summary">All settings will be reset to default.</string>
+        <string name="termux_terminal_clear_all_settings_summary">All settings will be reset to default</string>
 
 </resources>

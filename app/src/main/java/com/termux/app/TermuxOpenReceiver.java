@@ -113,8 +113,6 @@ public class TermuxOpenReceiver extends BroadcastReceiver {
 
     public static class ContentProvider extends android.content.ContentProvider {
 
-        private static final String LOG_TAG = "TermuxContentProvider";
-
         @Override
         public boolean onCreate() {
             return true;

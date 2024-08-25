@@ -896,6 +896,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
                             if (outputStream != null) {
                                 outputStream.write(settings.toString().getBytes(StandardCharsets.UTF_8));
                                 outputStream.flush();
+                                outputStream.close();
                             }
                         } catch (Exception e) {}
                     }

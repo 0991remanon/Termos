@@ -1,7 +1,5 @@
 package com.termux.shared.errors;
 
-import com.termux.shared.markdown.MarkdownUtils;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -128,15 +126,4 @@ public class Error implements Serializable {
         return code > Errno.ERRNO_SUCCESS.getCode();
     }
 
-    public String getErrorMarkdownString() {
-        StringBuilder markdownString = new StringBuilder();
-
-        markdownString.append(MarkdownUtils.getSingleLineMarkdownStringEntry("Error Code", getCode(), "-"));
-        markdownString.append("\n").append(MarkdownUtils.getMultiLineMarkdownStringEntry(
-            (Errno.TYPE.equals(getType()) ? "Error Message" : "Error Message (" + getType() + ")"), message, "-"));
-        if (throwablesList != null && throwablesList.size() > 0)
-            markdownString.append("\n\n");
-
-        return markdownString.toString();
-    }
 }

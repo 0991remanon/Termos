@@ -13,8 +13,6 @@ public class SELinuxUtils {
 
     public static final String ANDROID_OS_SELINUX_CLASS = "android.os.SELinux";
 
-    private static final String LOG_TAG = "SELinuxUtils";
-
     /**
      * Gets the security context of the current process.
      *
@@ -29,43 +27,11 @@ public class SELinuxUtils {
             @SuppressLint("PrivateApi") Class<?> clazz = Class.forName(ANDROID_OS_SELINUX_CLASS);
             Method method = ReflectionUtils.getDeclaredMethod(clazz, methodName);
             if (method == null) {
-//Loger #############
-
                 return null;
             }
 
             return (String) ReflectionUtils.invokeMethod(method, null).value;
         } catch (Exception e) {
-//Loger #############
-
-            return null;
-        }
-    }
-
-    /**
-     * Get the security context of a given process id.
-     *
-     * @param pid The pid of process.
-     * @return Returns a {@link String} representing the security context of the given pid.
-     * This will be {@code null} if an exception is raised.
-     */
-    @Nullable
-    public static String getPidContext(int pid) {
-        ReflectionUtils.bypassHiddenAPIReflectionRestrictions();
-        String methodName = "getPidContext";
-        try {
-            @SuppressLint("PrivateApi") Class<?> clazz = Class.forName(ANDROID_OS_SELINUX_CLASS);
-            Method method = ReflectionUtils.getDeclaredMethod(clazz, methodName, int.class);
-            if (method == null) {
-//Loger #############
-
-                return null;
-            }
-
-            return (String) ReflectionUtils.invokeMethod(method, null, pid).value;
-        } catch (Exception e) {
-//Loger #############
-
             return null;
         }
     }
@@ -85,15 +51,11 @@ public class SELinuxUtils {
             @SuppressLint("PrivateApi") Class<?> clazz = Class.forName(ANDROID_OS_SELINUX_CLASS);
             Method method = ReflectionUtils.getDeclaredMethod(clazz, methodName, String.class);
             if (method == null) {
-//Loger #############
-
                 return null;
             }
 
             return (String) ReflectionUtils.invokeMethod(method, null, path).value;
         } catch (Exception e) {
-//Loger #############
-
             return null;
         }
     }

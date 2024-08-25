@@ -79,7 +79,6 @@ public class MessageDialogUtils {
         AlertDialog dialog = builder.create();
 
         dialog.setOnShowListener(dialogInterface -> {
-//Loger #############
 
             Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
             if (button != null)

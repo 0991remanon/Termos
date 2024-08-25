@@ -79,11 +79,4 @@ public class MarkdownUtils {
             return "**" + label + "**: " + def +  "  ";
     }
 
-    public static String getMultiLineMarkdownStringEntry(String label, Object object, String def) {
-        if (object != null)
-            return "**" + label + "**:\n" + getMarkdownCodeForString(object.toString(), true) + "\n";
-        else
-            return "**" + label + "**: " + def + "\n";
-    }
-
 }

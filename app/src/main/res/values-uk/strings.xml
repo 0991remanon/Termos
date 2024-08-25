@@ -228,6 +228,6 @@
 
         <!-- Clear All Settings -->
         <string name="termux_terminal_clear_all_settings_title">Очистити всі налаштування</string>
-        <string name="termux_terminal_clear_all_settings_summary">Усі налаштування будуть повернуті до стандартних.</string>
+        <string name="termux_terminal_clear_all_settings_summary">Усі налаштування будуть повернуті до стандартних</string>
 
 </resources>

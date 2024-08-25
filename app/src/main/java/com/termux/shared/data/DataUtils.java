@@ -1,15 +1,6 @@
 package com.termux.shared.data;
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.google.common.base.Strings;
-
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 public class DataUtils {
 
@@ -130,87 +121,6 @@ public class DataUtils {
     }
 
     /**
-     * Get an {@code int} from {@link Bundle} that is stored as a {@link String}.
-     *
-     * @param bundle The {@link Bundle} to get the value from.
-     * @param key The key for the value.
-     * @param def The default value if failed to read a valid value.
-     * @return Returns the {@code int} value after parsing the {@link String} value stored in
-     * {@link Bundle}, otherwise returns default if failed to read a valid value,
-     * like in case of an exception.
-     */
-    public static int getIntStoredAsStringFromBundle(Bundle bundle, String key, int def) {
-        if (bundle == null) return def;
-        return getIntFromString(bundle.getString(key, Integer.toString(def)), def);
-    }
-
-
-
-    /**
-     * If value is not in the range [min, max], set it to either min or max.
-     */
-    public static int clamp(int value, int min, int max) {
-        return Math.min(Math.max(value, min), max);
-    }
-
-    /**
-     * If value is not in the range [min, max], set it to default.
-     */
-    public static float rangedOrDefault(float value, float def, float min, float max) {
-        if (value < min || value > max)
-            return def;
-        else
-            return value;
-    }
-
-
-
-    /**
-     * Add a space indent to a {@link String}. Each indent is 4 space characters long.
-     *
-     * @param string The {@link String} to add indent to.
-     * @param count The indent count.
-     * @return Returns the indented {@link String}.
-     */
-    public static String getSpaceIndentedString(String string, int count) {
-        if (string == null || string.isEmpty())
-            return string;
-        else
-            return getIndentedString(string, "    ", count);
-    }
-
-    /**
-     * Add a tab indent to a {@link String}. Each indent is 1 tab character long.
-     *
-     * @param string The {@link String} to add indent to.
-     * @param count The indent count.
-     * @return Returns the indented {@link String}.
-     */
-    public static String getTabIndentedString(String string, int count) {
-        if (string == null || string.isEmpty())
-            return string;
-        else
-            return getIndentedString(string, "\t", count);
-    }
-
-    /**
-     * Add an indent to a {@link String}.
-     *
-     * @param string The {@link String} to add indent to.
-     * @param indent The indent characters.
-     * @param count The indent count.
-     * @return Returns the indented {@link String}.
-     */
-    public static String getIndentedString(String string, @NonNull String indent, int count) {
-        if (string == null || string.isEmpty())
-            return string;
-        else
-            return string.replaceAll("(?m)^", Strings.repeat(indent, Math.max(count, 1)));
-    }
-
-
-
-    /**
      * Get the object itself if it is not {@code null}, otherwise default.
      *
      * @param object The {@link Object} to check.
@@ -221,37 +131,9 @@ public class DataUtils {
         return (object == null) ? def : object;
     }
 
-    /**
-     * Get the {@link String} itself if it is not {@code null} or empty, otherwise default.
-     *
-     * @param value The {@link String} to check.
-     * @param def The default {@link String}.
-     * @return Returns {@code value} if it is not {@code null} or empty, otherwise returns {@code def}.
-     */
-    public static String getDefaultIfUnset(@Nullable String value, String def) {
-        return (value == null || value.isEmpty()) ? def : value;
-    }
-
     /** Check if a string is null or empty. */
     public static boolean isNullOrEmpty(String string) {
         return string == null || string.isEmpty();
-    }
-
-
-
-    /** Get size of a serializable object. */
-    public static long getSerializedSize(Serializable object) {
-        if (object == null) return 0;
-        try {
-            ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteOutputStream);
-            objectOutputStream.writeObject(object);
-            objectOutputStream.flush();
-            objectOutputStream.close();
-            return byteOutputStream.toByteArray().length;
-        } catch (Exception e) {
-            return -1;
-        }
     }
 
 }

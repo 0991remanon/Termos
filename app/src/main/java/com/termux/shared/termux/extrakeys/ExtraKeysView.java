@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.HapticFeedbackConstants;
@@ -21,7 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.button.MaterialButton;
-import com.termux.R;
 import com.termux.shared.termux.settings.preferences.TermuxPreferenceConstants;
 import com.termux.shared.termux.terminal.io.TerminalExtraKeys;
 
@@ -107,26 +105,9 @@ public final class ExtraKeysView extends GridLayout {
 
     }
 
-
-
-    public static final int ATTR_BUTTON_TEXT_COLOR = R.attr.extraKeysButtonTextColor;
-
-    public static final int ATTR_BUTTON_ACTIVE_TEXT_COLOR = R.attr.extraKeysButtonActiveTextColor;
-    /** Defines the default value for {@link #mButtonBackgroundColor} defined by current theme. */
-    public static final int ATTR_BUTTON_BACKGROUND_COLOR = R.attr.extraKeysButtonBackgroundColor;
-    /** Defines the default value for {@link #mButtonActiveBackgroundColor} defined by current theme. */
-    public static final int ATTR_BUTTON_ACTIVE_BACKGROUND_COLOR = R.attr.extraKeysButtonActiveBackgroundColor;
-
-
     public static final int DEFAULT_BUTTON_TEXT_COLOR = 0xFFFFFFFF;
 
     public static final int DEFAULT_BUTTON_ACTIVE_TEXT_COLOR = 0xFF80DEEA;
-    /** Defines the default fallback value for {@link #mButtonBackgroundColor} if {@link #ATTR_BUTTON_BACKGROUND_COLOR} is undefined. */
-    public static final int DEFAULT_BUTTON_BACKGROUND_COLOR = 0x00000000;
-    /** Defines the default fallback value for {@link #mButtonActiveBackgroundColor} if {@link #ATTR_BUTTON_ACTIVE_BACKGROUND_COLOR} is undefined. */
-    public static final int DEFAULT_BUTTON_ACTIVE_BACKGROUND_COLOR = 0xFF7F7F7F;
-
-
 
     /** Defines the minimum allowed duration in milliseconds for {@link #mLongPressTimeout}. */
     public static final int MIN_LONG_PRESS_DURATION = 200;
@@ -164,12 +145,8 @@ public final class ExtraKeysView extends GridLayout {
      */
     private List<String> mRepetitiveKeys;
 
-    /** The text color for the extra keys button when its active.
-     * Defaults to {@link #DEFAULT_BUTTON_ACTIVE_TEXT_COLOR}. */
-    /** The background color for the extra keys button. Defaults to {@link #DEFAULT_BUTTON_BACKGROUND_COLOR}. */
     private int mButtonBackgroundColor;
-    /** The background color for the extra keys button when its active. Defaults to
-     * {@link #DEFAULT_BUTTON_ACTIVE_BACKGROUND_COLOR}. */
+
     private int mButtonActiveBackgroundColor;
 
     /** Defines whether text for the extra keys button should be all capitalized automatically. */
@@ -399,9 +376,11 @@ public final class ExtraKeysView extends GridLayout {
                 return;
         }
 
+        Context context = getContext();
         if (Settings.System.getInt(getContext().getContentResolver(),
+
             Settings.System.HAPTIC_FEEDBACK_ENABLED, 0) != 0
-            && PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(TermuxPreferenceConstants.TERMUX_APP.VIBRATION_ENABLED, true)) {
+            && context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_PRIVATE).getBoolean(TermuxPreferenceConstants.TERMUX_APP.VIBRATION_ENABLED, true)) {
 
             if (Build.VERSION.SDK_INT >= 28) {
                 button.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);

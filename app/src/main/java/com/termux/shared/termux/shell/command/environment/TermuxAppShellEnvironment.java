@@ -3,7 +3,6 @@ package com.termux.shared.termux.shell.command.environment;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,7 +13,6 @@ import com.termux.shared.data.DataUtils;
 import com.termux.shared.shell.command.environment.ShellEnvironmentUtils;
 import com.termux.shared.termux.TermuxConstants;
 import com.termux.shared.termux.TermuxUtils;
-import com.termux.shared.termux.shell.am.TermuxAmSocketServer;
 
 import java.util.HashMap;
 
@@ -74,11 +72,6 @@ public class TermuxAppShellEnvironment {
     public static final String ENV_TERMUX_APP__DATA_DIR = TERMUX_APP_ENV_PREFIX + "DATA_DIR";
 
 
-    /** Environment variable for the Termux app {@link TermuxAmSocketServer#getTermuxAppAMSocketServerEnabled(Context)}. */
-    public static final String ENV_TERMUX_APP__AM_SOCKET_SERVER_ENABLED = TERMUX_APP_ENV_PREFIX + "AM_SOCKET_SERVER_ENABLED";
-
-
-
     /** Get shell environment for Termux app. */
     @Nullable
     public static HashMap<String, String> getEnvironment(@NonNull Context currentPackageContext) {
@@ -122,13 +115,6 @@ public class TermuxAppShellEnvironment {
         Context termuxPackageContext = TermuxUtils.getTermuxPackageContext(currentPackageContext);
         if (termuxPackageContext != null) {
 
-
-            /*
-            // Will not be set for plugins
-            ShellEnvironmentUtils.putToEnvIfSet(environment, ENV_TERMUX_APP__AM_SOCKET_SERVER_ENABLED,
-                TermuxAmSocketServer.getTermuxAppAMSocketServerEnabled(currentPackageContext));
-             */
-
             ShellEnvironmentUtils.putToEnvIfSet(environment, ENV_TERMUX_APP__DATA_DIR, applicationInfo.dataDir);
 
             ShellEnvironmentUtils.putToEnvIfSet(environment, ENV_TERMUX__SE_PROCESS_CONTEXT, SELinuxUtils.getContext());
@@ -138,8 +124,7 @@ public class TermuxAppShellEnvironment {
             ShellEnvironmentUtils.putToEnvIfSet(environment, ENV_TERMUX__SE_INFO, PackageUtils.getApplicationInfoSeInfoForPackage(applicationInfo) +
                 (DataUtils.isNullOrEmpty(seInfoUser) ? "" : seInfoUser));
 
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                ShellEnvironmentUtils.putToEnvIfSet(environment, ENV_TERMUX__USER_ID, String.valueOf(PackageUtils.getUserIdForPackage(currentPackageContext)));
+            ShellEnvironmentUtils.putToEnvIfSet(environment, ENV_TERMUX__USER_ID, String.valueOf(PackageUtils.getUserIdForPackage(currentPackageContext)));
             ShellEnvironmentUtils.putToEnvIfSet(environment, ENV_TERMUX__PROFILE_OWNER, PackageUtils.getProfileOwnerPackageNameForUser(currentPackageContext));
         }
 
@@ -155,14 +140,6 @@ public class TermuxAppShellEnvironment {
             ShellEnvironmentUtils.putToEnvIfSet(environment, ENV_TERMUX_APP__APK_RELEASE,
                 TermuxUtils.getAPKRelease(signingCertificateSHA256Digest).replaceAll("[^a-zA-Z]", "_").toUpperCase());
         }
-    }
-
-    /** Update {@link #ENV_TERMUX_APP__AM_SOCKET_SERVER_ENABLED} value in {@code environment}. */
-    public synchronized static void updateTermuxAppAMSocketServerEnabled(@NonNull Context currentPackageContext) {
-        if (termuxAppEnvironment == null) return;
-        termuxAppEnvironment.remove(ENV_TERMUX_APP__AM_SOCKET_SERVER_ENABLED);
-        ShellEnvironmentUtils.putToEnvIfSet(termuxAppEnvironment, ENV_TERMUX_APP__AM_SOCKET_SERVER_ENABLED,
-            TermuxAmSocketServer.getTermuxAppAMSocketServerEnabled(currentPackageContext));
     }
 
 }

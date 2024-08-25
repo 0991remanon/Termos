@@ -34,8 +34,6 @@ public class SharedPreferenceUtils {
         return context.getSharedPreferences(name, Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS);
     }
 
-
-
     /**
      * Get a {@code boolean} from {@link SharedPreferences}.
      *
@@ -205,56 +203,4 @@ public class SharedPreferenceUtils {
             sharedPreferences.edit().putString(key, value).apply();
     }
 
-    /**
-     * Get an {@code int} from {@link SharedPreferences} that is stored as a {@link String}.
-     *
-     * @param sharedPreferences The {@link SharedPreferences} to get the value from.
-     * @param key The key for the value.
-     * @param def The default value if failed to read a valid value.
-     * @return Returns the {@code int} value after parsing the {@link String} value stored in
-     * {@link SharedPreferences}, otherwise returns default if failed to read a valid value,
-     * like in case of an exception.
-     */
-    public static int getIntStoredAsString(SharedPreferences sharedPreferences, String key, int def) {
-        if (sharedPreferences == null) {
-            return def;
-        }
-
-        String stringValue;
-        int intValue;
-
-        try {
-            stringValue = sharedPreferences.getString(key, Integer.toString(def));
-            if (stringValue != null)
-                intValue =  Integer.parseInt(stringValue);
-            else
-                intValue = def;
-        } catch (NumberFormatException | ClassCastException e) {
-            intValue = def;
-        }
-
-        return intValue;
-    }
-
-    /**
-     * Set an {@code int} into {@link SharedPreferences} that is stored as a {@link String}.
-     *
-     * @param sharedPreferences The {@link SharedPreferences} to set the value in.
-     * @param key The key for the value.
-     * @param value The value to store.
-     * @param commitToFile If set to {@code true}, then value will be set to shared preferences
-     *                     in-memory cache and the file synchronously. Ideally, only to be used for
-     *                     multi-process use-cases.
-     */
-    @SuppressLint("ApplySharedPref")
-    public static void setIntStoredAsString(SharedPreferences sharedPreferences, String key, int value, boolean commitToFile) {
-        if (sharedPreferences == null) {
-            return;
-        }
-
-        if (commitToFile)
-            sharedPreferences.edit().putString(key, Integer.toString(value)).commit();
-        else
-            sharedPreferences.edit().putString(key, Integer.toString(value)).apply();
-    }
 }

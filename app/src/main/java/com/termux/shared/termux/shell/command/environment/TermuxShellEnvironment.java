@@ -19,8 +19,6 @@ import java.util.HashMap;
  */
 public class TermuxShellEnvironment extends AndroidShellEnvironment {
 
-    private static final String LOG_TAG = "TermuxShellEnvironment";
-
     /** Environment variable for the termux {@link TermuxConstants#TERMUX_PREFIX_DIR_PATH}. */
     public static final String ENV_PREFIX = "PREFIX";
 

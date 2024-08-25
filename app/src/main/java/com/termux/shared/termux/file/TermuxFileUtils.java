@@ -1,48 +1,18 @@
 package com.termux.shared.termux.file;
 
-import static com.termux.shared.termux.TermuxConstants.TERMUX_PREFIX_DIR_PATH;
-
 import android.content.Context;
 import android.os.Environment;
 
 import androidx.annotation.NonNull;
 
-import com.termux.shared.android.AndroidUtils;
 import com.termux.shared.errors.Error;
 import com.termux.shared.file.FileUtils;
 import com.termux.shared.file.FileUtilsErrno;
-import com.termux.shared.markdown.MarkdownUtils;
-import com.termux.shared.shell.command.ExecutionCommand;
-import com.termux.shared.shell.command.runner.app.AppShell;
 import com.termux.shared.termux.TermuxConstants;
-import com.termux.shared.termux.TermuxUtils;
-import com.termux.shared.termux.shell.command.environment.TermuxShellEnvironment;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 public class TermuxFileUtils {
-
-    private static final String LOG_TAG = "TermuxFileUtils";
-
-    /**
-     * Replace "$PREFIX/" or "~/" prefix with termux absolute paths.
-     *
-     * @param paths The {@code paths} to expand.
-     * @return Returns the {@code expand paths}.
-     */
-    public static List<String> getExpandedTermuxPaths(List<String> paths) {
-        if (paths == null) return null;
-        List<String> expandedPaths = new ArrayList<>();
-
-        for (int i = 0; i < paths.size(); i++) {
-            expandedPaths.add(getExpandedTermuxPath(paths.get(i)));
-        }
-
-        return expandedPaths;
-    }
 
     /**
      * Replace "$PREFIX/" or "~/" prefix with termux absolute paths.
@@ -56,38 +26,6 @@ public class TermuxFileUtils {
             path = path.replaceAll("^\\$PREFIX/", TermuxConstants.TERMUX_PREFIX_DIR_PATH + "/");
             path = path.replaceAll("^~/$", TermuxConstants.TERMUX_HOME_DIR_PATH);
             path = path.replaceAll("^~/", TermuxConstants.TERMUX_HOME_DIR_PATH + "/");
-        }
-
-        return path;
-    }
-
-    /**
-     * Replace termux absolute paths with "$PREFIX/" or "~/" prefix.
-     *
-     * @param paths The {@code paths} to unexpand.
-     * @return Returns the {@code unexpand paths}.
-     */
-    public static List<String> getUnExpandedTermuxPaths(List<String> paths) {
-        if (paths == null) return null;
-        List<String> unExpandedPaths = new ArrayList<>();
-
-        for (int i = 0; i < paths.size(); i++) {
-            unExpandedPaths.add(getUnExpandedTermuxPath(paths.get(i)));
-        }
-
-        return unExpandedPaths;
-    }
-
-    /**
-     * Replace termux absolute paths with "$PREFIX/" or "~/" prefix.
-     *
-     * @param path The {@code path} to unexpand.
-     * @return Returns the {@code unexpand path}.
-     */
-    public static String getUnExpandedTermuxPath(String path) {
-        if (path != null && !path.isEmpty()) {
-            path = path.replaceAll("^" + Pattern.quote(TermuxConstants.TERMUX_PREFIX_DIR_PATH) + "/", "\\$PREFIX/");
-            path = path.replaceAll("^" + Pattern.quote(TermuxConstants.TERMUX_HOME_DIR_PATH) + "/", "~/");
         }
 
         return path;
@@ -266,145 +204,6 @@ public class TermuxFileUtils {
 
         return FileUtils.checkMissingFilePermissions("termux files directory", TermuxConstants.TERMUX_FILES_DIR_PATH,
             FileUtils.APP_WORKING_DIRECTORY_PERMISSIONS, false);
-    }
-
-    /**
-     * Validate if {@link TermuxConstants#TERMUX_PREFIX_DIR_PATH} exists and has
-     * {@link FileUtils#APP_WORKING_DIRECTORY_PERMISSIONS} permissions.
-     * .
-     *
-     * The {@link TermuxConstants#TERMUX_PREFIX_DIR_PATH} directory would not exist if termux has
-     * not been installed or the bootstrap setup has not been run or if it was deleted by the user.
-     *
-     * @param createDirectoryIfMissing The {@code boolean} that decides if directory file
-     *                                 should be created if its missing.
-     * @param setMissingPermissions The {@code boolean} that decides if permissions are to be
-     *                              automatically set.
-     * @return Returns the {@code error} if path is not a directory file, failed to create it,
-     * or validating permissions failed, otherwise {@code null}.
-     */
-    public static Error isTermuxPrefixDirectoryAccessible(boolean createDirectoryIfMissing, boolean setMissingPermissions) {
-           return FileUtils.validateDirectoryFileExistenceAndPermissions("termux prefix directory", TermuxConstants.TERMUX_PREFIX_DIR_PATH,
-                null, createDirectoryIfMissing,
-                FileUtils.APP_WORKING_DIRECTORY_PERMISSIONS, setMissingPermissions, true,
-                false, false);
-    }
-
-    /**
-     * Validate if {@link TermuxConstants#TERMUX_STAGING_PREFIX_DIR_PATH} exists and has
-     * {@link FileUtils#APP_WORKING_DIRECTORY_PERMISSIONS} permissions.
-     *
-     * @param createDirectoryIfMissing The {@code boolean} that decides if directory file
-     *                                 should be created if its missing.
-     * @param setMissingPermissions The {@code boolean} that decides if permissions are to be
-     *                              automatically set.
-     * @return Returns the {@code error} if path is not a directory file, failed to create it,
-     * or validating permissions failed, otherwise {@code null}.
-     */
-    public static Error isTermuxPrefixStagingDirectoryAccessible(boolean createDirectoryIfMissing, boolean setMissingPermissions) {
-        return FileUtils.validateDirectoryFileExistenceAndPermissions("termux prefix staging directory", TermuxConstants.TERMUX_STAGING_PREFIX_DIR_PATH,
-            null, createDirectoryIfMissing,
-            FileUtils.APP_WORKING_DIRECTORY_PERMISSIONS, setMissingPermissions, true,
-            false, false);
-    }
-
-    /**
-     * Validate if {@link TermuxConstants.TERMUX_APP#APPS_DIR_PATH} exists and has
-     * {@link FileUtils#APP_WORKING_DIRECTORY_PERMISSIONS} permissions.
-     *
-     * @param createDirectoryIfMissing The {@code boolean} that decides if directory file
-     *                                 should be created if its missing.
-     * @param setMissingPermissions The {@code boolean} that decides if permissions are to be
-     *                              automatically set.
-     * @return Returns the {@code error} if path is not a directory file, failed to create it,
-     * or validating permissions failed, otherwise {@code null}.
-     */
-    public static Error isAppsTermuxAppDirectoryAccessible(boolean createDirectoryIfMissing, boolean setMissingPermissions) {
-        return FileUtils.validateDirectoryFileExistenceAndPermissions("apps/termux-app directory", TermuxConstants.TERMUX_APP.APPS_DIR_PATH,
-            null, createDirectoryIfMissing,
-            FileUtils.APP_WORKING_DIRECTORY_PERMISSIONS, setMissingPermissions, true,
-            false, false);
-    }
-
-    /**
-     * If {@link TermuxConstants#TERMUX_PREFIX_DIR_PATH} doesn't exist, is empty or only contains
-     * files in {@link TermuxConstants#TERMUX_PREFIX_DIR_IGNORED_SUB_FILES_PATHS_TO_CONSIDER_AS_EMPTY}.
-     */
-    public static boolean isTermuxPrefixDirectoryEmpty() {
-        Error error = FileUtils.validateDirectoryFileEmptyOrOnlyContainsSpecificFiles("termux prefix",
-            TERMUX_PREFIX_DIR_PATH, TermuxConstants.TERMUX_PREFIX_DIR_IGNORED_SUB_FILES_PATHS_TO_CONSIDER_AS_EMPTY, true);
-        return error == null;
-    }
-
-    /**
-     * Get a markdown {@link String} for stat output for various Termux app files paths.
-     *
-     * @param context The context for operations.
-     * @return Returns the markdown {@link String}.
-     */
-    public static String getTermuxFilesStatMarkdownString(@NonNull final Context context) {
-        Context termuxPackageContext = TermuxUtils.getTermuxPackageContext(context);
-        if (termuxPackageContext == null) return null;
-
-        // Also ensures that termux files directory is created if it does not already exist
-        String filesDir = termuxPackageContext.getFilesDir().getAbsolutePath();
-
-        // Build script
-        StringBuilder statScript = new StringBuilder();
-        statScript
-            .append("echo 'ls info:'\n")
-            .append("/system/bin/ls -lhdZ")
-            .append(" '/data/data'")
-            .append(" '/data/user/0'")
-            .append(" '" + TermuxConstants.TERMUX_INTERNAL_PRIVATE_APP_DATA_DIR_PATH + "'")
-            .append(" '/data/user/0/" + TermuxConstants.TERMUX_PACKAGE_NAME + "'")
-            .append(" '" + TermuxConstants.TERMUX_FILES_DIR_PATH + "'")
-            .append(" '" + filesDir + "'")
-            .append(" '/data/user/0/" + TermuxConstants.TERMUX_PACKAGE_NAME + "/files'")
-            .append(" '/data/user/" + TermuxConstants.TERMUX_PACKAGE_NAME + "/files'")
-            .append(" '" + TermuxConstants.TERMUX_STAGING_PREFIX_DIR_PATH + "'")
-            .append(" '" + TermuxConstants.TERMUX_PREFIX_DIR_PATH + "'")
-            .append(" '" + TermuxConstants.TERMUX_HOME_DIR_PATH + "'")
-            .append(" '" + TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH + "/login'")
-            .append(" 2>&1")
-            .append("\necho; echo 'mount info:'\n")
-            .append("/system/bin/grep -E '( /data )|( /data/data )|( /data/user/[0-9]+ )' /proc/self/mountinfo 2>&1 | /system/bin/grep -v '/data_mirror' 2>&1");
-
-        // Run script
-        ExecutionCommand executionCommand = new ExecutionCommand(-1, "/system/bin/sh", null,
-            statScript + "\n", "/", ExecutionCommand.Runner.APP_SHELL.getName());
-        executionCommand.commandLabel = TermuxConstants.TERMUX_APP_NAME + " Files Stat Command";
-        executionCommand.backgroundCustomLogLevel = 0;
-        AppShell appShell = AppShell.execute(context, executionCommand, null, new TermuxShellEnvironment(), null, true);
-        if (appShell == null || !executionCommand.isSuccessful()) {
-//Loger #############
-
-            return null;
-        }
-
-        // Build script output
-        StringBuilder statOutput = new StringBuilder();
-        statOutput.append("$ ").append(statScript);
-        statOutput.append("\n\n").append(executionCommand.resultData.stdout);
-
-        boolean stderrSet = !executionCommand.resultData.stderr.toString().isEmpty();
-        if (executionCommand.resultData.exitCode != 0 || stderrSet) {
-//Loger #############
-
-            if (stderrSet)
-                statOutput.append("\n").append(executionCommand.resultData.stderr);
-            statOutput.append("\n").append("exit code: ").append(executionCommand.resultData.exitCode.toString());
-        }
-
-        // Build markdown output
-        StringBuilder markdownString = new StringBuilder();
-        markdownString.append("## ").append(TermuxConstants.TERMUX_APP_NAME).append(" Files Info\n\n");
-        AndroidUtils.appendPropertyToMarkdown(markdownString,"TERMUX_REQUIRED_FILES_DIR_PATH ($PREFIX)", TermuxConstants.TERMUX_FILES_DIR_PATH);
-        AndroidUtils.appendPropertyToMarkdown(markdownString,"ANDROID_ASSIGNED_FILES_DIR_PATH", filesDir);
-        markdownString.append("\n\n").append(MarkdownUtils.getMarkdownCodeForString(statOutput.toString(), true));
-        markdownString.append("\n##\n");
-
-        return markdownString.toString();
     }
 
 }

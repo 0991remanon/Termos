@@ -371,14 +371,6 @@ public final class TermuxConstants {
     /** Termux Devs APK release signing certificate SHA-256 digest */
     public static final String APK_RELEASE_TERMUX_DEVS_SIGNING_CERTIFICATE_SHA256_DIGEST = "F7A038EB551F1BE8FDF388686B784ABAB4552A5D82DF423E3D8F1B5CBE1C69AE"; // Default: "F7A038EB551F1BE8FDF388686B784ABAB4552A5D82DF423E3D8F1B5CBE1C69AE"
 
-
-    /*
-     * Termux miscellaneous urls.
-     */
-
-    /** Termux GitHub wiki repo url */
-    public static final String TERMUX_GITHUB_WIKI_REPO_URL = TERMUX_GITHUB_REPO_URL + "/wiki"; // Default: "https://github.com/termux/termux-app/wiki"
-
     /*
      * Termux app core directory paths.
      */
@@ -519,9 +511,6 @@ public final class TermuxConstants {
 
         /** Termux apps directory path */
         public static final String APPS_DIR_PATH = TERMUX_APPS_DIR_PATH + "/" + TERMUX_PACKAGE_NAME; // Default: "/data/data/com.termux/files/apps/com.termux"
-
-        /** termux-am socket file path */
-        public static final String TERMUX_AM_SOCKET_FILE_PATH = APPS_DIR_PATH + "/termux-am/am.sock"; // Default: "/data/data/com.termux/files/apps/com.termux/termux-am/am.sock"
 
         /** Termux app FileShareReceiverActivity class name */
         public static final String FILE_SHARE_RECEIVER_ACTIVITY_CLASS_NAME = TERMUX_PACKAGE_NAME + ".app.api.file.FileShareReceiverActivity"; // Default: "com.termux.app.api.file.FileShareReceiverActivity"
@@ -665,10 +654,6 @@ public final class TermuxConstants {
          * Termux app run command service to receive commands sent by 3rd party apps.
          */
         public static final class RUN_COMMAND_SERVICE {
-
-            /** Termux RUN_COMMAND Intent help url */
-            public static final String RUN_COMMAND_API_HELP_URL = TERMUX_GITHUB_WIKI_REPO_URL + "/RUN_COMMAND-Intent"; // Default: "https://github.com/termux/termux-app/wiki/RUN_COMMAND-Intent"
-
 
             /** Intent action to execute command with RUN_COMMAND_SERVICE */
             public static final String ACTION_RUN_COMMAND = TERMUX_PACKAGE_NAME + ".RUN_COMMAND"; // Default: "com.termux.RUN_COMMAND"

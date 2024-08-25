@@ -61,7 +61,6 @@ public class RunCommandService extends Service {
         executionCommand.pluginAPIHelp = "";
 
         Error error;
-        String errmsg;
 
         // If invalid action passed, then just return
         if (!RUN_COMMAND_SERVICE.ACTION_RUN_COMMAND.equals(intent.getAction())) {

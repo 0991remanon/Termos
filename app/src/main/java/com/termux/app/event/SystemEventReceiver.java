@@ -18,8 +18,6 @@ public class SystemEventReceiver extends BroadcastReceiver {
 
     private static SystemEventReceiver mInstance;
 
-    private static final String LOG_TAG = "SystemEventReceiver";
-
     public static synchronized SystemEventReceiver getInstance() {
         if (mInstance == null) {
             mInstance = new SystemEventReceiver();
@@ -30,8 +28,6 @@ public class SystemEventReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(@NonNull Context context, @Nullable Intent intent) {
         if (intent == null) return;
-//Loger #############
-
 
         String action = intent.getAction();
         if (action == null) return;
@@ -46,8 +42,6 @@ public class SystemEventReceiver extends BroadcastReceiver {
                 onActionPackageUpdated(context, intent);
                 break;
             default:
-//Loger #############
-
         }
     }
 
@@ -58,13 +52,10 @@ public class SystemEventReceiver extends BroadcastReceiver {
     public synchronized void onActionPackageUpdated(@NonNull Context context, @NonNull Intent intent) {
         Uri data = intent.getData();
         if (data != null && TermuxUtils.isUriDataForTermuxPluginPackage(data)) {
-//Loger #############
             if (TermuxFileUtils.isTermuxFilesDirectoryAccessible(context, false, false) == null)
                 TermuxShellEnvironment.writeEnvironmentToFile(context);
         }
     }
-
-
 
     /**
      * Register {@link SystemEventReceiver} to listen to {@link Intent#ACTION_PACKAGE_ADDED},

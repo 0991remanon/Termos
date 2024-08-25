@@ -21,7 +21,6 @@ import androidx.core.content.ContextCompat;
 
 import com.termux.shared.activity.ActivityUtils;
 import com.termux.shared.errors.Error;
-import com.termux.shared.file.FileUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,12 +30,6 @@ import java.util.List;
 public class PermissionUtils {
 
     public static final int REQUEST_GRANT_STORAGE_PERMISSION = 1000;
-
-    public static final int REQUEST_DISABLE_BATTERY_OPTIMIZATIONS = 2000;
-    public static final int REQUEST_GRANT_DISPLAY_OVER_OTHER_APPS_PERMISSION = 2001;
-
-    private static final String LOG_TAG = "PermissionUtils";
-
 
     /**
      * Check if app has been granted the required permission.
@@ -60,7 +53,6 @@ public class PermissionUtils {
         // checkSelfPermission may return true for permissions not even requested
         List<String> permissionsNotRequested = getPermissionsNotRequested(context, permissions);
         if (permissionsNotRequested.size() > 0) {
-//Loger #############
             return false;
         }
 
@@ -74,8 +66,6 @@ public class PermissionUtils {
 
         return true;
     }
-
-
 
     /**
      * Request user to grant required permissions to the app.
@@ -143,20 +133,6 @@ public class PermissionUtils {
         return true;
     }
 
-
-
-
-    /**
-     * Check if app has requested the required permission in the manifest.
-     *
-     * @param context The context for operations.
-     * @param permission The {@link String} name for permission to check.
-     * @return Returns {@code true} if permission has been requested, otherwise {@code false}.
-     */
-    public static boolean isPermissionRequested(@NonNull Context context, @NonNull String permission) {
-        return getPermissionsNotRequested(context, new String[]{permission}).size() == 0;
-    }
-
     /**
      * Check if app has requested the required permissions or not in the manifest.
      *
@@ -187,35 +163,6 @@ public class PermissionUtils {
         }
 
         return permissionsNotRequested;
-    }
-
-
-
-
-    /** If path is under primary external storage directory and storage permission is missing,
-     * then legacy or manage external storage permission will be requested from the user via a call
-     * to {@link #checkAndRequestLegacyOrManageExternalStoragePermission(Context, int, boolean, boolean)}.
-     *
-     * @param context The context for operations.
-     * @param filePath The path to check.
-     * @param requestCode The request code to use while asking for permission.
-     * @param prioritizeManageExternalStoragePermission If {@link Manifest.permission#MANAGE_EXTERNAL_STORAGE}
-     *                                                  permission should be requested if on
-     *                                                  Android `>= 11` instead of getting legacy
-     *                                                  storage permission.
-     * @param showErrorMessage If an error message toast should be shown if permission is not granted.
-     * @return Returns {@code true} if permission is granted, otherwise {@code false}.
-     */
-    @SuppressLint("SdCardPath")
-    public static boolean checkAndRequestLegacyOrManageExternalStoragePermissionIfPathOnPrimaryExternalStorage(
-        @NonNull Context context, String filePath, int requestCode,
-        boolean prioritizeManageExternalStoragePermission, boolean showErrorMessage) {
-        // If path is under primary external storage directory, then check for missing permissions.
-        if (!FileUtils.isPathInDirPaths(filePath,
-            Arrays.asList(Environment.getExternalStorageDirectory().getAbsolutePath(), "/sdcard"), true))
-            return true;
-
-        return checkAndRequestLegacyOrManageExternalStoragePermission(context, requestCode, prioritizeManageExternalStoragePermission, showErrorMessage);
     }
 
     /**
@@ -332,15 +279,7 @@ public class PermissionUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static boolean requestLegacyStorageExternalPermission(@NonNull Context context, int requestCode) {
-//Loger #############
-
         return requestPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE, requestCode);
-    }
-
-    /** Wrapper for {@link #requestManageStorageExternalPermission(Context, int)}. */
-    @RequiresApi(api = Build.VERSION_CODES.R)
-    public static Error requestManageStorageExternalPermission(@NonNull Context context) {
-        return requestManageStorageExternalPermission(context, -1);
     }
 
     /**
@@ -356,8 +295,6 @@ public class PermissionUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.R)
     public static Error requestManageStorageExternalPermission(@NonNull Context context, int requestCode) {
-//Loger #############
-
 
         Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
         intent.addCategory("android.intent.category.DEFAULT");
@@ -493,8 +430,6 @@ public class PermissionUtils {
      */
     @SuppressLint("BatteryLife")
     public static Error requestDisableBatteryOptimizations(@NonNull Context context, int requestCode) {
-//Loger #############
-
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             return null;

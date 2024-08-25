@@ -15,8 +15,6 @@ import com.termux.shared.errors.FunctionErrno;
 
 public class ActivityUtils {
 
-    private static final String LOG_TAG = "ActivityUtils";
-
     /**
      * Wrapper for {@link #startActivity(Context, Intent, boolean, boolean)}.
      */

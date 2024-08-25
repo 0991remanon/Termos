@@ -1,25 +1,14 @@
 package com.termux.shared.interact;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.termux.R;
-import com.termux.shared.android.PermissionUtils;
 import com.termux.shared.data.DataUtils;
-import com.termux.shared.errors.Error;
-import com.termux.shared.file.FileUtils;
-
-import java.nio.charset.Charset;
 
 import javax.annotation.Nullable;
 
@@ -42,17 +31,6 @@ public class ShareUtils {
         try {
             context.startActivity(chooserIntent);
         } catch (Exception e) {}
-    }
-
-    /**
-     * Share text.
-     *
-     * @param context The context for operations.
-     * @param subject The subject for sharing.
-     * @param text The text to share.
-     */
-    public static void shareText(final Context context, final String subject, final String text) {
-        shareText(context, subject, text, null);
     }
 
     /**
@@ -163,45 +141,6 @@ public class ShareUtils {
             // If no activity found to handle intent, show system chooser
             openSystemAppChooser(context, intent, context.getString(R.string.title_open_url_with));
         } catch (Exception e) {}
-    }
-
-    /**
-     * Save a file at the path.
-     *
-     * If if path is under {@link Environment#getExternalStorageDirectory()}
-     * or `/sdcard` and storage permission is missing, it will be requested if {@code context} is an
-     * instance of {@link Activity} or {@link AppCompatActivity} and {@code storagePermissionRequestCode}
-     * is `>=0` and the function will automatically return. The caller should call this function again
-     * if user granted the permission.
-     *
-     * @param context The context for operations.
-     * @param label The label for file.
-     * @param filePath The path to save the file.
-     * @param text The text to write to file.
-     * @param showToast If set to {@code true}, then a toast is shown if saving to file is successful.
-     * @param storagePermissionRequestCode The request code to use while asking for permission.
-     */
-    public static void saveTextToFile(final Context context, final String label, final String filePath, final String text, final boolean showToast, final int storagePermissionRequestCode) {
-        if (context == null || filePath == null || filePath.isEmpty() || text == null) return;
-
-        // If path is under primary external storage directory, then check for missing permissions.
-        if ((FileUtils.isPathInDirPath(filePath, Environment.getExternalStorageDirectory().getAbsolutePath(), true) ||
-            FileUtils.isPathInDirPath(filePath, "/sdcard", true)) &&
-            !PermissionUtils.checkPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-
-            if (storagePermissionRequestCode >= 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (context instanceof AppCompatActivity)
-                    PermissionUtils.requestPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE, storagePermissionRequestCode);
-                else if (context instanceof Activity)
-                    PermissionUtils.requestPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE, storagePermissionRequestCode);
-            }
-
-            return;
-        }
-
-        Error error = FileUtils.writeTextToFile(label, filePath,
-            Charset.defaultCharset(), text, false);
     }
 
 }

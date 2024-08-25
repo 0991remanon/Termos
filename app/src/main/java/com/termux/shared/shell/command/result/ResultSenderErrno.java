@@ -2,10 +2,10 @@ package com.termux.shared.shell.command.result;
 
 import com.termux.shared.errors.Errno;
 
-/** The {@link Class} that defines ResultSender error messages and codes. */
+/** The {@link Class} that defines Result Sender error messages and codes. */
 public class ResultSenderErrno extends Errno {
 
-    public static final String TYPE = "ResultSender Error";
+    public static final String TYPE = "Result Sender Error";
 
 
     /* Errors for null or empty parameters (100-150) */
