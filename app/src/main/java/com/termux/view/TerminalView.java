@@ -35,6 +35,7 @@ import android.widget.Scroller;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.termux.shared.termux.settings.preferences.TermuxPreferenceConstants;
 import com.termux.terminal.KeyHandler;
 import com.termux.terminal.TerminalEmulator;
 import com.termux.terminal.TerminalSession;
@@ -198,6 +199,10 @@ public final class TerminalView extends View {
 
             @Override
             public boolean onDoubleTap(MotionEvent event) {
+                if (mGestureRecognizer.isInProgress()) return false;
+                if (mClient.onLongPress(event)) return false;
+                if (context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_PRIVATE).getBoolean(TermuxPreferenceConstants.TERMUX_APP.DOUBLE_TAP_ENABLED, TermuxPreferenceConstants.TERMUX_APP.DEFAULT_VALUE_KEY_DOUBLE_TAP_ENABLED))
+                    startTextSelectionMode(event);
                 // Do not treat is as a single confirmed tap - it may be followed by zoom.
                 return false;
             }

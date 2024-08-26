@@ -136,6 +136,18 @@ public final class TermuxPreferenceConstants {
         public static final boolean DEFAULT_VALUE_KEY_PINCH_OUT_ENABLED = false;
 
         /**
+         * Defines the key for whether the double tap will be enabled.
+         */
+        public static final String DOUBLE_TAP_ENABLED = "double_tap_enabled";
+        public static final boolean DEFAULT_VALUE_KEY_DOUBLE_TAP_ENABLED = false;
+
+        /**
+         * Defines the key for whether the quick exit will be enabled.
+         */
+        public static final String QUICK_EXIT_ENABLED = "quick_exit_enabled";
+        public static final boolean DEFAULT_VALUE_KEY_QUICK_EXIT_ENABLED = false;
+
+        /**
          * Defines the key for whether the vibration will be enabled.
          */
         public static final String VIBRATION_ENABLED = "vibration_enabled";

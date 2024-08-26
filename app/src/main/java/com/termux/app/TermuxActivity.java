@@ -250,6 +250,8 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         setTerminalToolbarView(savedInstanceState);
 
+        setExitButtonView();
+
         setSettingsButtonView();
 
         setNewSessionButtonView();
@@ -536,6 +538,28 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             String textInput = textInputView.getText().toString();
             if (!textInput.isEmpty()) savedInstanceState.putString(ARG_TERMINAL_TOOLBAR_TEXT_INPUT, textInput);
         }
+    }
+
+    private void setExitButtonView() {
+        View exitButton = findViewById(R.id.exit_button);
+        exitButton.setBackground(new ButtonBg(0, false));
+        int padding = Utils.dpAsPx(this, 5);
+        exitButton.setPadding(padding, padding, padding, padding);
+        exitButton.setOnClickListener(v -> {
+            if (getPreferences().getQuickExitEnabled()) {
+                getTermuxService().actionStopService();
+            } else {
+                Utils.darkToast(this, R.string.termux_quick_exit_press_toast, 0);
+            }
+        });
+        exitButton.setOnLongClickListener(v -> {
+            if (getPreferences().getQuickExitEnabled()) {
+                Utils.darkToast(this, R.string.termux_quick_exit_long_press_toast, 0);
+            } else {
+                getTermuxService().actionStopService();
+            }
+            return true;
+        });
     }
 
     private void setSettingsButtonView() {

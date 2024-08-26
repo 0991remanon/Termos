@@ -6,6 +6,9 @@
     ]>
 
 <resources>
+    <string name="termux_quick_exit_long_press_toast">Click to exit</string>
+    <string name="termux_quick_exit_press_toast">Press and hold to exit</string>
+
     <!-- Export/Import Settings -->
     <string name="termux_terminal_export_import_title">Export or import Settings?</string>
     <string name="termux_terminal_export_import_message">Export to file or import from file all settings &TERMUX_APP_NAME;</string>
@@ -48,6 +51,7 @@
     <string name="reset_all_settings_title">Reset all settings?</string>
 
     <string name="new_root_session">New root session</string>
+    <string name="exit">Exit</string>
     <string name="action_toggle_soft_keyboard">Keyboard</string>
     <string name="sessions_list">Sessions:</string>
 
@@ -122,6 +126,11 @@
                 <string name="termux_pinch_out_off">Does nothing. (Default)</string>
                 <string name="termux_pinch_out_on">Closes the current session.</string>
 
+                <!-- DoubleTap -->
+                <string name="termux_double_tap_title">Double Tap</string>
+                <string name="termux_double_tap_off">Does nothing. (Default)</string>
+                <string name="termux_double_tap_on">Selects text.</string>
+
             <!-- Other Category -->
             <string name="termux_other_header">Other</string>
 
@@ -130,8 +139,12 @@
                 <string name="termux_vibration_off">Disabled.</string>
                 <string name="termux_vibration_on">Enabled. (Default)</string>
 
+                <!-- Quick Exit -->
+                <string name="termux_quick_exit_title">\"Exit\" Button</string>
+                <string name="termux_quick_exit_off">Terminates all sessions on long press. (Default)</string>
+                <string name="termux_quick_exit_on">When pressed, immediately terminates all sessions.</string>
 
-        <!-- Terminal View Preferences -->
+    <!-- Terminal View Preferences -->
         <string name="termux_terminal_view_preferences_title">Terminal View</string>
         <string name="termux_terminal_view_preferences_summary">Preferences for terminal view</string>
 

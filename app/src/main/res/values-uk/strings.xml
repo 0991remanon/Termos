@@ -6,6 +6,9 @@
     ]>
 
 <resources>
+    <string name="termux_quick_exit_long_press_toast">Натисніть, щоб вийти</string>
+    <string name="termux_quick_exit_press_toast">Натисніть та утримуйте для виходу</string>
+
     <!-- Export/Import Settings -->
     <string name="termux_terminal_export_import_title">Експортувати чи імпортувати налаштування?</string>
     <string name="termux_terminal_export_import_message">Експорт у файл або імпорт із файлу всіх налаштувань &TERMUX_APP_NAME;</string>
@@ -47,6 +50,7 @@
     <string name="reset_all_settings_title">Скинути всі налаштування?</string>
 
     <string name="new_root_session">Новий root сеанс</string>
+    <string name="exit">Вихід</string>
     <string name="action_toggle_soft_keyboard">Клавіатура</string>
     <string name="sessions_list">Сеанси:</string>
 
@@ -121,6 +125,11 @@
                 <string name="termux_pinch_out_off">Нічого не робить. (Стандартно)</string>
                 <string name="termux_pinch_out_on">Закриває поточний сеанс.</string>
 
+                <!-- DoubleTap -->
+                <string name="termux_double_tap_title">Подвійне натискання</string>
+                <string name="termux_double_tap_off">Нічого не робить. (Стандартно)</string>
+                <string name="termux_double_tap_on">Виділяє текст.</string>
+
             <!-- Other Category -->
             <string name="termux_other_header">Інше</string>
 
@@ -129,7 +138,12 @@
                 <string name="termux_vibration_off">Вимкнена.</string>
                 <string name="termux_vibration_on">Увімкнена. (Стандартно)</string>
 
-        <!-- Terminal View Preferences -->
+                <!-- Quick Exit -->
+                <string name="termux_quick_exit_title">Кнопка \"Вихід\"</string>
+                <string name="termux_quick_exit_off">Завершує всі сеанси по тривалому натисканню. (Стандартно)</string>
+                <string name="termux_quick_exit_on">При натисканні одразу завершує всі сеанси.</string>
+
+    <!-- Terminal View Preferences -->
         <string name="termux_terminal_view_preferences_title">Зовнішній вигляд терміналу</string>
         <string name="termux_terminal_view_preferences_summary">Налаштування зовнішнього вигляду терміналу</string>
 

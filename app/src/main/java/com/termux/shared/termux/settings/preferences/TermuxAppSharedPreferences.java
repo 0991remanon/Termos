@@ -119,6 +119,22 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
         SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.PINCH_OUT_ENABLED, value, false);
     }
 
+    public boolean getDoubleTapEnabled() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.DOUBLE_TAP_ENABLED, TERMUX_APP.DEFAULT_VALUE_KEY_DOUBLE_TAP_ENABLED);
+    }
+
+    public void setDoubleTapEnabled(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.DOUBLE_TAP_ENABLED, value, false);
+    }
+
+    public boolean getQuickExitEnabled() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.QUICK_EXIT_ENABLED, TERMUX_APP.DEFAULT_VALUE_KEY_QUICK_EXIT_ENABLED);
+    }
+
+    public void setQuickExitEnabled(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.QUICK_EXIT_ENABLED, value, false);
+    }
+
     public boolean isVibrationEnabled() {
         return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.VIBRATION_ENABLED, TERMUX_APP.DEFAULT_VALUE_KEY_VIBRATION_ENABLED);
     }

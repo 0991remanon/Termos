@@ -72,11 +72,20 @@
                     android:orientation="horizontal">
 
                     <ImageButton
+                        android:id="@+id/new_session_button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_new_session"
+                        android:background="@null"
+                        android:contentDescription="@string/action_new_session" />
+
+                    <ImageButton
                         android:id="@+id/new_root_session_button"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/root"
+                        android:src="@drawable/ic_root"
                         android:background="@null"
                         android:contentDescription="@string/new_root_session" />
 
@@ -97,14 +106,22 @@
                         android:background="@null"
                         android:contentDescription="@string/action_toggle_soft_keyboard" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <ImageButton
-                        android:id="@+id/new_session_button"
+                        android:id="@+id/exit_button"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_new_session"
+                        android:src="@drawable/ic_exit"
                         android:background="@null"
-                        android:contentDescription="@string/action_new_session" />
+                        android:contentDescription="@string/exit" />
 
                     <ImageButton
                         android:id="@+id/settings_button"
@@ -118,7 +135,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-        </androidx.drawerlayout.widget.DrawerLayout>
+         </androidx.drawerlayout.widget.DrawerLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/terminal_toolbar_view_pager"

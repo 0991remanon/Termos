@@ -34,6 +34,12 @@
             app:summaryOn="@string/termux_pinch_out_on"
             app:title="@string/termux_pinch_out_title" />
 
+        <SwitchPreferenceCompat
+            app:key="double_tap_enabled"
+            app:summaryOff="@string/termux_double_tap_off"
+            app:summaryOn="@string/termux_double_tap_on"
+            app:title="@string/termux_double_tap_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -45,6 +51,12 @@
             app:summaryOff="@string/termux_vibration_off"
             app:summaryOn="@string/termux_vibration_on"
             app:title="@string/termux_vibration_title" />
+
+        <SwitchPreferenceCompat
+            app:key="quick_exit_enabled"
+            app:summaryOff="@string/termux_quick_exit_off"
+            app:summaryOn="@string/termux_quick_exit_on"
+            app:title="@string/termux_quick_exit_title" />
 
     </PreferenceCategory>
 
