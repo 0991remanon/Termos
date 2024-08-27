@@ -348,9 +348,11 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     @Override
     public void onDestroy() {
         if (System.currentTimeMillis() - aLong <= 2000) {
-            getPreferences().setCustomShellEnabled(false);
-            getPreferences().setUseCustomArguments(false);
-            getPreferences().setRootAsDefault(false);
+            try {
+                getPreferences().setCustomShellEnabled(false);
+                getPreferences().setUseCustomArguments(false);
+                getPreferences().setRootAsDefault(false);
+            } catch (Exception e) {}
         }
         super.onDestroy();
 
@@ -649,14 +651,29 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         if (getDrawer().isDrawerOpen(Gravity.LEFT)) {
             getDrawer().closeDrawers();
         } else {
-            finishActivityIfNotFinishing();
+            finishActivityIfNotFinishingOnBack();
+        }
+    }
+
+    public void finishActivityIfNotFinishingOnBack() {
+        // special for onBackPressed()
+        if (!TermuxActivity.this.isFinishing()) {
+            finish();
         }
     }
 
     public void finishActivityIfNotFinishing() {
         // prevent duplicate calls to finish() if called from multiple places
         if (!TermuxActivity.this.isFinishing()) {
-            finish();
+            try {
+                if (getPreferences().getRemoveTask()) {
+                    finishAndRemoveTask();
+                } else {
+                    finish();
+                }
+            } catch (Exception e) {
+                finish();
+            }
         }
     }
 

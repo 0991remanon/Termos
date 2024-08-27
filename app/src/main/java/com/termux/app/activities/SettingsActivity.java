@@ -32,4 +32,10 @@ public class SettingsActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finishAndRemoveTask();
+    }
 }

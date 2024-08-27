@@ -6,6 +6,12 @@
     ]>
 
 <resources>
+    <!-- About Dialog -->
+    <string name="termux_about_dialog_message">"&TERMUX_APP_NAME; — это эмулятор терминала Android, полностью основанный на Termux.
+Создан для некоммерческого использования.
+Цель — создать легкий и удобный, более современный аналог jackpal Android Terminal Emulator."</string>
+
+    <!-- Exit Button Toasts -->
     <string name="termux_quick_exit_long_press_toast">Нажмите для выхода</string>
     <string name="termux_quick_exit_press_toast">Нажмите и удерживайте для выхода</string>
 
@@ -240,8 +246,24 @@
                 <string name="termux_custom_home_root_off">Директория программы. (Стандартно)</string>
                 <string name="termux_custom_home_root_on">Использовать пользовательский путь. (Очень опасно)</string>
 
-        <!-- Clear All Settings -->
-        <string name="termux_terminal_clear_all_settings_title">Очистить все настройки</string>
-        <string name="termux_terminal_clear_all_settings_summary">Все настройки будут возвращены к стандартным</string>
+        <!-- Terminal Other Preferences -->
+        <string name="termux_terminal_other_preferences_title">Остальные настройки</string>
+        <string name="termux_terminal_other_preferences_summary">Настройки, которые не имеют принадлежности к другим категориям</string>
+
+            <!-- Other Category -->
+            <string name="termux_terminal_other_header">Разное</string>
+
+                <!-- Remove Task -->
+                <string name="termux_remove_task_title">Удалить задачу</string>
+                <string name="termux_remove_task_off">Не удалять задачу из недавних при завершении активности. (Стандартно)</string>
+                <string name="termux_remove_task_on">Удалять задачу из недавних при завершении активности.</string>
+
+                <!-- Clear All Settings -->
+                <string name="termux_terminal_clear_all_settings_title">Очистить все настройки</string>
+                <string name="termux_terminal_clear_all_settings_summary">Все настройки будут возвращены к стандартным.</string>
+
+                <!-- ABOUT -->
+                <string name="termux_terminal_about_title">О приложении</string>
+                <string name="termux_terminal_about_summary">Отображает некоторую информацию о приложении.</string>
 
 </resources>

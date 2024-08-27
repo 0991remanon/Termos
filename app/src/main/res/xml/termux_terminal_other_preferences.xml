@@ -1,0 +1,25 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="last"
+        app:title="@string/termux_terminal_other_header">
+
+        <SwitchPreferenceCompat
+            app:key="remove_task"
+            app:summaryOff="@string/termux_remove_task_off"
+            app:summaryOn="@string/termux_remove_task_on"
+            app:title="@string/termux_remove_task_title" />
+
+        <Preference
+            app:key="clear_all_settings"
+            app:title="@string/termux_terminal_clear_all_settings_title"
+            app:summary="@string/termux_terminal_clear_all_settings_summary"/>
+
+        <Preference
+            app:key="about_app"
+            app:title="@string/termux_terminal_about_title"
+            app:summary="@string/termux_terminal_about_summary"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

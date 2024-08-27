@@ -239,6 +239,14 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
         return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.USE_CUSTOM_HOME_ROOT, TERMUX_APP.DEFAULT_VALUE_KEY_USE_CUSTOM_HOME_ROOT);
     }
 
+    public void setRemoveTask(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.REMOVE_TASK, value, false);
+    }
+
+    public boolean getRemoveTask() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.REMOVE_TASK, TERMUX_APP.DEFAULT_VALUE_KEY_REMOVE_TASK);
+    }
+
     public String getCustomBackgroundColor() {
         return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.CUSTOM_BACKGROUND_COLOR, TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_BACKGROUND_COLOR, false);
     }

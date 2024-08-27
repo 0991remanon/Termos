@@ -28,37 +28,8 @@ public class TermuxPreferencesFragment extends PreferenceFragmentCompat {
         preferenceManager.setPreferenceDataStore(TermuxPreferencesDataStore.getInstance(context));
 
         setPreferencesFromResource(R.xml.termux_preferences, rootKey);
-        Preference clearAllPreference = findPreference("clear_all_settings");
-        if (clearAllPreference != null) {
-            clearAllPreference.setOnPreferenceClickListener(pref -> {
-                final AlertDialog.Builder b = new AlertDialog.Builder(context);
-                b.setIcon(android.R.drawable.ic_dialog_alert);
-                b.setTitle(R.string.reset_all_settings_title);
-                b.setNeutralButton(android.R.string.yes, (dialog, id) -> {
-                    try {
-                        SharedPreferences prefs = context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.clear();
-                        editor.apply();
-                    } catch (Exception e) {}
-                });
-                b.setPositiveButton(android.R.string.no, null);
-                b.show();
-                return true;
-            });
-        }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-
-            default:
-                break;
-        }
-    }
 }
 
 class TermuxPreferencesDataStore extends PreferenceDataStore {

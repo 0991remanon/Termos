@@ -220,6 +220,12 @@ public final class TermuxPreferenceConstants {
         public static final boolean DEFAULT_VALUE_KEY_USE_CUSTOM_HOME_ROOT = false;
 
         /**
+         * Defines the key that specifies using or not finishAndRemoveTask().
+         */
+        public static final String REMOVE_TASK= "remove_task";
+        public static final boolean DEFAULT_VALUE_KEY_REMOVE_TASK = false;
+
+        /**
          * Defines the key that specifies user shell arguments.
          */
         public static final String CUSTOM_ARGUMENTS_STRING = "custom_arguments";

@@ -16,8 +16,8 @@
         app:fragment="com.termux.app.fragments.settings.termux.TerminalViewPreferencesFragment"/>
 
     <Preference
-        app:key="clear_all_settings"
-        app:title="@string/termux_terminal_clear_all_settings_title"
-        app:summary="@string/termux_terminal_clear_all_settings_summary"/>
+        app:title="@string/termux_terminal_other_preferences_title"
+        app:summary="@string/termux_terminal_other_preferences_summary"
+        app:fragment="com.termux.app.fragments.settings.termux.TerminalOtherPreferencesFragment"/>
 
 </PreferenceScreen>

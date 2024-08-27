@@ -6,6 +6,12 @@
     ]>
 
 <resources>
+    <!-- About Dialog -->
+    <string name="termux_about_dialog_message">"&TERMUX_APP_NAME; is an Android terminal emulator fully based on Termux.
+Created for non commercial use.
+The goal is to create a lightweight and convenient, more modern analogue of jackpal Android Terminal Emulator."</string>
+
+    <!-- Exit Button Toasts -->
     <string name="termux_quick_exit_long_press_toast">Click to exit</string>
     <string name="termux_quick_exit_press_toast">Press and hold to exit</string>
 
@@ -241,8 +247,24 @@ The shell startup command will be
                 <string name="termux_custom_home_root_off">Program directory. (Default)</string>
                 <string name="termux_custom_home_root_on">Use custom path. (Very dangerous)</string>
 
-        <!-- Clear All Settings -->
-        <string name="termux_terminal_clear_all_settings_title">Clear All Settings</string>
-        <string name="termux_terminal_clear_all_settings_summary">All settings will be reset to default</string>
+        <!-- Terminal Other Preferences -->
+        <string name="termux_terminal_other_preferences_title">Other Settings</string>
+        <string name="termux_terminal_other_preferences_summary">Settings that do not belong to other categories</string>
+
+            <!-- Other Category -->
+            <string name="termux_terminal_other_header">Misc</string>
+
+                <!-- Remove Task -->
+                <string name="termux_remove_task_title">Remove Task</string>
+                <string name="termux_remove_task_off">Do not remove task from recents when activity ends. (Default)</string>
+                <string name="termux_remove_task_on">Remove task from recents when activity ends.</string>
+
+                <!-- Clear All Settings -->
+                <string name="termux_terminal_clear_all_settings_title">Clear All Settings</string>
+                <string name="termux_terminal_clear_all_settings_summary">All settings will be reset to default.</string>
+
+                <!-- ABOUT -->
+                <string name="termux_terminal_about_title">About App</string>
+                <string name="termux_terminal_about_summary">Displays some information about the application.</string>
 
 </resources>
