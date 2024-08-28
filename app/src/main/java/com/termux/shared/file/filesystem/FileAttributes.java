@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Unix implementation of PosixFileAttributes.
- * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:libcore/ojluni/src/main/java/sun/nio/fs/UnixFileAttributes.java
+ * <a href="https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:libcore/ojluni/src/main/java/sun/nio/fs/UnixFileAttributes.java">...</a>
  */
 
 public class FileAttributes {

@@ -22,6 +22,7 @@ import com.termux.shared.interact.ShareUtils;
 import com.termux.shared.shell.ShellUtils;
 import com.termux.shared.termux.data.TermuxUrlUtils;
 import com.termux.shared.termux.extrakeys.SpecialButton;
+import com.termux.shared.termux.settings.preferences.TermuxPreferenceConstants;
 import com.termux.shared.termux.settings.properties.TermuxPropertyConstants;
 import com.termux.shared.termux.terminal.TermuxTerminalViewClientBase;
 import com.termux.shared.view.KeyboardUtils;
@@ -626,7 +627,7 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
     public void setTerminalCursorBlinkerState(boolean start) {
         if (start) {
             // If set/update the cursor blinking rate is successful, then enable cursor blinker
-            if (mActivity.getTerminalView().setTerminalCursorBlinkerRate(mActivity.getProperties().getTerminalCursorBlinkRate()))
+            if (mActivity.getTerminalView().setTerminalCursorBlinkerRate(Integer.parseInt(mActivity.getSharedPreferences(mActivity.getPackageName() + "_preferences", Context.MODE_PRIVATE).getString(TermuxPreferenceConstants.TERMUX_APP.CURSOR_PERIOD, TermuxPreferenceConstants.TERMUX_APP.DEFAULT_VALUE_KEY_CURSOR_PERIOD))))
                 mActivity.getTerminalView().setTerminalCursorBlinkerState(true, true);
         } else {
             // Disable cursor blinker

@@ -62,8 +62,8 @@ public class SystemEventReceiver extends BroadcastReceiver {
      * {@link Intent#ACTION_PACKAGE_REMOVED} and {@link Intent#ACTION_PACKAGE_REPLACED} broadcasts.
      * They must be registered dynamically and cannot be registered implicitly in
      * the AndroidManifest.xml due to Android 8+ restrictions.
-     *
-     *  https://developer.android.com/guide/components/broadcast-exceptions
+     * <p>
+     <a href=" *  https://developer.android.com/guide/components/broadcast-except">...</a>ions
      */
     public synchronized static void registerPackageUpdateEvents(@NonNull Context context) {
         IntentFilter intentFilter = new IntentFilter();

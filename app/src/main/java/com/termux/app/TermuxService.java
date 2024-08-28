@@ -210,38 +210,38 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
     }
 
     /** Kill all TermuxSessions and TermuxTasks by sending SIGKILL to their processes.
-     *
+     * <p>
      * For TermuxSessions, all sessions will be killed, whether user manually exited Termux or if
      * onDestroy() was directly called because of unintended shutdown. The processing of results
      * will only be done if user manually exited termux or if the session was started by a plugin
      * which **expects** the result back via a pending intent.
-     *
+     * <p>
      * For TermuxTasks, only tasks that were started by a plugin which **expects** the result
      * back via a pending intent will be killed, whether user manually exited Termux or if
      * onDestroy() was directly called because of unintended shutdown. The processing of results
      * will always be done for the tasks that are killed. The remaining processes will keep on
      * running until the termux app process is killed by android, like by OOM, so we let them run
      * as long as they can.
-     *
+     * <p>
      * Some plugin execution commands may not have been processed and added to mTermuxSessions and
      * mTermuxTasks lists before the service is killed, so we maintain a separate
      * mPendingPluginExecutionCommands list for those, so that we can notify the pending intent
      * creators that execution was cancelled.
-     *
+     * <p>
      * Note that if user didn't manually exit Termux and if onDestroy() was directly called because
      * of unintended shutdown, like android deciding to kill the service, then there will be no
      * guarantee that onDestroy() will be allowed to finish and termux app process may be killed before
      * it has finished. This means that in those cases some results may not be sent back to their
      * creators for plugin commands but we still try to process whatever results can be processed
      * despite the unreliable behaviour of onDestroy().
-     *
+     * <p>
      * Note that if don't kill the processes started by plugins which **expect** the result back
      * and notify their creators that they have been killed, then they may get stuck waiting for
      * the results forever like in case of commands started by Termux:Tasker or RUN_COMMAND intent,
      * since once TermuxService has been killed, no result will be sent back. They may still get
      * stuck if termux app process gets killed, so for this case reasonable timeout values should
      * be used, like in Tasker for the Termux:Tasker actions.
-     *
+     * <p>
      * We make copies of each list since items are removed inside the loop.
      */
     private synchronized void killAllTermuxExecutionCommands() {

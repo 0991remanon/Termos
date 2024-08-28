@@ -57,6 +57,7 @@ import com.termux.shared.termux.interact.TextInputDialogUtils;
 import com.termux.shared.termux.settings.preferences.TermuxAppSharedPreferences;
 import com.termux.shared.termux.settings.preferences.TermuxPreferenceConstants;
 import com.termux.shared.termux.settings.properties.TermuxAppSharedProperties;
+import com.termux.shared.termux.shell.command.runner.terminal.TermuxSession;
 import com.termux.shared.view.KeyboardUtils;
 import com.termux.shared.view.ViewUtils;
 import com.termux.terminal.TerminalSession;
@@ -74,6 +75,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -81,8 +83,8 @@ import java.util.Map;
  * <p/>
  * See
  * <ul>
- * <li>http://www.mongrel-phones.com.au/default/how_to_make_a_local_service_and_bind_to_it_in_android</li>
- * <li>https://code.google.com/p/android/issues/detail?id=6426</li>
+ * <li><a href="http://www.mongrel-phones.com.au/default/how_to_make_a_local_service_and_bind_to_it_in_android">...</a></li>
+ * <li><a href="https://code.google.com/p/android/issues/detail?id=6426">...</a></li>
  * </ul>
  * about memory leaks.
  */
@@ -262,7 +264,6 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         try {
             setTextDesign();
-            findViewById(R.id.left_drawer).setBackground(new ButtonBg(Integer.parseInt(mPreferences.getTerminalDrawerTransparency()), Utils.dpAsPx(this, 1)));
         } catch (Exception e) {}
         registerForContextMenu(mTerminalView);
         requestStoragePermission(false);
@@ -318,7 +319,6 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         try {
             setTextDesign();
-            findViewById(R.id.left_drawer).setBackground(new ButtonBg(Integer.parseInt(mPreferences.getTerminalDrawerTransparency()), Utils.dpAsPx(this, 1)));
         } catch (Exception e) {}
 
         mIsOnResumeAfterOnCreate = false;
@@ -440,6 +440,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
     public void setTextDesign() {
         try {
+            findViewById(R.id.left_drawer).setBackground(new ButtonBg(Integer.parseInt(mPreferences.getTerminalDrawerTransparency()), Utils.dpAsPx(this, 1)));
             TermuxAppSharedPreferences prefs = getPreferences();
             float dipInPixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
             String color = TermuxPreferenceConstants.TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_TEXT_COLOR;
@@ -448,6 +449,12 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             color = TermuxPreferenceConstants.TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_BACKGROUND_COLOR;
             if (prefs.getUseCustomBackgroundColor()) color = prefs.getCustomBackgroundColor();
             findViewById(R.id.activity_termux_root_relative_layout).setBackgroundColor(Integer.parseInt(color));
+            List<TermuxSession> sessionList = mTermuxService.getTermuxSessions();
+            if (sessionList != null && !sessionList.isEmpty()) {
+                for (TermuxSession oneOf : sessionList) {
+                    oneOf.getTerminalSession().getEmulator().setCursorStyle(this);
+                }
+            }
         } catch (Exception e) {}
     }
 

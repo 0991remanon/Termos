@@ -3,7 +3,6 @@ package com.termux.view.textselection;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Rect;
-import android.os.Build;
 import android.text.TextUtils;
 import android.view.ActionMode;
 import android.view.Menu;

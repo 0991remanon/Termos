@@ -40,8 +40,8 @@ import java.util.concurrent.TimeUnit;
  * or {@link FileAttributes#creationTime() created}.
  *
  * <p> Instances of this class are immutable.
- *
- * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:libcore/ojluni/src/main/java/java/nio/file/attribute/FileTime.java
+ * <p><a href="
+ ">* https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:libcore/ojluni/src/main/java/java/nio/file/attribute/FileTime.</a>java
  *
  * @since 1.7
  * @see java.nio.file.Files#setLastModifiedTime

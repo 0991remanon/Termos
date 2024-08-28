@@ -56,7 +56,8 @@ public class TerminalViewPreferencesFragment extends PreferenceFragmentCompat im
                 return true;
             });
         }
-       }
+
+    }
 
     @Override
     public void colorChanged(int color, int requestCode) {
@@ -148,6 +149,12 @@ class TerminalViewPreferencesDataStore extends PreferenceDataStore {
             case "custom_background_color":
                 mPreferences.setCustomBackgroundColor(value);
                 break;
+            case "cursor_period":
+                mPreferences.setCursorPeriod(value);
+                break;
+            case "cursor_style":
+                mPreferences.setCursorStyle(value);
+                break;
             default:
                 break;
         }
@@ -167,6 +174,10 @@ class TerminalViewPreferencesDataStore extends PreferenceDataStore {
                 return mPreferences.getCustomTextColor();
             case "custom_background_color":
                 return mPreferences.getCustomBackgroundColor();
+            case "cursor_period":
+                return mPreferences.getCursorPeriod();
+            case "cursor_style":
+                return mPreferences.getCursorStyle();
             default:
                 return null;
         }

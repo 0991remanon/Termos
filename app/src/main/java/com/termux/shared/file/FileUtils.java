@@ -41,13 +41,13 @@ public class FileUtils {
 
     /**
      * Get canonical path.
-     *
+     * <p>
      * If path is already an absolute path, then it is used as is to get canonical path.
      * If path is not an absolute path and {code prefixForNonAbsolutePath} is not {@code null}, then
      * {code prefixForNonAbsolutePath} + "/" is prefixed before path before getting canonical path.
      * If path is not an absolute path and {code prefixForNonAbsolutePath} is {@code null}, then
      * "/" is prefixed before path before getting canonical path.
-     *
+     * <p>
      * If an exception is raised to get the canonical path, then absolute path is returned.
      *
      * @param path The {@code path} to convert.
@@ -153,7 +153,7 @@ public class FileUtils {
 
     /**
      * Validate that directory is empty or contains only files in {@code ignoredSubFilePaths}.
-     *
+     * <p>
      * If parent path of an ignored file exists, but ignored file itself does not exist, then directory
      * is not considered empty.
      *
@@ -216,10 +216,10 @@ public class FileUtils {
 
     /**
      * Check if {@code subFiles} contains contains a file not in {@code ignoredSubFilePaths}.
-     *
+     * <p>
      * If parent path of an ignored file exists, but ignored file itself does not exist, then directory
      * is not considered empty.
-     *
+     * <p>
      * This function should ideally not be called by itself but through
      * {@link #validateDirectoryFileEmptyOrOnlyContainsSpecificFiles(String, String, List, boolean)}.
      *
@@ -288,7 +288,7 @@ public class FileUtils {
 
     /**
      * Get the type of file that exists at {@code filePath}.
-     *
+     * <p>
      * This function is a wrapper for
      * {@link FileTypes#getFileType(String, boolean)}
      *
@@ -307,7 +307,7 @@ public class FileUtils {
 
     /**
      * Validate the existence and permissions of regular file at path.
-     *
+     * <p>
      * If the {@code parentDirPath} is not {@code null}, then setting of missing permissions will
      * only be done if {@code path} is under {@code parentDirPath}.
      *
@@ -382,7 +382,7 @@ public class FileUtils {
 
     /**
      * Validate the existence and permissions of directory file at path.
-     *
+     * <p>
      * If the {@code parentDirPath} is not {@code null}, then creation of missing directory and
      * setting of missing permissions will only be done if {@code path} is under
      * {@code parentDirPath} or equals {@code parentDirPath}.
@@ -476,7 +476,7 @@ public class FileUtils {
 
     /**
      * Create parent directory of file at path.
-     *
+     * <p>
      * This function is a wrapper for
      * {@link #validateDirectoryFileExistenceAndPermissions(String, String, String, boolean, String, boolean, boolean, boolean, boolean)}.
      *
@@ -500,7 +500,7 @@ public class FileUtils {
 
     /**
      * Create a directory file at path.
-     *
+     * <p>
      * This function is a wrapper for
      * {@link #validateDirectoryFileExistenceAndPermissions(String, String, String, boolean, String, boolean, boolean, boolean, boolean)}.
      *
@@ -514,7 +514,7 @@ public class FileUtils {
 
     /**
      * Create a directory file at path.
-     *
+     * <p>
      * This function is a wrapper for
      * {@link #validateDirectoryFileExistenceAndPermissions(String, String, String, boolean, String, boolean, boolean, boolean, boolean)}.
      *
@@ -530,7 +530,7 @@ public class FileUtils {
 
     /**
      * Create a directory file at path.
-     *
+     * <p>
      * This function is a wrapper for
      * {@link #validateDirectoryFileExistenceAndPermissions(String, String, String, boolean, String, boolean, boolean, boolean, boolean)}.
      *
@@ -554,10 +554,10 @@ public class FileUtils {
 
     /**
      * Create a symlink file at path.
-     *
+     * <p>
      * This function is a wrapper for
      * {@link #createSymlinkFile(String, String, String, boolean, boolean, boolean)}.
-     *
+     * <p>
      * Dangling symlinks will be allowed.
      * Symlink destination will be overwritten if it already exists but only if its a symlink.
      *
@@ -653,10 +653,10 @@ public class FileUtils {
 
     /**
      * Move a regular file from {@code sourceFilePath} to {@code destFilePath}.
-     *
+     * <p>
      * This function is a wrapper for
      * {@link #copyOrMoveFile(String, String, String, boolean, boolean, int, boolean, boolean)}.
-     *
+     * <p>
      * If destination file already exists, then it will be overwritten, but only if its a regular
      * file, otherwise an error will be returned.
      *
@@ -675,10 +675,10 @@ public class FileUtils {
 
     /**
      * Copy or move a file from {@code sourceFilePath} to {@code destFilePath}.
-     *
+     * <p>
      * The {@code sourceFilePath} and {@code destFilePath} must be the canonical path to the source
      * and destination since symlinks will not be followed.
-     *
+     * <p>
      * If the {@code sourceFilePath} or {@code destFilePath} is a canonical path to a directory,
      * then any symlink files found under the directory will be deleted, but not their targets when
      * deleting source after move and deleting destination before copy/move.
@@ -837,7 +837,7 @@ public class FileUtils {
 
     /**
      * Delete regular, directory or symlink file at path.
-     *
+     * <p>
      * This function is a wrapper for {@link #deleteFile(String, String, boolean, boolean, int)}.
      *
      * @param label The optional label for file to delete. This can optionally be {@code null}.
@@ -852,7 +852,7 @@ public class FileUtils {
 
     /**
      * Delete file at path.
-     *
+     * <p>
      * The {@code filePath} must be the canonical path to the file to be deleted since symlinks will
      * not be followed.
      * If the {@code filePath} is a canonical path to a directory, then any symlink files found under
@@ -949,7 +949,7 @@ public class FileUtils {
     /**
      * Clear contents of directory at path without deleting the directory. If directory does not exist
      * it will be created automatically.
-     *
+     * <p>
      * The {@code filePath} must be the canonical path to a directory since symlinks will not be followed.
      * Any symlink files found under the directory will be deleted, but not their targets.
      *
@@ -1000,7 +1000,7 @@ public class FileUtils {
 
     /**
      * Delete files under a directory older than x days.
-     *
+     * <p>
      * The {@code filePath} must be the canonical path to a directory since symlinks will not be followed.
      * Any symlink files found under the directory will be deleted, but not their targets.
      *

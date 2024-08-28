@@ -14,22 +14,22 @@ public final class TerminalRow {
     /**
      * Max combining characters that can exist in a column, that are separate from the base character
      * itself. Any additional combining characters will be ignored and not added to the column.
-     *
+     * <p>
      * There does not seem to be limit in unicode standard for max number of combination characters
      * that can be combined but such characters are primarily under 10.
-     *
+     * <p>
      * "Section 3.6 Combination" of unicode standard contains combining characters info.
-     * - https://www.unicode.org/versions/Unicode15.0.0/ch03.pdf
-     * - https://en.wikipedia.org/wiki/Combining_character#Unicode_ranges
-     * - https://stackoverflow.com/questions/71237212/what-is-the-maximum-number-of-unicode-combined-characters-that-may-be-needed-to
-     *
+     <a href="    * - https://www.unicode.org/versions/Unicode15.0.0/">...</a>ch03.pdf
+     <a href="    * - https://en.wikipedia.org/wiki/Combining_character#Unicod">...</a>e_ranges
+     <a href="    * - https://stackoverflow.com/questions/71237212/what-is-the-maximum-number-of-unicode-combined-characters-that-may-be-n">...</a>eeded-to
+     * <p>
      * UAX15-D3 Stream-Safe Text Format limits to max 30 combining characters.
      * > The value of 30 is chosen to be significantly beyond what is required for any linguistic or technical usage.
      * > While it would have been feasible to chose a smaller number, this value provides a very wide margin,
-     * > yet is well within the buffer size limits of practical implementations.
-     * - https://unicode.org/reports/tr15/#Stream_Safe_Text_Format
-     * - https://stackoverflow.com/a/11983435/14686958
-     *
+     * > yet is well within the buffer size limits of practical implementation<a href="s.
+     ">* - https://unicode.org/reports/tr15/#Stream_Safe</a>_Text_Form<a href="at
+     ">* - https://stackoverflow.com/a/11983</a>435/14686958
+     * <p>
      * We choose the value 15 because it should be enough for terminal based applications and keep
      * the memory usage low for a terminal row, won't affect performance or cause terminal to
      * lag or hang, and will keep malicious applications from causing harm. The value can be

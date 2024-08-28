@@ -170,6 +170,15 @@
                 <!-- Terminal Text Size -->
                 <string name="termux_terminal_text_size_title">Размер текста</string>
 
+                <!-- Terminal Cursor Period -->
+                <string name="termux_terminal_cursor_period_title">Период мигания курсора</string>
+
+                <!-- Terminal Cursor Style -->
+                <string name="termux_terminal_cursor_style_title">Стиль курсора</string>
+                <string name="termux_terminal_cursor_style_block">Блок</string>
+                <string name="termux_terminal_cursor_style_underline">Под строкой</string>
+                <string name="termux_terminal_cursor_style_bar">Полоска</string>
+
                 <!-- Terminal Text Color -->
                 <string name="termux_terminal_text_color_title">Цвет текста</string>
                 <string name="termux_terminal_text_color_off">Использовать подлинный цвет текста. (Стандартно)</string>

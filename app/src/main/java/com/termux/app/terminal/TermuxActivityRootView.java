@@ -32,23 +32,23 @@ import com.termux.shared.view.ViewUtils;
  * show the row but will switch it with suggestions if needed. If its enabled, then number keys row
  * is always shown and suggestions are shown in an additional row on top of it. This additional row is likely
  * part of the candidates view returned by the keyboard app in {@link InputMethodService#onCreateCandidatesView()}.
- *
+ * <p>
  * With the above configuration, the additional clipboard suggestions row partially covers the
  * extra keys/terminal. Reopening the keyboard/activity does not fix the issue. This is either a bug
  * in the Android OS where it does not consider the candidate's view height in its calculation to push
  * up the view or because Gboard does not include the candidate's view height in the height reported
  * to android that should be used, hence causing an overlap.
- *
+ * <p>
  * Gboard logs the following entry to `logcat` when its opened with or without the suggestions bar showing:
  * I/KeyboardViewUtil: KeyboardViewUtil.calculateMaxKeyboardBodyHeight():62 leave 500 height for app when screen height:2392, header height:176 and isFullscreenMode:false, so the max keyboard body height is:1716
  * where `keyboard_height = screen_height - height_for_app - header_height` (62 is a hardcoded value in Gboard source code and may be a version number)
- * So this may in fact be due to Gboard but https://stackoverflow.com/questions/57567272 suggests
- * otherwise. Another similar report https://stackoverflow.com/questions/66761661.
- * Also check https://github.com/termux/termux-app/issues/1539.
- *
+ * So this may in fact be due to Gbo<a href="ard">but https://stackoverflow.com/questions/</a>57567272 suggests
+ * otherwise. Another similar<a href=" report https://stackoverflow.com/questions/">...</a>66761661.
+ * Als<a href="o">check https://github.com/termux/termux-app/iss</a>ues/1539.
+ * <p>
  * This overlap may happen even without `enforce-char-based-input=true` for keyboards with extended layouts
  * like number row, etc.
- *
+ * <p>
  * To fix these issues, `activity_termux.xml` has the constant 1sp transparent
  * `activity_termux_bottom_space_view` View at the bottom. This will appear as a line matching the
  * activity theme. When {@link TermuxActivity} {@link ViewTreeObserver.OnGlobalLayoutListener} is

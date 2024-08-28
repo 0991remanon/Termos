@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="trans_values">
         <item>-16777216</item>
 		<item>-436207616</item>
@@ -12,6 +13,7 @@
 		<item>855638016</item>
 		<item>436207616</item>
     </string-array>
+
     <string-array name="trans_list">
 		<item>0%</item>
 		<item>10%</item>
@@ -24,6 +26,7 @@
 		<item>80%</item>
 		<item>90%</item>
     </string-array>
+
 	<string-array name="text_size">
 		<item>6</item>
 		<item>8</item>
@@ -35,5 +38,27 @@
 		<item>20</item>
 		<item>22</item>
 		<item>24</item>
+	</string-array>
+
+	<string-array name="cursor_period">
+		<item>0</item>
+		<item>200</item>
+		<item>400</item>
+		<item>600</item>
+		<item>800</item>
+		<item>1000</item>
+		<item>1200</item>
+	</string-array>
+
+	<string-array name="cursor_style">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+
+	<string-array name="cursor_name">
+		<item>@string/termux_terminal_cursor_style_block</item>
+		<item>@string/termux_terminal_cursor_style_underline</item>
+		<item>@string/termux_terminal_cursor_style_bar</item>
 	</string-array>
 </resources>

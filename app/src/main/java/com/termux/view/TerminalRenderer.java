@@ -25,9 +25,9 @@ public final class TerminalRenderer {
 
     /** The width of a single mono spaced character obtained by {@link Paint#measureText(String)} on a single 'X'. */
     final float mFontWidth;
-    /** The {@link Paint#getFontSpacing()}. See http://www.fampennings.nl/maarten/android/08numgrid/font.png */
+    /** The {@link Paint#getFontSpacing()}. See <a href="http://www.fampennings.nl/maarten/android/08numgrid/font.png">...</a> */
     final int mFontLineSpacing;
-    /** The {@link Paint#ascent()}. See http://www.fampennings.nl/maarten/android/08numgrid/font.png */
+    /** The {@link Paint#ascent()}. See <a href="http://www.fampennings.nl/maarten/android/08numgrid/font.png">...</a> */
     private final int mFontAscent;
     /** The {@link #mFontLineSpacing} + {@link #mFontAscent}. */
     final int mFontLineSpacingAndAscent;

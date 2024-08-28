@@ -26,19 +26,19 @@ import java.util.Set;
  * reading and writing to and from ".properties" files which also maintains an in-memory cache for
  * the key/value pairs when an instance object is used. Operations are done under
  * synchronization locks and should be thread safe.
- *
+ * <p>
  * If {@link SharedProperties} instance object is used, then two types of in-memory cache maps are
  * maintained, one for the literal {@link String} values found in the file for the keys and an
  * additional one that stores (near) primitive {@link Object} values for internal use by the caller.
- *
+ * <p>
  * The {@link SharedProperties} also provides static functions that can be used to read properties
  * from files or individual key values or even their internal values. An automatic mapping to a
  * boolean as internal value can also be done. An in-memory cache is not maintained, nor are locks used.
- *
+ * <p>
  * This currently only has read support, write support can/will be added later if needed. Check android's
- * SharedPreferencesImpl class for reference implementation.
- *
- * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:frameworks/base/core/java/android/app/SharedPreferencesImpl.java
+ * SharedPreferencesImpl class for reference implementa<a href="tion.
+ ">* <p>
+ * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:frameworks/base/core/java/android/app/SharedPref</a>erencesImpl.java
  */
 public class SharedProperties {
 

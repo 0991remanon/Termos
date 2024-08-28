@@ -16,8 +16,8 @@ public class ReflectionUtils {
 
     /**
      * Bypass android hidden API reflection restrictions.
-     * https://github.com/LSPosed/AndroidHiddenApiBypass
-     * https://developer.android.com/guide/app-compatibility/restrictions-non-sdk-interfaces
+     * <a href="https://github.com/LSPosed/AndroidHiddenApiBypass">...</a>
+     * <a href="https://developer.android.com/guide/app-compatibility/restrictions-non-sdk-interfaces">...</a>
      */
     public static void bypassHiddenAPIReflectionRestrictions() {
         if (!HIDDEN_API_REFLECTION_RESTRICTIONS_BYPASSED && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -61,7 +61,7 @@ public class ReflectionUtils {
 
     /**
      * Get a value for a {@link Field} of an object for the specified class.
-     *
+     * <p>
      * Trying to access {@code null} fields will result in {@link NoSuchFieldException}.
      *
      * @param clazz The {@link Class} to which the object belongs to.

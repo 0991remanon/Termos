@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.termux.shared.data.DataUtils;
 import com.termux.shared.settings.properties.SharedProperties;
 import com.termux.shared.settings.properties.SharedPropertiesParser;
+import com.termux.shared.termux.settings.preferences.TermuxPreferenceConstants;
 
 import java.io.File;
 import java.util.HashMap;
@@ -158,10 +159,6 @@ public abstract class TermuxSharedProperties {
                 return getBellBehaviourInternalPropertyValueFromValue(value);
             case TermuxPropertyConstants.KEY_DELETE_TMPDIR_FILES_OLDER_THAN_X_DAYS_ON_EXIT:
                 return getDeleteTMPDIRFilesOlderThanXDaysOnExitInternalPropertyValueFromValue(value);
-            case TermuxPropertyConstants.KEY_TERMINAL_CURSOR_BLINK_RATE:
-                return getTerminalCursorBlinkRateInternalPropertyValueFromValue(value);
-            case TermuxPropertyConstants.KEY_TERMINAL_CURSOR_STYLE:
-                return getTerminalCursorStyleInternalPropertyValueFromValue(value);
             case TermuxPropertyConstants.KEY_TERMINAL_MARGIN_HORIZONTAL:
                 return getTerminalMarginHorizontalInternalPropertyValueFromValue(value);
             case TermuxPropertyConstants.KEY_TERMINAL_MARGIN_VERTICAL:
@@ -245,36 +242,6 @@ public abstract class TermuxSharedProperties {
             TermuxPropertyConstants.IVALUE_DELETE_TMPDIR_FILES_OLDER_THAN_X_DAYS_ON_EXIT_MIN,
             TermuxPropertyConstants.IVALUE_DELETE_TMPDIR_FILES_OLDER_THAN_X_DAYS_ON_EXIT_MAX,
             true, true, LOG_TAG);
-    }
-
-    /**
-     * Returns the int for the value if its not null and is between
-     * {@link TermuxPropertyConstants#IVALUE_TERMINAL_CURSOR_BLINK_RATE_MIN} and
-     * {@link TermuxPropertyConstants#IVALUE_TERMINAL_CURSOR_BLINK_RATE_MAX},
-     * otherwise returns {@link TermuxPropertyConstants#DEFAULT_IVALUE_TERMINAL_CURSOR_BLINK_RATE}.
-     *
-     * @param value The {@link String} value to convert.
-     * @return Returns the internal value for value.
-     */
-    public static int getTerminalCursorBlinkRateInternalPropertyValueFromValue(String value) {
-        return SharedProperties.getDefaultIfNotInRange(TermuxPropertyConstants.KEY_TERMINAL_CURSOR_BLINK_RATE,
-            DataUtils.getIntFromString(value, TermuxPropertyConstants.DEFAULT_IVALUE_TERMINAL_CURSOR_BLINK_RATE),
-            TermuxPropertyConstants.DEFAULT_IVALUE_TERMINAL_CURSOR_BLINK_RATE,
-            TermuxPropertyConstants.IVALUE_TERMINAL_CURSOR_BLINK_RATE_MIN,
-            TermuxPropertyConstants.IVALUE_TERMINAL_CURSOR_BLINK_RATE_MAX,
-            true, true, LOG_TAG);
-    }
-
-    /**
-     * Returns the internal value after mapping it based on
-     * {@link TermuxPropertyConstants#MAP_TERMINAL_CURSOR_STYLE} if the value is not {@code null}
-     * and is valid, otherwise returns {@link TermuxPropertyConstants#DEFAULT_IVALUE_TERMINAL_CURSOR_STYLE}.
-     *
-     * @param value The {@link String} value to convert.
-     * @return Returns the internal value for value.
-     */
-    public static int getTerminalCursorStyleInternalPropertyValueFromValue(String value) {
-        return (int) SharedProperties.getDefaultIfNotInMap(TermuxPropertyConstants.KEY_TERMINAL_CURSOR_STYLE, TermuxPropertyConstants.MAP_TERMINAL_CURSOR_STYLE, SharedProperties.toLowerCase(value), TermuxPropertyConstants.DEFAULT_IVALUE_TERMINAL_CURSOR_STYLE, true, LOG_TAG);
     }
 
     /**
@@ -503,14 +470,6 @@ public abstract class TermuxSharedProperties {
 
     public int getDeleteTMPDIRFilesOlderThanXDaysOnExit() {
         return (int) getInternalPropertyValue(TermuxPropertyConstants.KEY_DELETE_TMPDIR_FILES_OLDER_THAN_X_DAYS_ON_EXIT, true);
-    }
-
-    public int getTerminalCursorBlinkRate() {
-        return (int) getInternalPropertyValue(TermuxPropertyConstants.KEY_TERMINAL_CURSOR_BLINK_RATE, true);
-    }
-
-    public int getTerminalCursorStyle() {
-        return (int) getInternalPropertyValue(TermuxPropertyConstants.KEY_TERMINAL_CURSOR_STYLE, true);
     }
 
     public int getTerminalMarginHorizontal() {

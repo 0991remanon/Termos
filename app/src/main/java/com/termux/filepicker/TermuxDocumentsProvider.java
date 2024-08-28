@@ -29,7 +29,7 @@ import java.util.LinkedList;
  * "A document provider and ACTION_GET_CONTENT should be considered mutually exclusive. If you
  * support both of them simultaneously, your app will appear twice in the system picker UI,
  * offering two different ways of accessing your stored data. This would be confusing for users."
- * - http://developer.android.com/guide/topics/providers/document-provider.html#43
+ * - <a href="http://developer.android.com/guide/topics/providers/document-provider.html#43">...</a>
  */
 public class TermuxDocumentsProvider extends DocumentsProvider {
 

@@ -255,6 +255,22 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
         SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CUSTOM_BACKGROUND_COLOR, value, false);
     }
 
+    public String getCursorPeriod() {
+        return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.CURSOR_PERIOD, TERMUX_APP.DEFAULT_VALUE_KEY_CURSOR_PERIOD, false);
+    }
+
+    public void setCursorPeriod(String value) {
+        SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CURSOR_PERIOD, value, false);
+    }
+
+    public String getCursorStyle() {
+        return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.CURSOR_STYLE, TERMUX_APP.DEFAULT_VALUE_KEY_CURSOR_STYLE, false);
+    }
+
+    public void setCursorStyle(String value) {
+        SharedPreferenceUtils.setString(mSharedPreferences, TERMUX_APP.CURSOR_STYLE, value, false);
+    }
+
     public String getCustomArgumentsString() {
         return SharedPreferenceUtils.getString(mSharedPreferences, TERMUX_APP.CUSTOM_ARGUMENTS_STRING, TERMUX_APP.DEFAULT_VALUE_KEY_CUSTOM_ARGUMENTS_STRING, false);
     }

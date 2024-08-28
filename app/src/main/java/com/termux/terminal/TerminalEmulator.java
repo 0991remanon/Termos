@@ -1,6 +1,9 @@
 package com.termux.terminal;
 
+import android.content.Context;
 import android.util.Base64;
+
+import com.termux.shared.termux.settings.preferences.TermuxPreferenceConstants;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -14,15 +17,15 @@ import java.util.Stack;
  * <p>
  * References:
  * <ul>
- * <li>http://invisible-island.net/xterm/ctlseqs/ctlseqs.html</li>
- * <li>http://en.wikipedia.org/wiki/ANSI_escape_code</li>
- * <li>http://man.he.net/man4/console_codes</li>
- * <li>http://bazaar.launchpad.net/~leonerd/libvterm/trunk/view/head:/src/state.c</li>
- * <li>http://www.columbia.edu/~kermit/k95manual/iso2022.html</li>
- * <li>http://www.vt100.net/docs/vt510-rm/chapter4</li>
- * <li>http://en.wikipedia.org/wiki/ISO/IEC_2022 - for 7-bit and 8-bit GL GR explanation</li>
- * <li>http://bjh21.me.uk/all-escapes/all-escapes.txt - extensive!</li>
- * <li>http://woldlab.caltech.edu/~diane/kde4.10/workingdir/kubuntu/konsole/doc/developer/old-documents/VT100/techref.
+ * <li><a href="http://invisible-island.net/xterm/ctlseqs/ctlseqs.html">...</a></li>
+ * <li><a href="http://en.wikipedia.org/wiki/ANSI_escape_code">...</a></li>
+ * <li><a href="http://man.he.net/man4/console_codes">...</a></li>
+ * <li><a href="http://bazaar.launchpad.net/~leonerd/libvterm/trunk/view/head:/src/state.c">...</a></li>
+ * <li><a href="http://www.columbia.edu/~kermit/k95manual/iso2022.html">...</a></li>
+ * <li><a href="http://www.vt100.net/docs/vt510-rm/chapter4">...</a></li>
+ * <li><a href="http://en.wikipedia.org/wiki/ISO/IEC_2022">...</a> - for 7-bit and 8-bit GL GR explanation</li>
+ * <li><a href="http://bjh21.me.uk/all-escapes/all-escapes.txt">...</a> - extensive!</li>
+ * <li><a href="http://woldlab.caltech.edu/~diane/kde4.10/workingdir/kubuntu/konsole/doc/developer/old-documents/VT100/techref">...</a>.
  * html - document for konsole - accessible!</li>
  * </ul>
  */
@@ -38,7 +41,7 @@ public final class TerminalEmulator {
     public static final int MOUSE_WHEELUP_BUTTON = 64;
     public static final int MOUSE_WHEELDOWN_BUTTON = 65;
 
-    /** Used for invalid data - http://en.wikipedia.org/wiki/Replacement_character#Replacement_character */
+    /** Used for invalid data - <a href="http://en.wikipedia.org/wiki/Replacement_character#Replacement_character">...</a> */
     public static final int UNICODE_REPLACEMENT_CHAR = 0xFFFD;
 
     /** Escape processing: Not currently in an escape sequence. */
@@ -90,7 +93,7 @@ public final class TerminalEmulator {
     private static final int DECSET_BIT_APPLICATION_CURSOR_KEYS = 1;
     private static final int DECSET_BIT_REVERSE_VIDEO = 1 << 1;
     /**
-     * http://www.vt100.net/docs/vt510-rm/DECOM: "When DECOM is set, the home cursor position is at the upper-left
+     * <a href="http://www.vt100.net/docs/vt510-rm/DECOM">...</a>: "When DECOM is set, the home cursor position is at the upper-left
      * corner of the screen, within the margins. The starting point for line numbers depends on the current top margin
      * setting. The cursor cannot move outside of the margins. When DECOM is reset, the home cursor position is at the
      * upper-left corner of the screen. The starting point for line numbers is independent of the margins. The cursor
@@ -98,7 +101,7 @@ public final class TerminalEmulator {
      */
     private static final int DECSET_BIT_ORIGIN_MODE = 1 << 2;
     /**
-     * http://www.vt100.net/docs/vt510-rm/DECAWM: "If the DECAWM function is set, then graphic characters received when
+     * <a href="http://www.vt100.net/docs/vt510-rm/DECAWM">...</a>: "If the DECAWM function is set, then graphic characters received when
      * the cursor is at the right border of the page appear at the beginning of the next line. Any text on the page
      * scrolls up if the cursor is at the end of the scrolling region. If the DECAWM function is reset, then graphic
      * characters received when the cursor is at the right border of the page replace characters already on the page."
@@ -117,9 +120,9 @@ public final class TerminalEmulator {
     private static final int DECSET_BIT_MOUSE_PROTOCOL_SGR = 1 << 9;
     /** DECSET 2004 - see {@link #paste(String)} */
     private static final int DECSET_BIT_BRACKETED_PASTE_MODE = 1 << 10;
-    /** Toggled with DECLRMM - http://www.vt100.net/docs/vt510-rm/DECLRMM */
+    /** Toggled with DECLRMM - <a href="http://www.vt100.net/docs/vt510-rm/DECLRMM">...</a> */
     private static final int DECSET_BIT_LEFTRIGHT_MARGIN_MODE = 1 << 11;
-    /** Not really DECSET bit... - http://www.vt100.net/docs/vt510-rm/DECSACE */
+    /** Not really DECSET bit... - <a href="http://www.vt100.net/docs/vt510-rm/DECSACE">...</a> */
     private static final int DECSET_BIT_RECTANGULAR_CHANGEATTRIBUTE = 1 << 12;
 
 
@@ -156,7 +159,7 @@ public final class TerminalEmulator {
      * The alternate screen buffer, exactly as large as the display and contains no additional saved lines (so that when
      * the alternate screen buffer is active, you cannot scroll back to view saved lines).
      * <p>
-     * See http://www.xfree86.org/current/ctlseqs.html#The%20Alternate%20Screen%20Buffer
+     * See <a href="http://www.xfree86.org/current/ctlseqs.html#The%20Alternate%20Screen%20Buffer">...</a>
      */
     final TerminalBuffer mAltBuffer;
     /** The current screen buffer, pointing at either {@link #mMainBuffer} or {@link #mAltBuffer}. */
@@ -187,7 +190,7 @@ public final class TerminalEmulator {
     private final SavedScreenState mSavedStateMain = new SavedScreenState();
     private final SavedScreenState mSavedStateAlt = new SavedScreenState();
 
-    /** http://www.vt100.net/docs/vt102-ug/table5-15.html */
+    /** <a href="http://www.vt100.net/docs/vt102-ug/table5-15.html">...</a> */
     private boolean mUseLineDrawingG0, mUseLineDrawingG1, mUseLineDrawingUsesG0 = true;
 
     /**
@@ -255,8 +258,6 @@ public final class TerminalEmulator {
     private int mLastEmittedCodePoint = -1;
 
     public final TerminalColors mColors = new TerminalColors();
-
-    private static final String LOG_TAG = "TerminalEmulator";
 
     private boolean isDecsetInternalBitSet(int bit) {
         return (mCurrentDecSetFlags & bit) != 0;
@@ -416,10 +417,15 @@ public final class TerminalEmulator {
 
     /** Set the terminal cursor style. */
     public void setCursorStyle() {
+        mCursorStyle = DEFAULT_TERMINAL_CURSOR_STYLE;
+    }
+
+    /** Set the terminal cursor style. */
+    public void setCursorStyle(Context context) {
         Integer cursorStyle = null;
 
         if (mClient != null)
-            cursorStyle = mClient.getTerminalCursorStyle();
+            cursorStyle = Integer.parseInt(context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_PRIVATE).getString(TermuxPreferenceConstants.TERMUX_APP.CURSOR_STYLE, TermuxPreferenceConstants.TERMUX_APP.DEFAULT_VALUE_KEY_CURSOR_STYLE));
 
         if (cursorStyle == null || !Arrays.asList(TERMINAL_CURSOR_STYLES_LIST).contains(cursorStyle))
             mCursorStyle = DEFAULT_TERMINAL_CURSOR_STYLE;
@@ -1406,7 +1412,7 @@ public final class TerminalEmulator {
         }
     }
 
-    /** DECSC save cursor - http://www.vt100.net/docs/vt510-rm/DECSC . See {@link #restoreCursor()}. */
+    /** DECSC save cursor - <a href="http://www.vt100.net/docs/vt510-rm/DECSC">...</a> . See {@link #restoreCursor()}. */
     private void saveCursor() {
         SavedScreenState state = (mScreen == mMainBuffer) ? mSavedStateMain : mSavedStateAlt;
         state.mSavedCursorRow = mCursorRow;
@@ -1420,7 +1426,7 @@ public final class TerminalEmulator {
         state.mUseLineDrawingUsesG0 = mUseLineDrawingUsesG0;
     }
 
-    /** DECRS restore cursor - http://www.vt100.net/docs/vt510-rm/DECRC. See {@link #saveCursor()}. */
+    /** DECRS restore cursor - <a href="http://www.vt100.net/docs/vt510-rm/DECRC">...</a>. See {@link #saveCursor()}. */
     private void restoreCursor() {
         SavedScreenState state = (mScreen == mMainBuffer) ? mSavedStateMain : mSavedStateAlt;
         setCursorRowCol(state.mSavedCursorRow, state.mSavedCursorCol);
@@ -1755,7 +1761,7 @@ public final class TerminalEmulator {
         }
     }
 
-    /** Select Graphic Rendition (SGR) - see http://en.wikipedia.org/wiki/ANSI_escape_code#graphics. */
+    /** Select Graphic Rendition (SGR) - see <a href="http://en.wikipedia.org/wiki/ANSI_escape_code#graphics">...</a>. */
     private void selectGraphicRendition() {
         if (mArgIndex >= mArgs.length) mArgIndex = mArgs.length - 1;
         for (int i = 0; i <= mArgIndex; i++) {
@@ -2098,7 +2104,7 @@ public final class TerminalEmulator {
 
     /**
      * Process the next ASCII character of a parameter.
-     *
+     * <p>
      * Parameter characters modify the action or interpretation of the sequence. You can use up to
      * 16 parameters per sequence. You must use the ; character to separate parameters.
      * All parameters are unsigned, positive decimal integers, with the most significant
@@ -2106,8 +2112,8 @@ public final class TerminalEmulator {
      * (decimal). If you do not specify a value, a 0 value is assumed. A 0 value
      * or omitted parameter indicates a default value for the sequence. For most
      * sequences, the default value is 1.
-     *
-     * https://vt100.net/docs/vt510-rm/chapter4.html#S4.3.3
+     * <p><a href="
+     ">* https://vt100.net/docs/vt510-rm/chapter4.htm</a>l#S4.3.3
      * */
     private void parseArg(int b) {
         if (b >= '0' && b <= '9') {
@@ -2467,7 +2473,7 @@ public final class TerminalEmulator {
         if (bracketed) mSession.write("\033[201~");
     }
 
-    /** http://www.vt100.net/docs/vt510-rm/DECSC */
+    /** <a href="http://www.vt100.net/docs/vt510-rm/DECSC">...</a> */
     static final class SavedScreenState {
         /** Saved state of the cursor position, Used to implement the save/restore cursor position escape sequences. */
         int mSavedCursorRow, mSavedCursorCol;

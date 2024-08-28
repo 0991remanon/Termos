@@ -28,8 +28,8 @@ import com.termux.shared.termux.file.TermuxFileUtils;
  * A service that receives {@link RUN_COMMAND_SERVICE#ACTION_RUN_COMMAND} intent from third party apps and
  * plugins that contains info on command execution and forwards the extras to {@link TermuxService}
  * for the actual execution.
- *
- * Check https://github.com/termux/termux-app/wiki/RUN_COMMAND-Intent for more info.
+ * <p>
+ * Ch<a href="eck">https://github.com/termux/termux-app/wiki/RUN_COMMAND-In</a>tent for more info.
  */
 public class RunCommandService extends Service {
 

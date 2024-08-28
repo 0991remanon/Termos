@@ -12,12 +12,12 @@ public class UriUtils {
 
     /**
      * Get the full file path from a {@link Uri} including the fragment.
-     *
+     * <p>
      * If the {@link Uri} was created from file path with {@link Uri#parse(String)}, like "am"
      * command "-d" option does, and the path contained a "#", then anything after it would become
      * the fragment and {@link Uri#getPath()} will only return the path before it, which would be
      * invalid. The fragment must be manually appended to the path to get the full path.
-     *
+     * <p>
      * If the {@link Uri} was created with {@link Uri.Builder} and path was set
      * with {@link Uri.Builder#path(String)}, then "#" will automatically be encoded to "%23"
      * and separate fragment will not exist.

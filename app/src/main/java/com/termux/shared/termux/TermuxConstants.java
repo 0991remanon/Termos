@@ -285,17 +285,17 @@ import java.util.List;
  * apps as is instead of copying constants to random classes. The 3rd party apps can also import
  * it for interacting with termux apps. If changes are made to this file, increment the version number
  * and add an entry in the Changelog section above.
- *
+ * <p>
  * Termux app default package name is "com.termux" and is used in {@link #TERMUX_PREFIX_DIR_PATH}.
  * The binaries compiled for termux have {@link #TERMUX_PREFIX_DIR_PATH} hardcoded in them but it
  * can be changed during compilation.
- *
+ * <p>
  * The {@link #TERMUX_PACKAGE_NAME} must be the same as the applicationId of termux-app build.gradle
  * since its also used by {@link #TERMUX_FILES_DIR_PATH}.
  * If {@link #TERMUX_PACKAGE_NAME} is changed, then binaries, specially used in bootstrap need to be
- * compiled appropriately. Check https://github.com/termux/termux-packages/wiki/Building-packages
+ * compiled appropriately<a href=".">Check https://github.com/termux/termux-packages/wiki/Building-</a>packages
  * for more info.
- *
+ * <p>
  * Ideally the only places where changes should be required if changing package name are the following:
  * - The {@link #TERMUX_PACKAGE_NAME} in {@link TermuxConstants}.
  * - The "applicationId" in "build.gradle" of termux-app. This is package name that android and app
@@ -311,10 +311,10 @@ import java.util.List;
  *      names use dot (.) notation. This is currently not advisable since this will break lot of
  *      stuff, including termux-* packages.
  * - Optionally the *_PATH variables in {@link TermuxConstants} containing the string "termux".
- *
- * Check https://developer.android.com/studio/build/application-id for info on "package" in
+ <a href=" * <p>
+ * Check https://developer.android.com/studio/buil">...</a>d/application-id for info on "package" in
  * "AndroidManifest.xml" and "applicationId" in "build.gradle".
- *
+ * <p>
  * The {@link #TERMUX_PACKAGE_NAME} must be used in source code of Termux app and its plugins instead
  * of hardcoded "com.termux" paths.
  */

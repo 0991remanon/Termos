@@ -2,14 +2,14 @@ package com.termux.terminal;
 
 /**
  * Implementation of wcwidth(3) for Unicode 15.
- *
- * Implementation from https://github.com/jquast/wcwidth but we return 0 for unprintable characters.
- *
+ * <p>
+ * Implementation f<a href="rom">https://github.com/jquast/wcw</a>idth but we return 0 for unprintable characters.
+ * <p>
  * IMPORTANT:
- * Must be kept in sync with the following:
- * https://github.com/termux/wcwidth
- * https://github.com/termux/libandroid-support
- * https://github.com/termux/termux-packages/tree/master/packages/libandroid-support
+ * Must be kept in sync with the follow<a href="ing:
+ ">* https://github.com/termux</a>/wcw<a href="idth
+ ">* https://github.com/termux/libandroid</a>-sup<a href="port
+ ">* https://github.com/termux/termux-packages/tree/master/packages/libandroid</a>-support
  */
 public final class WcWidth {
 

@@ -81,7 +81,7 @@ import java.util.Set;
  * apps as is instead of copying constants to random classes. The 3rd party apps can also import
  * it for interacting with termux apps. If changes are made to this file, increment the version number
  * and add an entry in the Changelog section above.
- *
+ * <p>
  * The properties are loaded from the first file found at
  * {@link TermuxConstants#TERMUX_PROPERTIES_PRIMARY_FILE_PATH} or
  * {@link TermuxConstants#TERMUX_PROPERTIES_SECONDARY_FILE_PATH}
@@ -177,39 +177,6 @@ public final class TermuxPropertyConstants {
             .put(VALUE_BELL_BEHAVIOUR_BEEP, IVALUE_BELL_BEHAVIOUR_BEEP)
             .put(VALUE_BELL_BEHAVIOUR_IGNORE, IVALUE_BELL_BEHAVIOUR_IGNORE)
             .build();
-
-
-
-    /** Defines the key for the terminal cursor blink rate */
-    public static final String KEY_TERMINAL_CURSOR_BLINK_RATE =  "terminal-cursor-blink-rate"; // Default: "terminal-cursor-blink-rate"
-    public static final int IVALUE_TERMINAL_CURSOR_BLINK_RATE_MIN = TerminalView.TERMINAL_CURSOR_BLINK_RATE_MIN;
-    public static final int IVALUE_TERMINAL_CURSOR_BLINK_RATE_MAX = TerminalView.TERMINAL_CURSOR_BLINK_RATE_MAX;
-    public static final int DEFAULT_IVALUE_TERMINAL_CURSOR_BLINK_RATE = 0;
-
-
-
-    /** Defines the key for the terminal cursor style */
-    public static final String KEY_TERMINAL_CURSOR_STYLE =  "terminal-cursor-style"; // Default: "terminal-cursor-style"
-
-    public static final String VALUE_TERMINAL_CURSOR_STYLE_BLOCK = "block";
-    public static final String VALUE_TERMINAL_CURSOR_STYLE_UNDERLINE = "underline";
-    public static final String VALUE_TERMINAL_CURSOR_STYLE_BAR = "bar";
-
-    public static final int IVALUE_TERMINAL_CURSOR_STYLE_BLOCK = TerminalEmulator.TERMINAL_CURSOR_STYLE_BLOCK;
-    public static final int IVALUE_TERMINAL_CURSOR_STYLE_UNDERLINE = TerminalEmulator.TERMINAL_CURSOR_STYLE_UNDERLINE;
-    public static final int IVALUE_TERMINAL_CURSOR_STYLE_BAR = TerminalEmulator.TERMINAL_CURSOR_STYLE_BAR;
-    public static final int DEFAULT_IVALUE_TERMINAL_CURSOR_STYLE = TerminalEmulator.DEFAULT_TERMINAL_CURSOR_STYLE;
-
-    /** Defines the bidirectional map for terminal cursor styles and their internal values */
-    public static final ImmutableBiMap<String, Integer> MAP_TERMINAL_CURSOR_STYLE =
-        new ImmutableBiMap.Builder<String, Integer>()
-            .put(VALUE_TERMINAL_CURSOR_STYLE_BLOCK, IVALUE_TERMINAL_CURSOR_STYLE_BLOCK)
-            .put(VALUE_TERMINAL_CURSOR_STYLE_UNDERLINE, IVALUE_TERMINAL_CURSOR_STYLE_UNDERLINE)
-            .put(VALUE_TERMINAL_CURSOR_STYLE_BAR, IVALUE_TERMINAL_CURSOR_STYLE_BAR)
-            .build();
-
-
-
 
     /**
      * Defines the key for how many days old the access time should be of files that should be
@@ -378,8 +345,6 @@ public final class TermuxPropertyConstants {
         /* int */
         KEY_BELL_BEHAVIOUR,
         KEY_DELETE_TMPDIR_FILES_OLDER_THAN_X_DAYS_ON_EXIT,
-        KEY_TERMINAL_CURSOR_BLINK_RATE,
-        KEY_TERMINAL_CURSOR_STYLE,
         KEY_TERMINAL_MARGIN_HORIZONTAL,
         KEY_TERMINAL_MARGIN_VERTICAL,
         KEY_TERMINAL_TRANSCRIPT_ROWS,

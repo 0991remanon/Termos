@@ -24,6 +24,20 @@
             app:useSimpleSummaryProvider="true"
             app:title="@string/termux_terminal_text_size_title" />
 
+        <ListPreference
+            app:key="cursor_period"
+            app:entries="@array/cursor_period"
+            app:entryValues="@array/cursor_period"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/termux_terminal_cursor_period_title" />
+
+        <ListPreference
+            app:key="cursor_style"
+            app:entries="@array/cursor_name"
+            app:entryValues="@array/cursor_style"
+            app:useSimpleSummaryProvider="true"
+            app:title="@string/termux_terminal_cursor_style_title" />
+
         <SwitchPreferenceCompat
             app:key="use_custom_text_color"
             app:summaryOff="@string/termux_terminal_text_color_off"

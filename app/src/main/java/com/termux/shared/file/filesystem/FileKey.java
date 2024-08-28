@@ -27,7 +27,7 @@ package com.termux.shared.file.filesystem;
 
 /**
  * Container for device/inode to uniquely identify file.
- * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:libcore/ojluni/src/main/java/sun/nio/fs/UnixFileKey.java
+ * <a href="https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:libcore/ojluni/src/main/java/sun/nio/fs/UnixFileKey.java">...</a>
  */
 
 public class FileKey {
@@ -57,11 +57,10 @@ public class FileKey {
 
     @Override
     public String toString() {
-        String sb = "(dev=" +
+        return "(dev=" +
             Long.toHexString(st_dev) +
             ",ino=" +
             st_ino +
             ')';
-        return sb;
     }
 }

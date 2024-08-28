@@ -9,10 +9,10 @@ import com.termux.app.TermuxActivity;
 /**
  * Work around for fullscreen mode in Termux to fix ExtraKeysView not being visible.
  * This class is derived from:
- * https://stackoverflow.com/questions/7417123/android-how-to-adjust-layout-in-full-screen-mode-when-softkeyboard-is-visible
+ * <a href="https://stackoverflow.com/questions/7417123/android-how-to-adjust-layout-in-full-screen-mode-when-softkeyboard-is-visible">...</a>
  * and has some additional tweaks
  * ---
- * For more information, see https://issuetracker.google.com/issues/36911528
+ * For more information, see <a href="https://issuetracker.google.com/issues/36911528">...</a>
  */
 public class FullScreenWorkAround {
     private final View mChildOfContent;

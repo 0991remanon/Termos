@@ -615,7 +615,7 @@ public final class TerminalView extends View {
      * Gboard calls this when shouldEnforceCharBasedInput() is disabled (InputType.TYPE_NULL) instead
      * of calling commitText(), with deviceId=-1. However, Hacker's Keyboard, OpenBoard, LG Keyboard
      * call commitText().
-     *
+     * <p>
      * This function may also be called directly without android calling it, like by
      * `TerminalExtraKeys` which generates a KeyEvent manually which uses {@link KeyCharacterMap#VIRTUAL_KEYBOARD}
      * as the device (deviceId=-1), as does Gboard. That would normally use mappings defined in
@@ -623,7 +623,7 @@ public final class TerminalView extends View {
      * used by virtual keyboard or hardware keyboard. Note that virtual keyboard device is not the
      * same as software keyboard, like Gboard, etc. Its a fake device used for generating events and
      * for testing.
-     *
+     * <p>
      * We handle shift key in `commitText()` to convert codepoint to uppercase case there with a
      * call to {@link Character#toUpperCase(int)}, but here we instead rely on getUnicodeChar() for
      * conversion of keyCode, for both hardware keyboard shift key (via effectiveMetaState) and
@@ -633,7 +633,7 @@ public final class TerminalView extends View {
      * languages since `Virtual.kcm` in english only by default or at least in AOSP. For both hardware
      * shift key (via effectiveMetaState) and `mClient.readShiftKey()`, `getUnicodeChar()` is used
      * for shift specific behaviour which usually is to uppercase.
-     *
+     * <p>
      * For fn key on hardware keyboard, android checks kcm files for hardware keyboards, which is
      * `Generic.kcm` by default, unless a vendor specific one is defined. The event passed will have
      * {@link KeyEvent#META_FUNCTION_ON} set. If the kcm file only defines a single character or unicode
@@ -642,7 +642,7 @@ public final class TerminalView extends View {
      * android will first pass an event with original key `DPAD_UP` and {@link KeyEvent#META_FUNCTION_ON}
      * set. But this function will not consume it and android will pass another event with `PAGE_UP`
      * and {@link KeyEvent#META_FUNCTION_ON} not set, which will be consumed.
-     *
+     * <p>
      * Now there are some other issues as well, firstly ctrl and alt flags are not passed to
      * `getUnicodeChar()`, so modified key values in kcm are not used. Secondly, if the kcm file
      * for other modifiers like shift or fn define a non-alphabet, like { fn: '\u0015' } to act as
@@ -652,58 +652,58 @@ public final class TerminalView extends View {
      * called before `getUnicodeChar()` and terminal will instead get `21 0x15 Negative Acknowledgement`.
      * The solution to such issues is calling `getUnicodeChar()` before the call to `handleKeyCode()`
      * if user has defined a custom kcm file, like done in POC mentioned in #2237. Note that
-     * Hacker's Keyboard calls `commitText()` so don't test fn/shift with it for this function.
-     * https://github.com/termux/termux-app/pull/2237
-     * https://github.com/agnostic-apollo/termux-app/blob/terminal-code-point-custom-mapping/terminal-view/src/main/java/com/termux/view/TerminalView.java
-     *
-     * Key Character Map (kcm) and Key Layout (kl) files info:
-     * https://source.android.com/devices/input/key-character-map-files
-     * https://source.android.com/devices/input/key-layout-files
-     * https://source.android.com/devices/input/keyboard-devices
-     * AOSP kcm and kl files:
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/data/keyboards
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/packages/InputDevices/res/raw
-     *
-     * KeyCodes:
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/core/java/android/view/KeyEvent.java
-     * https://cs.android.com/android/platform/superproject/+/master:frameworks/native/include/android/keycodes.h
-     *
-     * `dumpsys input`:
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/services/inputflinger/reader/EventHub.cpp;l=1917
-     *
-     * Loading of keymap:
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/services/inputflinger/reader/EventHub.cpp;l=1644
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/libs/input/Keyboard.cpp;l=41
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/libs/input/InputDevice.cpp
-     * OVERLAY keymaps for hardware keyboards may be combined as well:
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/libs/input/KeyCharacterMap.cpp;l=165
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/libs/input/KeyCharacterMap.cpp;l=831
-     *
+     * Hacker's Keyboard calls `commitText()` so don't test fn/shift with it for this f<a href="unction.
+     ">* https://github.com/termux/term</a>ux-app/p<a href="ull/2237
+     ">* https://github.com/agnostic-apollo/termux-app/blob/terminal-code-point-custom-mapping/terminal-view/src/main/java/com/termux/view/T</a>erminalView.java
+     * <p>
+     * Key Character Map (kcm) and Key Layout (kl)<a href=" files info:
+     * https://source.android.com/devices/input/key">...</a>-charact<a href="er-map-files
+     ">* https://source.android.com/devices/in</a>put/key-<a href="layout-files
+     ">* https://source.android.com/devices/in</a>put/keyboard-devices
+     * AOSP kcm a<a href="nd">kl files:
+     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks</a>/base/da<a href="ta/keyboards
+     ">* https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/packages/</a>InputDevices/res/raw
+     * <p>
+     <a href="     * KeyCodes:
+     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/core/java/an">...</a>droid/vi<a href="ew/KeyEvent.java
+     ">* https://cs.android.com/android/platform/superproject/+/master:frameworks/native/in</a>clude/android/keycodes.h
+     * <p>
+     <a href="  * `dumpsys input`:
+     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/services/inputflinge">...</a>r/reader/EventHub.cpp;l=1917
+     * <p>
+     <a href="    * Loading of keymap:
+     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/services/inputfl">...</a>inger/re<a href="ader/EventHub.cpp;l=1644
+     ">* https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/nat</a>ive/libs<a href="/input/Keyboard.cpp;l=41
+     ">* https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/n</a>ative/libs/input/InputDevice.cpp
+     * OVERLAY keymaps for hardware keyboards <a href="may">be combined as well:
+     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/libs</a>/input/K<a href="eyCharacterMap.cpp;l=165
+     ">* https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/libs</a>/input/KeyCharacterMap.cpp;l=831
+     <a href="*"><p>
      * Parse kcm file:
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/libs/input/KeyCharacterMap.cpp;l=727
-     * Parse key value:
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/libs/input/KeyCharacterMap.cpp;l=981
-     *
-     * `KeyEvent.getUnicodeChar()`
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/core/java/android/view/KeyEvent.java;l=2716
-     * https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/view/KeyCharacterMap.java;l=368
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/core/jni/android_view_KeyCharacterMap.cpp;l=117
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/libs/input/KeyCharacterMap.cpp;l=231
-     *
+     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/</a>libs/input/KeyCharacterMap.cpp;l<a href="=727
+     ">* Parse key value:
+     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/native/</a>libs/input/KeyCharacterMap.cpp;l=981
+     * <p>
+     <a href="   * `KeyEvent.getUnicodeChar()`
+     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/cor">...</a>e/java/a<a href="ndroid/view/KeyEvent.java;l=2716
+     ">* https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java</a>/android<a href="/view/KeyCharacterMap.java;l=368
+     ">* https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/core/jn</a>i/androi<a href="d_view_KeyCharacterMap.cpp;l=117
+     ">* https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/nat</a>ive/libs/input/KeyCharacterMap.cpp;l=231
+     * <p>
      * Keyboard layouts advertised by applications, like for hardware keyboards via #ACTION_QUERY_KEYBOARD_LAYOUTS
-     * Config is stored in `/data/system/input-manager-state.xml`
-     * https://github.com/ris58h/custom-keyboard-layout
-     * Loading from apps:
-     * https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/input/InputManagerService.java;l=1221
-     * Set:
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/core/java/android/hardware/input/InputManager.java;l=89
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/core/java/android/hardware/input/InputManager.java;l=543
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:packages/apps/Settings/src/com/android/settings/inputmethod/KeyboardLayoutDialogFragment.java;l=167
-     * https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/input/InputManagerService.java;l=1385
-     * https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/input/PersistentDataStore.java
-     * Get overlay keyboard layout
-     * https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/input/InputManagerService.java;l=2158
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/services/core/jni/com_android_server_input_InputManagerService.cpp;l=616
+     * Config is stored in `/<a href="data/system/input-manager-state.xml`
+     ">* http</a>s://github.com/ris58h/custom-keybo<a href="ard-layout
+     ">* Loading from apps:
+     * https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/</a>server/input/InputMa<a href="nagerService.java;l=1221
+     ">* Set:
+     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/core/java/a</a>ndroid/h<a href="ardware/input/InputManager.java;l=89
+     ">* https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/core/java/an</a>droid/ha<a href="rdware/input/InputManager.java;l=543
+     ">* https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:packages/apps/Settings/src/com/android/settings/inputme</a>thod/Key<a href="boardLayoutDialogFragment.java;l=167
+     ">* https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/</a>server/i<a href="nput/InputManagerService.java;l=1385
+     ">* https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/a</a>ndroid/server/input/PersistentDataStore.jav<a href="a
+     ">* Get overlay keyboard layout
+     * https://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/</a>server/i<a href="nput/InputManagerService.java;l=2158
+     ">* https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/services/core/jni/com_androi</a>d_server_input_InputManagerService.cpp;l=616
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -920,6 +920,7 @@ public final class TerminalView extends View {
             mEmulator = mTermSession.getEmulator();
             mClient.onEmulatorSet();
 
+            mEmulator.setCursorStyle(getContext());
             // Update mTerminalCursorBlinkerRunnable inner class mEmulator on session change
             if (mTerminalCursorBlinkerRunnable != null)
                 mTerminalCursorBlinkerRunnable.setEmulator(mEmulator);
@@ -1013,7 +1014,7 @@ public final class TerminalView extends View {
     /**
      * Set terminal cursor blinker rate. It must be between {@link #TERMINAL_CURSOR_BLINK_RATE_MIN}
      * and {@link #TERMINAL_CURSOR_BLINK_RATE_MAX}, otherwise it will be disabled.
-     *
+     * <p>
      * The {@link #setTerminalCursorBlinkerState(boolean, boolean)} must be called after this
      * for changes to take effect if not disabling.
      *
@@ -1043,7 +1044,7 @@ public final class TerminalView extends View {
      * Sets whether cursor blinker should be started or stopped. Cursor blinker will only be
      * started if {@link #mTerminalCursorBlinkerRate} does not equal 0 and is between
      * {@link #TERMINAL_CURSOR_BLINK_RATE_MIN} and {@link #TERMINAL_CURSOR_BLINK_RATE_MAX}.
-     *
+     * <p>
      * This should be called when the view holding this activity is resumed or stopped so that
      * cursor blinker does not run when activity is not visible. If you call this on onResume()
      * to start cursor blinking, then ensure that {@link #mEmulator} is set, otherwise wait for the
@@ -1055,17 +1056,17 @@ public final class TerminalView extends View {
      * {@link #onSizeChanged(int, int, int, int)}. Calling on onResume() if emulator is already set
      * is necessary, since onEmulatorSet() may not be called after activity is started after device
      * display timeout with double tap and not power button.
-     *
+     * <p>
      * It should also be called on the
      * {@link com.termux.terminal.TerminalSessionClient#onTerminalCursorStateChange(boolean)}
      * callback when cursor is enabled or disabled so that blinker is disabled if cursor is not
      * to be shown. It should also be checked if activity is visible if blinker is to be started
      * before calling this.
-     *
+     * <p>
      * It should also be called after terminal is reset with {@link TerminalSession#reset()} in case
      * cursor blinker was disabled before reset due to call to
      * {@link com.termux.terminal.TerminalSessionClient#onTerminalCursorStateChange(boolean)}.
-     *
+     * <p>
      * How cursor blinker starting works is by registering a {@link Runnable} with the looper of
      * the main thread of the app which when run, toggles the cursor blinking state and re-registers
      * itself to be called with the delay set by {@link #mTerminalCursorBlinkerRate}. When cursor
@@ -1073,7 +1074,7 @@ public final class TerminalView extends View {
      * "thread" and let the thread for the main looper do the work for us, whose usage is also
      * required to update the UI, since it also handles other calls to update the UI as well based
      * on a queue.
-     *
+     * <p>
      * Note that when moving cursor in text editors like nano, the cursor state is quickly
      * toggled `-> off -> on`, which would call this very quickly sequentially. So that if cursor
      * is moved 2 or more times quickly, like long hold on arrow keys, it would trigger

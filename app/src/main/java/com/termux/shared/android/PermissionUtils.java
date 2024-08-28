@@ -85,7 +85,7 @@ public class PermissionUtils {
 
     /**
      * Request user to grant required permissions to the app.
-     *
+     * <p>
      * On sdk 30 (android 11), Activity.onRequestPermissionsResult() will pass
      * {@link PackageManager#PERMISSION_DENIED} (-1) without asking the user for the permission
      * if user previously denied the permission prompt. On sdk 29 (android 10),
@@ -167,7 +167,7 @@ public class PermissionUtils {
 
     /**
      * Check if legacy or manage external storage permissions has been granted.
-     *
+     * <p>
      * - If `prioritizeManageExternalStoragePermission` is `true and running on Android `>= 11`, then
      *   it will be checked if app has been granted the
      *   {@link Manifest.permission#MANAGE_EXTERNAL_STORAGE}.
@@ -179,20 +179,20 @@ public class PermissionUtils {
      * - If running on Android `< 11`, then it will only be checked if app has been granted
      * {@link Manifest.permission#READ_EXTERNAL_STORAGE} and
      * {@link Manifest.permission#WRITE_EXTERNAL_STORAGE} permissions.
-     *
+     * <p>
      * If storage permission is missing, it will be requested from the user if {@code context} is an
      * instance of {@link Activity} or {@link AppCompatActivity} and {@code requestCode}
      * is `>=0` and the function will automatically return. The caller should register for
      * Activity.onActivityResult() and Activity.onRequestPermissionsResult() and call this function
      * again but set {@code requestCode} to `-1` to check if permission was granted or not.
-     *
+     * <p>
      * Caller must add following to AndroidManifest.xml of the app, otherwise errors will be thrown.
      * {@code
      * <manifest
      *     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
      *     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
      *     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
-     *
+     * <p>
      *    <application
      *        android:requestLegacyExternalStorage="true"
      *        ....
@@ -327,7 +327,7 @@ public class PermissionUtils {
     /**
      * If app is targeting targetSdkVersion 30 (android 11) and running on sdk 30 (android 11) or
      * higher, then {@link android.R.attr#requestLegacyExternalStorage} attribute is ignored.
-     * https://developer.android.com/training/data-storage/use-cases#opt-out-scoped-storage
+     * <a href="https://developer.android.com/training/data-storage/use-cases#opt-out-scoped-storage">...</a>
      */
     public static boolean isLegacyExternalStoragePossible(@NonNull Context context) {
         return !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
@@ -339,7 +339,7 @@ public class PermissionUtils {
      * {@link android.R.attr#requestLegacyExternalStorage} attribute to {@code true}, if storage
      * permissions are to be requested based on if {@link #isLegacyExternalStoragePossible(Context)}
      * return {@code true}.
-     *
+     * <p>
      * If app is targeting targetSdkVersion 30 (android 11), then legacy storage can only be
      * requested if running on sdk 29 (android 10).
      * If app is targeting targetSdkVersion 29 (android 10), then legacy storage can only be

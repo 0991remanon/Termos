@@ -3,6 +3,7 @@ package com.termux.app.terminal;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.media.AudioAttributes;
@@ -256,15 +257,6 @@ public class TermuxTerminalSessionActivityClient extends TermuxTerminalSessionCl
         // with "tput civis" which would have called onTerminalCursorStateChange()
         mActivity.getTerminalView().setTerminalCursorBlinkerState(true, true);
     }
-
-
-
-    @Override
-    public Integer getTerminalCursorStyle() {
-        return mActivity.getProperties().getTerminalCursorStyle();
-    }
-
-
 
     /** Load mBellSoundPool */
     private synchronized void loadBellSoundPool() {

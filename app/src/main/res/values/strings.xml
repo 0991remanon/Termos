@@ -171,6 +171,15 @@ The goal is to create a lightweight and convenient, more modern analogue of jack
                 <!-- Terminal Text Size -->
                 <string name="termux_terminal_text_size_title">Text Size</string>
 
+                <!-- Terminal Cursor Period -->
+                <string name="termux_terminal_cursor_period_title">Cursor Blinking Period</string>
+
+                <!-- Terminal Cursor Style -->
+                <string name="termux_terminal_cursor_style_title">Cursor Style</string>
+                <string name="termux_terminal_cursor_style_block">Block</string>
+                <string name="termux_terminal_cursor_style_underline">Underline</string>
+                <string name="termux_terminal_cursor_style_bar">Bar</string>
+
                 <!-- Terminal Text Color -->
                 <string name="termux_terminal_text_color_title">Text Color</string>
                 <string name="termux_terminal_text_color_off">Use true text color. (Default)</string>

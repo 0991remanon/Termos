@@ -28,8 +28,4 @@ public interface TerminalSessionClient {
 
     void setTerminalShellPid(@NonNull TerminalSession session, int pid);
 
-
-
-    Integer getTerminalCursorStyle();
-
 }

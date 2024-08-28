@@ -30,7 +30,7 @@ public final class TerminalColors {
     }
 
     /**
-     * Parse color according to http://manpages.ubuntu.com/manpages/intrepid/man3/XQueryColor.3.html
+     * Parse color according to <a href="http://manpages.ubuntu.com/manpages/intrepid/man3/XQueryColor.3.html">...</a>
      * <p/>
      * Highest bit is set if successful, so return value is 0xFF${R}${G}${B}. Return 0 if failed.
      */
@@ -77,9 +77,9 @@ public final class TerminalColors {
 
     /**
      * Get the perceived brightness of the color based on its RGB components.
-     *
-     * https://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.aspx
-     * http://alienryderflex.com/hsp.html
+     * <p>
+     <a href="  * https://www.nbdtech.com/Blog/archive/2008/04/27/Calculating-the-Perceived-Brightness-of-a-Color.">...</a>aspx
+     <a href="  * http://alienryderflex.com/hsp.">...</a>html
      *
      * @param color The color code int.
      * @return Returns value between 0-255.

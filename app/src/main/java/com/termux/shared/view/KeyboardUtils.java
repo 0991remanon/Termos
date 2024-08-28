@@ -27,7 +27,7 @@ public class KeyboardUtils {
     /**
      * Toggle the soft keyboard. The {@link InputMethodManager#SHOW_FORCED} is passed as
      * {@code showFlags} so that keyboard is forcefully shown if it needs to be enabled.
-     *
+     * <p>
      * This is also important for soft keyboard to be shown when a hardware keyboard is connected, and
      * user has disabled the {@code Show on-screen keyboard while hardware keyboard is connected} toggle
      * in Android "Language and Input" settings but the current soft keyboard app overrides the
@@ -44,18 +44,18 @@ public class KeyboardUtils {
     /**
      * Show the soft keyboard. The {@code 0} value is passed as {@code flags} so that keyboard is
      * forcefully shown.
-     *
+     * <p>
      * This is also important for soft keyboard to be shown on app startup when a hardware keyboard
      * is connected, and user has disabled the {@code Show on-screen keyboard while hardware keyboard
      * is connected} toggle in Android "Language and Input" settings but the current soft keyboard app
      * overrides the default implementation of {@link InputMethodService#onEvaluateInputViewShown()}
      * and returns {@code true}.
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:frameworks/base/core/java/android/inputmethodservice/InputMethodService.java;l=1751
-     *
+     <a href="  * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:frameworks/base/core/java/android/inputmethodservice/InputMethodService.java;l=">...</a>1751
+     * <p>
      * Also check {@link InputMethodService#onShowInputRequested(int, boolean)} which must return
      * {@code true}, which can be done by failing its {@code ((flags&InputMethod.SHOW_EXPLICIT) == 0)}
-     * check by passing {@code 0} as {@code flags}.
-     * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:frameworks/base/core/java/android/inputmethodservice/InputMethodService.java;l=2022
+     * check by passing {@code 0} as {@code flags}.<a href="
+     ">* https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:frameworks/base/core/java/android/inputmethodservice/InputMethodService.jav</a>a;l=2022
      */
     public static void showSoftKeyboard(final Context context, final View view) {
         if (context == null || view == null) return;
@@ -109,8 +109,8 @@ public class KeyboardUtils {
     /**
      * Check if hardware keyboard is connected.
      * Based on default implementation of {@link InputMethodService#onEvaluateInputViewShown()}.
-     *
-     * https://developer.android.com/guide/topics/resources/providing-resources#ImeQualifier
+     * <p>
+     <a href="  * https://developer.android.com/guide/topics/resources/providing-resources#ImeQuali">...</a>fier
      *
      * @param context The Context for operations.
      * @return Returns {@code true} if device has hardware keys for text input or an external hardware

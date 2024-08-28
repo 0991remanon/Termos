@@ -29,9 +29,9 @@ import java.util.List;
 
 /**
  * Thread utility class continuously reading from an InputStream
- *
- * https://github.com/Chainfire/libsuperuser/blob/1.1.0.201907261845/libsuperuser/src/eu/chainfire/libsuperuser/Shell.java#L141
- * https://github.com/Chainfire/libsuperuser/blob/1.1.0.201907261845/libsuperuser/src/eu/chainfire/libsuperuser/StreamGobbler.java
+ * <p><a href="
+ ">* https://github.com/Chainfire/libsuperuser/blob/1.1.0.201907261845/libsuperuser/src/eu/chainfire/libsuperuser/Shell.java#</a>L141<a href="
+ ">* https://github.com/Chainfire/libsuperuser/blob/1.1.0.201907261845/libsuperuser/src/eu/chainfire/libsuperuser/StreamGobbler.</a>java
  */
 @SuppressWarnings({"WeakerAccess"})
 public class StreamGobbler extends Thread {

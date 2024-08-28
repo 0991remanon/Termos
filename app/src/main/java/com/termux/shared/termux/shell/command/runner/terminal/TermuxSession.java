@@ -43,11 +43,11 @@ public class TermuxSession {
 
     /**
      * Start execution of an {@link ExecutionCommand} with {@link Runtime#exec(String[], String[], File)}.
-     *
+     * <p>
      * The {@link ExecutionCommand#executable}, must be set, {@link ExecutionCommand#commandLabel},
      * {@link ExecutionCommand#arguments} and {@link ExecutionCommand#workingDirectory} may optionally
      * be set.
-     *
+     * <p>
      * If {@link ExecutionCommand#executable} is {@code null}, then a default shell is automatically
      * chosen.
      *
@@ -141,7 +141,7 @@ public class TermuxSession {
     /**
      * Signal that this {@link TermuxSession} has finished.  This should be called when
      * {@link TerminalSessionClient#onSessionFinished(TerminalSession)} callback is received by the caller.
-     *
+     * <p>
      * If the processes has finished, then sets {@link ResultData#stdout}, {@link ResultData#stderr}
      * and {@link ResultData#exitCode} for the {@link #mExecutionCommand} of the {@code termuxTask}
      * and then calls {@link #processTermuxSessionResult(TermuxSession, ExecutionCommand)} to process the result}.
@@ -201,9 +201,9 @@ public class TermuxSession {
 
     /**
      * Process the results of {@link TermuxSession} or {@link ExecutionCommand}.
-     *
+     * <p>
      * Only one of {@code termuxSession} and {@code executionCommand} must be set.
-     *
+     * <p>
      * If the {@code termuxSession} and its {@link #mTermuxSessionClient} are not {@code null},
      * then the {@link TermuxSession.TermuxSessionClient#onTermuxSessionExited(TermuxSession)}
      * callback will be called.

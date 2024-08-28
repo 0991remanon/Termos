@@ -36,7 +36,7 @@ package com.termux.shared.file.filesystem;
 import android.system.OsConstants;
 
 /**
- * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:libcore/ojluni/src/main/java/sun/nio/fs/UnixConstants.java
+ * <a href="https://cs.android.com/android/platform/superproject/+/android-11.0.0_r3:libcore/ojluni/src/main/java/sun/nio/fs/UnixConstants.java">...</a>
  */
 public class UnixConstants {
     private UnixConstants() { }

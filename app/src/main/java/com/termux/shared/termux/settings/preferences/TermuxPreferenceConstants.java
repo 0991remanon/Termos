@@ -208,6 +208,18 @@ public final class TermuxPreferenceConstants {
         public static final String DEFAULT_VALUE_KEY_CUSTOM_BACKGROUND_COLOR = "-16777216";
 
         /**
+         * Defines the key that specifies user's cursor blinking period.
+         */
+        public static final String CURSOR_PERIOD = "cursor_period";
+        public static final String DEFAULT_VALUE_KEY_CURSOR_PERIOD = "0";
+
+        /**
+         * Defines the key that specifies user's cursor style.
+         */
+        public static final String CURSOR_STYLE = "cursor_style";
+        public static final String DEFAULT_VALUE_KEY_CURSOR_STYLE = "0";
+
+        /**
          * Defines the key that specifies using or not user's custom $HOME.
          */
         public static final String USE_CUSTOM_HOME = "use_custom_home";

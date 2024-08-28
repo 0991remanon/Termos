@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 /**
  * A {@link View} showing extra keys (such as Escape, Ctrl, Alt) not normally available on an Android soft
  * keyboards.
- *
+ * <p>
  * To use it, add following to a layout file and import it in your activity layout file or inflate
  * it with a {@link androidx.viewpager.widget.ViewPager}.:
  * {@code
@@ -56,11 +56,11 @@ import java.util.stream.Collectors;
  * {@link IExtraKeysView} so that you can receive callbacks. You can also override other values set
  * in {@link ExtraKeysView#ExtraKeysView(Context, AttributeSet)} by calling the respective functions.
  * If you extend {@link ExtraKeysView}, you can also set them in the constructor, but do call super().
- *
+ * <p>
  * After this you will have to make a call to {@link ExtraKeysView#reload(ExtraKeysInfo, float) and pass
  * it the {@link ExtraKeysInfo} to load and display the extra keys. Read its class javadocs for more
  * info on how to create it.
- *
+ * <p>
  * Termux app defines the view in res/layout/view_terminal_toolbar_extra_keys and
  * inflates it in TerminalToolbarViewPager.instantiateItem() and sets the {@link ExtraKeysView} client
  * and calls {@link ExtraKeysView#reload(ExtraKeysInfo).

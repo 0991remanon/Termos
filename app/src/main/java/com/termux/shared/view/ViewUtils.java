@@ -20,8 +20,8 @@ public class ViewUtils {
     /**
      * Get the {@link Rect} of a {@link View} and the  {@link Rect} of the window inside which it
      * exists.
-     *
-     * https://stackoverflow.com/a/51078418/14686958
+     * <p>
+     <a href="  * https://stackoverflow.com/a/51078418/1468">...</a>6958
      *
      * @param view The {@link View} inside the window whose {@link Rect} to get.
      * @param statusBarHeight The status bar height received by {@link View.OnApplyWindowInsetsListener}.
@@ -109,8 +109,8 @@ public class ViewUtils {
 
     /**
      * Get device orientation.
-     *
-     * Related: https://stackoverflow.com/a/29392593/14686958
+     * <p>
+     * Relat<a href="ed:">https://stackoverflow.com/a/29392593/1468</a>6958
      *
      * @param context The {@link Context} to check with.
      * @return {@link Configuration#ORIENTATION_PORTRAIT} or {@link Configuration#ORIENTATION_LANDSCAPE}.
