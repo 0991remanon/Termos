@@ -11,7 +11,7 @@ ext {
     // Currently supported values are: [ "apt-android-7" "apt-android-5" ]
     packageVariant = System.getenv("TERMUX_PACKAGE_VARIANT") ?: "apt-android-7" // Default: "apt-android-7"
 }
-apply plugin: 'maven-publish'
+
 android {
     compileSdkVersion project.properties.compileSdkVersion.toInteger()
     ndkVersion = System.getenv("JITPACK_NDK_VERSION") ?: project.properties.ndkVersion
@@ -36,14 +36,20 @@ android {
         implementation "org.lsposed.hiddenapibypass:hiddenapibypass:2.0"
         // Do not increment version higher than 1.0.0-alpha09 since it will break ViewUtils and needs to be looked into
         // noinspection GradleDependency
-        implementation "androidx.window:window:1.0.0-alpha09"
+//        implementation "androidx.window:window:1.0.0-alpha09"
 
         // Do not increment version higher than 2.5 or there
         // will be runtime exceptions on android < 8
         // due to missing classes like java.nio.file.Path.
         implementation "commons-io:commons-io:2.5"
 
-        implementation "com.termux:termux-am-library:v2.0.0"
+//        implementation "com.termux:termux-am-library:v2.0.0"
+    }
+
+    packagingOptions {
+        exclude 'javax/**'
+        exclude 'org/**'
+        exclude 'META-INF/**'
     }
 
     defaultConfig {
@@ -51,9 +57,10 @@ android {
         applicationId 'com.termos'
         minSdkVersion project.properties.minSdkVersion.toInteger()
         targetSdkVersion project.properties.targetSdkVersion.toInteger()
-        versionCode 22
-        versionName "2.2"
+        versionCode 23
+        versionName "2.3"
 
+        resConfigs "en", "ru", "uk"
         buildConfigField "String", "TERMUX_PACKAGE_VARIANT", "\"" + project.ext.packageVariant + "\"" // Used by TermuxApplication class
 
         ndk {
@@ -102,6 +109,8 @@ android {
         }
 
         debug {
+            minifyEnabled false
+            shrinkResources false
             signingConfig signingConfigs.debug
         }
     }
@@ -114,15 +123,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-
     lintOptions {
         disable 'ProtectedPermissions'
-    }
-
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
     }
 
     packagingOptions {
@@ -161,11 +163,3 @@ task versionName {
         print android.defaultConfig.versionName
     }
 }
-
-//clean {
-//    doLast {
-//        def tree = fileTree(new File(projectDir, 'src/main/cpp'))
-//        tree.include 'bootstrap-*.zip'
-//        tree.each { it.delete() }
-//    }
-//}

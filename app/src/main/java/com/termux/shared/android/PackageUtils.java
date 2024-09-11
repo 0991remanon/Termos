@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.termux.shared.data.DataUtils;
-import com.termux.shared.interact.MessageDialogUtils;
 import com.termux.shared.reflection.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -69,10 +68,7 @@ public class PackageUtils {
         Context packageContext = getContextForPackage(context, packageName);
 
         if (packageContext == null && exitAppOnError) {
-
-            MessageDialogUtils.exitAppWithErrorMessage(context,
-                "",
-                "");
+            System.exit(0);
         }
 
         return packageContext;

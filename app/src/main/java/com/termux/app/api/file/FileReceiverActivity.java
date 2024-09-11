@@ -15,7 +15,6 @@ import com.termux.app.TermuxService;
 import com.termux.shared.android.PackageUtils;
 import com.termux.shared.data.DataUtils;
 import com.termux.shared.data.IntentUtils;
-import com.termux.shared.interact.MessageDialogUtils;
 import com.termux.shared.net.uri.UriScheme;
 import com.termux.shared.net.uri.UriUtils;
 import com.termux.shared.termux.TermuxConstants;
@@ -119,11 +118,7 @@ public class FileReceiverActivity extends AppCompatActivity {
 
     void showErrorDialogAndQuit(String message) {
         mFinishOnDismissNameDialog = false;
-        MessageDialogUtils.showMessage(this,
-            API_TAG, message,
-            null, (dialog, which) -> finish(),
-            null, null,
-            dialog -> finish());
+        finish();
     }
 
     void handleContentUri(@NonNull final Uri uri, String subjectFromIntent) {

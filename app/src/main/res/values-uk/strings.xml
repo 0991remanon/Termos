@@ -10,6 +10,11 @@
     <string name="termux_about_dialog_message">"&TERMUX_APP_NAME; — це емулятор терміналу Android, повністю заснований на Termux.
 Створено для некомерційного використання.
 Мета - створити легкий і зручний, більш сучасний аналог jackpal Android Terminal Emulator."</string>
+    <string name="termux_update_dialog_message">"Версія:
+%s
+Журнал змін:
+%s"</string>
+    <string name="termux_update_dialog_button">Оновити</string>
 
     <!-- Exit Button Toasts -->
     <string name="termux_quick_exit_long_press_toast">Натисніть, щоб вийти</string>

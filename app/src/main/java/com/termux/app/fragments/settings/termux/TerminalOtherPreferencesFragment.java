@@ -47,7 +47,7 @@ public class TerminalOtherPreferencesFragment extends PreferenceFragmentCompat {
         if (clearAllPreference != null) {
             clearAllPreference.setOnPreferenceClickListener(pref -> {
                 final AlertDialog.Builder b = new AlertDialog.Builder(context);
-                b.setIcon(android.R.drawable.ic_dialog_alert);
+                b.setIcon(R.drawable.ic_alert);
                 b.setTitle(R.string.reset_all_settings_title);
                 b.setNeutralButton(android.R.string.yes, (dialog, id) -> {
                     try {
@@ -116,22 +116,36 @@ public class TerminalOtherPreferencesFragment extends PreferenceFragmentCompat {
                         String downloadUrl = jsonObject.getJSONArray("assets")
                                 .getJSONObject(0)
                                 .getString("browser_download_url");
+                        String changelog = jsonObject.getString("body");
                         lastVersion.add(tagName);
                         lastVersion.add(downloadUrl);
+                        lastVersion.add(changelog);
                     } catch (Exception e) {
                         return;
                     }
 
                     getActivity().runOnUiThread(() -> {
                         try {
-                            if (lastVersion.size() == 2 && Integer.parseInt(lastVersion.get(0).replaceAll("[v,\\.]", "")) > Integer.parseInt(versionName.get(0).replaceAll("[v,\\.]", ""))) {
+                            if (lastVersion.size() == 3 && Integer.parseInt(lastVersion.get(0).replaceAll("[v,\\.]", "")) > Integer.parseInt(versionName.get(0).replaceAll("[v,\\.]", ""))) {
                                 android.widget.Button negativeButton = lastDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
                                 negativeButton.setText(lastVersion.get(0));
                                 negativeButton.setOnClickListener((negabut) -> {
-                                    try {
-                                        ShareUtils.openUrl(context, lastVersion.get(1));
-                                    } catch (Exception e) {
-                                    }
+                                    lastDialog.setTitle(getString(R.string.application_name) + " " + lastVersion.get(0));
+                                    lastDialog.setMessage(getString(R.string.termux_update_dialog_message, lastVersion.get(0), lastVersion.get(2)));
+                                    android.widget.Button negButton = lastDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+                                    negButton.setText("");
+                                    negButton.setOnClickListener(null);
+                                    android.widget.Button neuButton = lastDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                                    neuButton.setText(R.string.termux_update_dialog_button);
+                                    neuButton.setOnClickListener( (dia) -> {
+                                        try {
+                                            ShareUtils.openUrl(context, lastVersion.get(1));
+                                        } catch (Exception e) {}
+                                    });
+                                    android.widget.Button posButton = lastDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                                    posButton.setText(android.R.string.cancel);
+
+                                    lastDialog.onContentChanged();
                                 });
 
                                 lastDialog.onContentChanged();

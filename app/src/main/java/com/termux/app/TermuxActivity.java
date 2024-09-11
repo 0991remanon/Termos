@@ -347,7 +347,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
     @Override
     public void onDestroy() {
-        if (System.currentTimeMillis() - aLong <= 2000) {
+        if (System.currentTimeMillis() - aLong <= 900) {
             try {
                 getPreferences().setCustomShellEnabled(false);
                 getPreferences().setUseCustomArguments(false);
@@ -772,7 +772,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         if (session == null) return;
 
         final AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setIcon(android.R.drawable.ic_dialog_alert);
+        b.setIcon(R.drawable.ic_alert);
         b.setTitle(R.string.title_confirm_kill_process);
         b.setPositiveButton(android.R.string.yes, (dialog, id) -> {
             dialog.dismiss();

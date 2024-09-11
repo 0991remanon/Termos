@@ -116,6 +116,12 @@ public class ViewUtils {
      * @return {@link Configuration#ORIENTATION_PORTRAIT} or {@link Configuration#ORIENTATION_LANDSCAPE}.
      */
     public static int getDisplayOrientation(@NonNull Context context) {
+        Configuration config = context.getResources().getConfiguration();
+        return config.orientation;
+    }
+
+/*
+    public static int getDisplayOrientation(@NonNull Context context) {
         Point size = getDisplaySize(context, false);
         return (size.x < size.y) ? Configuration.ORIENTATION_PORTRAIT : Configuration.ORIENTATION_LANDSCAPE;
     }
@@ -129,7 +135,7 @@ public class ViewUtils {
      * @param activitySize The set to {@link true}, then size returned will be that of the activity
      *                     and can be smaller than physical display size in multi-window mode.
      * @return Returns the display size as {@link Point}.
-     */
+     *//*
     public static Point getDisplaySize( @NonNull Context context, boolean activitySize) {
         // android.view.WindowManager.getDefaultDisplay() and Display.getSize() are deprecated in
         // API 30 and give wrong values in API 30 for activitySize=false in multi-window
@@ -141,6 +147,7 @@ public class ViewUtils {
             windowMetrics = windowManager.getMaximumWindowMetrics();
         return new Point(windowMetrics.getBounds().width(), windowMetrics.getBounds().height());
     }
+*/
 
     /** Convert value in device independent pixels (dp) to pixels (px) units. */
     public static float dpToPx(Context context, float dp) {

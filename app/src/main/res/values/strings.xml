@@ -10,6 +10,11 @@
     <string name="termux_about_dialog_message">"&TERMUX_APP_NAME; is an Android terminal emulator fully based on Termux.
 Created for non commercial use.
 The goal is to create a lightweight and convenient, more modern analogue of jackpal Android Terminal Emulator."</string>
+    <string name="termux_update_dialog_message">"Version:
+%s
+Changelog:
+%s"</string>
+    <string name="termux_update_dialog_button">Update</string>
 
     <!-- Exit Button Toasts -->
     <string name="termux_quick_exit_long_press_toast">Click to exit</string>
